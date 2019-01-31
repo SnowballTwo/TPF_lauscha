@@ -1,0 +1,207 @@
+function data()
+return {
+	boundingInfo = {
+		bbMax = {
+			4.9708189964294, 1.5710370540619, 4.468316078186, 
+		},
+		bbMin = {
+			-5.0028338432312, -1.5710370540619, -0.58108800649643, 
+		},
+		
+	},
+	collider = {
+		params = {
+			
+		},
+		type = "MESH",
+		
+	},
+	lods = {
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/waggon/verbandswagen/verbandswagen_lod_2_verbandswagen.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/verbandswagen/verbandswagen_lod_2_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -2.3704, 0, 0.5113, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/verbandswagen/verbandswagen_lod_2_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2.3704, 0, 0.5113, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 250,
+			visibleTo = 1300,
+			
+		}, 
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/waggon/verbandswagen/verbandswagen_lod_1_verbandswagen.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/verbandswagen/verbandswagen_lod_1_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -2.3704, 0, 0.5113, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/verbandswagen/verbandswagen_lod_1_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2.3704, 0, 0.5113, 1, 
+					},
+					type = "MESH",
+					
+				},  {
+					id = "vehicle/waggon/verbandswagen/lod_0_logo_verbandswagen.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0, 0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 120,
+			visibleTo = 250,
+			
+		}, 
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/waggon/verbandswagen/verbandswagen_lod_0_verbandswagen.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/verbandswagen/verbandswagen_lod_0_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -2.3704, 0, 0.5113, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/verbandswagen/verbandswagen_lod_0_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2.3704, 0, 0.5113, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/verbandswagen/lod_0_logo_verbandswagen.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0, 0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 120,
+			
+		}, 
+	},
+	metadata = {
+		description = {
+			name = _("Verbandswagen"),
+			description = _("Twin-axle boxcar built to standardize the fleet of freight cars.")
+		},
+		railVehicle = {
+			topSpeed = 120,		-- 120.0
+			weight = 11,
+			configs = {
+				{
+					axles = { "vehicle/waggon/verbandswagen/verbandswagen_lod_2_w1.msh" }
+				},
+				{
+					axles = { "vehicle/waggon/verbandswagen/verbandswagen_lod_1_w1.msh" }
+				},
+				{
+					axles = { "vehicle/waggon/verbandswagen/verbandswagen_lod_0_w1.msh" }
+				}
+			},
+			soundSet = "waggon_freight_old"
+		},
+		transportVehicle = {
+			carrier = "RAIL",
+			capacities = {
+				{ type = "LIVESTOCK", capacity = 32 },
+				{ type = "PLASTIC", capacity = 32 },
+				{ type = "MACHINES", capacity = 32 },
+				{ type = "TOOLS", capacity = 32 },
+				{ type = "FOOD", capacity = 32 },
+				{ type = "GOODS", capacity = 32 },
+				{ type = "BAUBLES", capacity = 32 },
+				{ type = "TREES", capacity = 32 },
+			},
+			loadSpeed = 2
+		},
+		availability = {
+			yearFrom = 1910,
+			yearTo = 1975
+		},
+		cost = {
+			price = -1
+		},
+		maintenance = {
+			runningCosts = -1,
+			lifespan = 40
+		}
+	},
+	
+}
+end

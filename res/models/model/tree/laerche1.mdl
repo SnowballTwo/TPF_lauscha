@@ -1,0 +1,158 @@
+function data()
+return {
+	boundingInfo = {
+		bbMax = {
+			4.3783950805664, 2.4637677669525, 14.506987571716, 
+		},
+		bbMin = {
+			-1.4339442253113, -2.3911979198456, -0.30480000376701, 
+		},
+		
+	},
+	collider = {
+		params = {
+			direction = "Z",
+			
+		},
+		type = "CYLINDER",
+		
+	},
+	lods = {
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "tree/sampleconifer_rt_1_lod4.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 
+				}, 
+			},
+			static = true,
+			visibleFrom = 0,
+			visibleTo = 6000,
+			
+		}, {
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "tree/sampleconifer_rt_1_lod3.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 120,
+			visibleTo = 240,
+			
+		}, {
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "tree/sampleconifer_rt_1_lod2.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 60,
+			visibleTo = 120,
+			
+		}, {
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "tree/sampleconifer_rt_1_lod1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 30,
+			visibleTo = 60,
+			
+		}, {
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "tree/sampleconifer_rt_1_lod0.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 30,
+			
+		}, 
+	},
+	metadata = {		
+		
+	},
+	
+}
+end

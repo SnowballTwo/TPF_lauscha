@@ -1,0 +1,158 @@
+function data()
+return {
+	boundingInfo = {
+		bbMax = {
+			2.4610273838043, 2.7595973014832, 11.390511512756, 
+		},
+		bbMin = {
+			-2.731288433075, -2.562762260437, -0.082963511347771, 
+		},
+		
+	},
+	collider = {
+		params = {
+			direction = "Z",
+			
+		},
+		type = "CYLINDER",
+		
+	},
+	lods = {
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "tree/fraserfir_rt_3_lod4.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 
+				}, 
+			},
+			static = true,
+			visibleFrom = 0,
+			visibleTo = 6000,
+			
+		}, {
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "tree/fraserfir_rt_3_lod3.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 80,
+			visibleTo = 160,
+			
+		}, {
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "tree/fraserfir_rt_3_lod2.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 40,
+			visibleTo = 80,
+			
+		}, {
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "tree/fraserfir_rt_3_lod1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 20,
+			visibleTo = 40,
+			
+		}, {
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "tree/fraserfir_rt_3_lod0.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 20,
+			
+		}, 
+	},
+	metadata = {	
+		
+	},
+	
+}
+end

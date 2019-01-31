@@ -1,0 +1,71 @@
+function data()
+return {
+	animations = {
+		
+	},
+	matConfigs = {
+		{
+			0, 
+		}, 
+	},
+	subMeshes = {
+		{
+			indices = {
+				normal = {
+					count = 1296,
+					offset = 12824,
+					
+				},
+				position = {
+					count = 1296,
+					offset = 10232,
+					
+				},
+				tangent = {
+					count = 1296,
+					offset = 14120,
+					
+				},
+				uv0 = {
+					count = 1296,
+					offset = 11528,
+					
+				},
+				
+			},
+			materials = {
+				"industry/cargo/cargo_items_2_minerals.mtl", 
+			},
+			
+		}, 
+	},
+	vertexAttr = {
+		normal = {
+			count = 3888,
+			numComp = 3,
+			offset = 1400,
+			
+		},
+		position = {
+			count = 840,
+			numComp = 3,
+			offset = 0,
+			
+		},
+		tangent = {
+			count = 4944,
+			numComp = 4,
+			offset = 5288,
+			
+		},
+		uv0 = {
+			count = 560,
+			numComp = 2,
+			offset = 840,
+			
+		},
+		
+	},
+	
+}
+end

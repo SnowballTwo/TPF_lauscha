@@ -1,0 +1,111 @@
+function data()
+return {
+	boundingInfo = {
+		bbMax = {
+			4, 1.885213971138, 2.5503239631653, 
+		},
+		bbMin = {
+			-4, -1.8956040143967, -0.056221000850201, 
+		},
+		
+	},
+	collider = {
+		params = {
+			
+		},
+		type = "MESH",
+		
+	},
+	lods = {
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "tree/fraserfir_rt_1_lod1.msh",
+					transf = {0, 0, -0.400, 0, 0, 0.400, 0, 0, 0.800, 0, 0, 0, -4, 0, 0, 1, },
+					type = "MESH",
+					
+				},
+				{
+					id = "tree/fraserfir_rt_1_lod1.msh",
+					transf = {0, 0, -0.400, 0, 0, 0.400, 0, 0, 0.800, 0, 0, 0, -4, 1, 0, 1, },
+					type = "MESH",
+					
+				},
+				{
+					id = "tree/fraserfir_rt_1_lod1.msh",
+					transf = {0, 0, -0.400, 0, 0, 0.400, 0, 0, 0.800, 0, 0, 0, -4, 0, 1, 1, },
+					type = "MESH",
+					
+				},
+				{
+					id = "tree/fraserfir_rt_1_lod1.msh",
+					transf = {0, 0, -0.400, 0, 0, 0.400, 0, 0, 0.800, 0, 0, 0, -4, 1, 1, 1, },
+					type = "MESH",
+					
+				} 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 120,
+			visibleTo = 1200,
+			
+		}, {
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "tree/fraserfir_rt_1_lod0.msh",
+					transf = {0, 0, -0.400, 0, 0, 0.400, 0, 0, 0.800, 0, 0, 0, -4, 0, 0, 1, },
+					type = "MESH",
+					
+				},
+				{
+					id = "tree/fraserfir_rt_1_lod0.msh",
+					transf = {0, 0, -0.400, 0, 0, 0.400, 0, 0, 0.800, 0, 0, 0, -4, 1, 0, 1, },
+					type = "MESH",
+					
+				},
+				{
+					id = "tree/fraserfir_rt_1_lod0.msh",
+					transf = {0, 0, -0.400, 0, 0, 0.400, 0, 0, 0.800, 0, 0, 0, -4, 0, 1, 1, },
+					type = "MESH",
+					
+				},
+				{
+					id = "tree/fraserfir_rt_1_lod0.msh",
+					transf = {0, 0, -0.400, 0, 0, 0.400, 0, 0, 0.800, 0, 0, 0, -4, 1, 1, 1, },
+					type = "MESH",
+					
+				} 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 120,
+			
+		}, 
+	},
+	metadata = {
+		
+	},
+	
+}
+end

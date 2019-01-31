@@ -1,0 +1,435 @@
+local constructionutil = require "constructionutil"
+local paramsutil = require "paramsutil"
+local vec3 = require "vec3"
+local transf = require "transf"
+
+function data()
+
+return { 
+	type = "INDUSTRY",
+	description = {
+		name = _("sandpit"),
+	},
+	availability = {
+
+	},
+	soundConfig = {
+		soundSet = { name = "quarry" },
+		effects = {
+			select =  {
+				"selected_industry_quarry1.wav",
+				"selected_industry_quarry2.wav",
+				"selected_industry_quarry3.wav"
+			}
+		}
+	},
+	order = 1008,
+	params = paramsutil.makeIndustryParams(),
+	updateFn = function(params)
+		local result = { }
+
+		local level = (params.productionLevel or 0) + 1
+		local capacity = 50;
+		
+		for i = 1, level do
+			capacity = capacity * 2
+		end
+
+		result.models = { }
+		result.groundFaces = { }
+		result.stocks = { }
+		result.stockRules = { }
+		
+		--collider
+		result.models[#result.models + 1] = { id = "asset/industry/collider_rock_9.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 } }
+
+		local edges = { }
+		local terrainFaces = { }	
+		local groundFace = { }
+		local fenceFace = { }
+		
+		local edges = { }
+
+		edges[#edges + 1] = { { 0.0, -64.0 - 15.0,  0.0 },  { 00.0, 44.0 + 15.0, 0.00 } }
+		edges[#edges + 1] = { { 0.0, -20.0,  0.0 },  { 00.0, 44.0 + 15.0, 0.00 } }
+		
+		edges[#edges + 1] = { { 0.0, -20.0,  0.0 },  { -10.0,20.0, 0.00 } }
+		edges[#edges + 1] = { { -10.0,10.0,  0.0 },  { -10.0,20.0, 0.00 } }
+		
+		edges[#edges + 1] = { { -10.0,10.0,  0.0 },  { 00.0, 20.0, 0.00 } }
+		edges[#edges + 1] = { { -10.0,30.0,  0.0 },  { 00.0, 20.0, 0.00 } }
+		
+		edges[#edges + 1] = { { -10.0,30.0,  0.0 },  { -30.0, 0.0, 0.00 } }
+		edges[#edges + 1] = { { -40.0,30.0,  0.0 },  { -30.0, 0.0, 0.00 } }
+		
+		edges[#edges + 1] = { { -40.0,30.0,  0.0 },  { 0.0, -20.0, 0.00 } }
+		edges[#edges + 1] = { { -40.0,10.0,  0.0 },  { 0.0, -20.0, 0.00 } }
+		
+		edges[#edges + 1] = { { -40.0,10.0,  0.0 },  { 30.0,  0.0, 0.00 } }
+		edges[#edges + 1] = { { -10.0,10.0,  0.0 },  { 30.0,  0.0, 0.00 } }
+
+		terrainFaces[#terrainFaces + 1] = { {-63, -63, 0}, {63, -63, 0}, {63, 63, 0}, {-63, 63, 0} } 
+		
+		fenceFace = { {-6,-63, 0}, {-63, -63, 0}, {-63, 63, 0}, {63, 63, 0}, {63, -63, 0}, {6, -63, 0}} 
+		
+		result.groundFaces[#result.groundFaces + 1] = { face = fenceFace, modes = { { type = "STROKE_OUTER", key = "building_paving" } } }
+		result.groundFaces[#result.groundFaces + 1] = { face = constructionutil.reverseFace(fenceFace), modes = { { type = "STROKE_OUTER", key = "building_paving" } } }			
+			
+		if (level >= 1) then			
+
+			constructionutil.makeStocks({
+				stocks = {
+					{ cargoType = "SAND", 	type = "SENDING", x = 32,	y = -50, 	sizex = 4,	sizey = 1 },
+				},
+				stockRules = {
+					{ input = { { 0 } }, output = { { 1 } }, capacity = capacity },
+				}
+			}, result)	
+
+			groundFace =  { {-10, -30}, {-10, 0}, {-60, 0}, {-60, -30}, } 	
+			result.groundFaces[#result.groundFaces + 1] = { face = groundFace, modes = { { type = "FILL", key = "industry_gravel_big_01" } } }
+			result.groundFaces[#result.groundFaces + 1] = { face = groundFace, modes = { { type = "STROKE_OUTER", key = "building_paving" } } }
+
+		end	
+
+		result.models[#result.models + 1] = { id = "building/era_a/res_1_2x1_04_01.mdl", transf = transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(-30, -10 , 0)) }
+		result.models[#result.models + 1] = { id = "building/era_a/ind_1_1x1_01_01.mdl", transf = transf.rotZYXTransl(transf.degToRad(90.0, 0.0, 0.0), vec3.new(-50, -23 , 0))}
+		result.models[#result.models + 1] = { id = "tree/whitebirch_rt_2.mdl", transf = { -0.337667, 0.941266, 0, 0,   -0.941266, -0.337667, 0, 0,   0, 0, 1, 0,   -51.7185, -44.1091, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/whiteoak_rt_2.mdl", transf = { 0.987331, 0.158674, 0, 0,   -0.158674, 0.987331, 0, 0,   0, 0, 1, 0,   -56.3581, -47.5585, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/easternredcedar_rt_2.mdl", transf = { 0.0457651, -0.998952, 0, 0,   0.998952, 0.0457651, 0, 0,   0, 0, 1, 0,   -46.5041, -43.4474, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_mid.mdl", transf = { 0.000527322, 1, 0, 0,   -1, 0.000527322, 0, 0,   0, 0, 1, 0,   -37.6688, -33.4849, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_mid.mdl", transf = { 0.873554, -0.486726, 0, 0,   0.486726, 0.873554, 0, 0,   0, 0, 1, 0,   -28.4454, -35.5496, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_mid.mdl", transf = { 0.163925, -0.986473, 0, 0,   0.986473, 0.163925, 0, 0,   0, 0, 1, 0,   -12.0131, -39.3091, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { 0.953187, 0.30238, 0, 0,   -0.30238, 0.953187, 0, 0,   0, 0, 1, 0,   -23.8852, -36.9974, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.0594564, -0.998231, 0, 0,   0.998231, -0.0594564, 0, 0,   0, 0, 1, 0,   -24.7037, -34.1166, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.64579, -0.763515, 0, 0,   0.763515, -0.64579, 0, 0,   0, 0, 1, 0,   -32.3092, -31.6377, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.978217, 0.207587, 0, 0,   -0.207587, -0.978217, 0, 0,   0, 0, 1, 0,   -35.0648, -39.5198, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.990471, -0.137719, 0, 0,   0.137719, -0.990471, 0, 0,   0, 0, 1, 0,   -41.2621, -39.2256, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.611803, 0.79101, 0, 0,   -0.79101, -0.611803, 0, 0,   0, 0, 1, 0,   -44.5984, -34.249, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { 0.932366, -0.361515, 0, 0,   0.361515, 0.932366, 0, 0,   0, 0, 1, 0,   -42.2134, -36.7681, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.0330235, -0.999455, 0, 0,   0.999455, -0.0330235, 0, 0,   0, 0, 1, 0,   -42.2508, -34.5858, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.812743, -0.582623, 0, 0,   0.582623, -0.812743, 0, 0,   0, 0, 1, 0,   -43.6446, -35.125, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { 0.991361, 0.131164, 0, 0,   -0.131164, 0.991361, 0, 0,   0, 0, 1, 0,   -14.5997, -43.3994, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.123413, -0.992355, 0, 0,   0.992355, -0.123413, 0, 0,   0, 0, 1, 0,   -19.4198, -36.0216, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.808476, -0.58853, 0, 0,   0.58853, -0.808476, 0, 0,   0, 0, 1, 0,   -14.3888, -34.1494, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.994791, -0.101931, 0, 0,   0.101931, -0.994791, 0, 0,   0, 0, 1, 0,   -12.1864, -32.8854, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { 0.835275, -0.549832, 0, 0,   0.549832, 0.835275, 0, 0,   0, 0, 1, 0,   -14.7495, -33.6162, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.0571593, 0.998365, 0, 0,   -0.998365, -0.0571593, 0, 0,   0, 0, 1, 0,   -16.282, -36.0049, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { 0.732639, 0.680618, 0, 0,   -0.680618, 0.732639, 0, 0,   0, 0, 1, 0,   -8.23485, -34.7393, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.0703633, 0.997521, 0, 0,   -0.997521, -0.0703633, 0, 0,   0, 0, 1, 0,   -9.27057, -33.6792, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.98227, -0.187474, 0, 0,   0.187474, -0.98227, 0, 0,   0, 0, 1, 0,   -11.2162, -34.0448, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.969303, 0.245869, 0, 0,   -0.245869, -0.969303, 0, 0,   0, 0, 1, 0,   -14.0314, -34.5905, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { 0.246659, 0.969102, 0, 0,   -0.969102, 0.246659, 0, 0,   0, 0, 1, 0,   -9.59157, -42.8955, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { 0.998719, -0.0506013, 0, 0,   0.0506013, 0.998719, 0, 0,   0, 0, 1, 0,   -18.3682, -40.7505, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/mapleshrub_rt_7.mdl", transf = { -0.741258, -0.67122, 0, 0,   0.67122, -0.741258, 0, 0,   0, 0, 1, 0,   33.7928, -11.8872, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/japanesemaple_rt_2.mdl", transf = { 0.0124157, -0.999923, 0, 0,   0.999923, 0.0124157, 0, 0,   0, 0, 1, 0,   37.2152, -14.6725, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/azalea_rt_2.mdl", transf = { -0.131972, -0.991253, 0, 0,   0.991253, -0.131972, 0, 0,   0, 0, 1, 0,   37.6838, -6.85602, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/americanboxwood_rt_1.mdl", transf = { -0.963543, 0.267552, 0, 0,   -0.267552, -0.963543, 0, 0,   0, 0, 1, 0,   33.0255, -10.6897, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/orangetree_1_rt_1.mdl", transf = { -0.999998, 0.00220516, 0, 0,   -0.00220516, -0.999998, 0, 0,   0, 0, 1, 0,   27.6961, -13.8209, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/europeanlinden_rt_5.mdl", transf = { 0.397833, 0.917458, 0, 0,   -0.917458, 0.397833, 0, 0,   0, 0, 1, 0,   29.9507, -5.41724, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/easternwhitepine_rt_3.mdl", transf = { -0.956631, 0.291302, 0, 0,   -0.291302, -0.956631, 0, 0,   0, 0, 1, 0,   34.1186, -0.924133, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/sugarmaple_rt_3.mdl", transf = { -0.025165, -0.999683, 0, 0,   0.999683, -0.025165, 0, 0,   0, 0, 1, 0,   35.5743, -6.57288, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/douglasfir_rt_3.mdl", transf = { -0.00292424, -0.999996, 0, 0,   0.999996, -0.00292424, 0, 0,   0, 0, 1, 0,   30.4421, 1.69971, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_mid.mdl", transf = { -0.957906, 0.28708, 0, 0,   -0.28708, -0.957906, 0, 0,   0, 0, 1, 0,   10.0653, -7.66589, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_mid.mdl", transf = { -0.281703, -0.959502, 0, 0,   0.959502, -0.281703, 0, 0,   0, 0, 1, 0,   14.388, -1.8194, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_mid.mdl", transf = { -0.828089, 0.560597, 0, 0,   -0.560597, -0.828089, 0, 0,   0, 0, 1, 0,   -3.67174, 41.5288, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/mapleshrub_rt_1.mdl", transf = { -0.902626, -0.430425, 0, 0,   0.430425, -0.902626, 0, 0,   0, 0, 1, 0,   1.63461, 47.6745, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/commonhazel_rt_2.mdl", transf = { -0.0560106, 0.99843, 0, 0,   -0.99843, -0.0560106, 0, 0,   0, 0, 1, 0,   -1.51013, 51.9203, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/whitebirch_rt_1.mdl", transf = { -0.859637, 0.510906, 0, 0,   -0.510906, -0.859637, 0, 0,   0, 0, 1, 0,   28.848, 37.1236, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/sourwood_rt_3.mdl", transf = { -0.605412, -0.795912, 0, 0,   0.795912, -0.605412, 0, 0,   0, 0, 1, 0,   20.3695, 28.7895, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/shingleoak_rt_3.mdl", transf = { 0.418315, 0.908302, 0, 0,   -0.908302, 0.418315, 0, 0,   0, 0, 1, 0,   19.6964, 22.9197, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/mapleshrub_rt_7.mdl", transf = { 0.727923, -0.685659, 0, 0,   0.685659, 0.727923, 0, 0,   0, 0, 1, 0,   15.1783, 15.5895, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/whiteoak_rt_1.mdl", transf = { -0.387517, -0.921863, 0, 0,   0.921863, -0.387517, 0, 0,   0, 0, 1, 0,   26.3938, 19.8149, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/sampleconifer_rt_2.mdl", transf = { -0.855494, -0.517813, 0, 0,   0.517813, -0.855494, 0, 0,   0, 0, 1, 0,   33.3941, 30.9774, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/sourwood_rt_1.mdl", transf = { -0.82485, 0.565352, 0, 0,   -0.565352, -0.82485, 0, 0,   0, 0, 1, 0,   38.0081, 24.8837, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/mapleshrub_rt_3.mdl", transf = { -0.106842, -0.994276, 0, 0,   0.994276, -0.106842, 0, 0,   0, 0, 1, 0,   36.4217, 11.9424, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_mid.mdl", transf = { -0.998502, -0.0547183, 0, 0,   0.0547183, -0.998502, 0, 0,   0, 0, 1, 0,   15.5879, 34.7136, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { 0.340463, -0.940258, 0, 0,   0.940258, 0.340463, 0, 0,   0, 0, 1, 0,   9.47424, 36.3395, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.0904319, -0.995903, 0, 0,   0.995903, -0.0904319, 0, 0,   0, 0, 1, 0,   8.3002, 31.3677, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { 0.70709, -0.707124, 0, 0,   0.707124, 0.70709, 0, 0,   0, 0, 1, 0,   11.2582, 28.4842, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.622515, -0.782608, 0, 0,   0.782608, -0.622515, 0, 0,   0, 0, 1, 0,   15.6819, 40.6351, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { 0.990299, 0.138954, 0, 0,   -0.138954, 0.990299, 0, 0,   0, 0, 1, 0,   20.3294, 38.2075, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { 0.986684, -0.162648, 0, 0,   0.162648, 0.986684, 0, 0,   0, 0, 1, 0,   12.2766, 39.6315, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { 0.85205, 0.523461, 0, 0,   -0.523461, 0.85205, 0, 0,   0, 0, 1, 0,   11.545, 39.334, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { 0.768354, 0.640025, 0, 0,   -0.640025, 0.768354, 0, 0,   0, 0, 1, 0,   6.92572, 37.9499, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/americanboxwood_rt_1.mdl", transf = { -0.502434, -0.864616, 0, 0,   0.864616, -0.502434, 0, 0,   0, 0, 1, 0,   3.44214, 43.2945, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/mapleshrub_rt_6.mdl", transf = { 0.0543832, 0.99852, 0, 0,   -0.99852, 0.0543832, 0, 0,   0, 0, 1, 0,   2.75751, 50.3947, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/mapleshrub_rt_1.mdl", transf = { 0.60182, -0.798632, 0, 0,   0.798632, 0.60182, 0, 0,   0, 0, 1, 0,   5.60751, 49.0023, -0.0481567, 1 } }
+		result.models[#result.models + 1] = { id = "tree/shingleoak_rt_3.mdl", transf = { -0.992373, 0.123271, 0, 0,   -0.123271, -0.992373, 0, 0,   0, 0, 1, 0,   -34.9637, -47.1523, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/whitebirch_rt_1.mdl", transf = { -0.176113, -0.98437, 0, 0,   0.98437, -0.176113, 0, 0,   0, 0, 1, 0,   -29.1605, -48.3277, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/americansycamore_rt_2.mdl", transf = { -0.43643, -0.899738, 0, 0,   0.899738, -0.43643, 0, 0,   0, 0, 1, 0,   -24.171, -46.3826, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/americanboxwood_rt_1.mdl", transf = { 0.302518, 0.953144, 0, 0,   -0.953144, 0.302518, 0, 0,   0, 0, 1, 0,   -46.3887, 8.65039, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/azalea_rt_1.mdl", transf = { 0.954797, -0.297258, 0, 0,   0.297258, 0.954797, 0, 0,   0, 0, 1, 0,   -50.9439, 4.22449, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/americanboxwood_rt_1.mdl", transf = { 0.455395, 0.890289, 0, 0,   -0.890289, 0.455395, 0, 0,   0, 0, 1, 0,   -56.3002, 1.61963, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/azalea_rt_2.mdl", transf = { 0.264271, -0.964448, 0, 0,   0.964448, 0.264271, 0, 0,   0, 0, 1, 0,   -22.5368, 50.9817, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/easternwhitepine_rt_3.mdl", transf = { -0.779344, 0.626596, 0, 0,   -0.626596, -0.779344, 0, 0,   0, 0, 1, 0,   -17.6123, 45.902, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/sourwood_rt_1.mdl", transf = { -0.234655, 0.972079, 0, 0,   -0.972079, -0.234655, 0, 0,   0, 0, 1, 0,   -12.9466, 43.6166, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/shingleoak_rt_2.mdl", transf = { -0.471452, 0.881892, 0, 0,   -0.881892, -0.471452, 0, 0,   0, 0, 1, 0,   -14.5407, 48.4363, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/europeanlinden_rt_2.mdl", transf = { -0.700894, -0.713266, 0, 0,   0.713266, -0.700894, 0, 0,   0, 0, 1, 0,   55.1406, -9.32593, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/shingleoak_rt_1.mdl", transf = { 0.813357, 0.581766, 0, 0,   -0.581766, 0.813357, 0, 0,   0, 0, 1, 0,   48.9458, -11.271, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/sugarmaple_rt_3.mdl", transf = { 0.721581, 0.69233, 0, 0,   -0.69233, 0.721581, 0, 0,   0, 0, 1, 0,   45.5432, -15.8659, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/europeanlinden_rt_5.mdl", transf = { -0.177245, -0.984167, 0, 0,   0.984167, -0.177245, 0, 0,   0, 0, 1, 0,   56.3072, -5.24689, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/fraserfir_rt_1.mdl", transf = { -0.524155, 0.851623, 0, 0,   -0.851623, -0.524155, 0, 0,   0, 0, 1, 0,   56.9287, 2.27429, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/sugarmaple_rt_1.mdl", transf = { 0.0277527, -0.999615, 0, 0,   0.999615, 0.0277527, 0, 0,   0, 0, 1, 0,   56.3527, 9.01123, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/commonhazel_rt_2.mdl", transf = { 0.0857522, -0.996316, 0, 0,   0.996316, 0.0857522, 0, 0,   0, 0, 1, 0,   52.9043, 14.4437, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/americansycamore_rt_2.mdl", transf = { -0.119036, 0.99289, 0, 0,   -0.99289, -0.119036, 0, 0,   0, 0, 1, 0,   48.6118, 19.1321, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/mapleshrub_rt_1.mdl", transf = { -0.403017, 0.915193, 0, 0,   -0.915193, -0.403017, 0, 0,   0, 0, 1, 0,   58.4151, -41.7699, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/mapleshrub_rt_1.mdl", transf = { 0.699045, -0.715078, 0, 0,   0.715078, 0.699045, 0, 0,   0, 0, 1, 0,   58.6703, -48.4627, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/commonhazel_rt_3.mdl", transf = { -0.367987, -0.929831, 0, 0,   0.929831, -0.367987, 0, 0,   0, 0, 1, 0,   55.5862, -37.7371, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/azalea_rt_1.mdl", transf = { -0.0961594, 0.995366, 0, 0,   -0.995366, -0.0961594, 0, 0,   0, 0, 1, 0,   59.7296, -33.8746, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/mapleshrub_rt_6.mdl", transf = { 0.97191, -0.235354, 0, 0,   0.235354, 0.97191, 0, 0,   0, 0, 1, 0,   53.8775, -36.1661, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/commonhazel_rt_3.mdl", transf = { 0.325093, 0.945682, 0, 0,   -0.945682, 0.325093, 0, 0,   0, 0, 1, 0,   57.3559, -27.2716, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/mapleshrub_rt_1.mdl", transf = { 0.685484, -0.728087, 0, 0,   0.728087, 0.685484, 0, 0,   0, 0, 1, 0,   51.6349, -34.2233, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/mapleshrub_rt_1.mdl", transf = { -0.337486, -0.94133, 0, 0,   0.94133, -0.337486, 0, 0,   0, 0, 1, 0,   54.0262, -26.533, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/commonhazel_rt_3.mdl", transf = { -0.627902, -0.778292, 0, 0,   0.778292, -0.627902, 0, 0,   0, 0, 1, 0,   57.5793, -22.1771, 0, 1 } }
+		result.models[#result.models + 1] = { id = "tree/europeanlinden_rt_1.mdl", transf = { -0.998262, -0.05893, 0, 0,   0.05893, -0.998262, 0, 0,   0, 0, 1, 0,   -51.9451, -55.0191, -0.0471191, 1 } }
+		result.models[#result.models + 1] = { id = "tree/whiteoak_rt_2.mdl", transf = { 0.918731, 0.394884, 0, 0,   -0.394884, 0.918731, 0, 0,   0, 0, 1, 0,   -46.6762, -54.1382, -0.00883484, 1 } }
+		result.models[#result.models + 1] = { id = "tree/fraserfir_rt_3.mdl", transf = { 0.254271, 0.967133, 0, 0,   -0.967133, 0.254271, 0, 0,   0, 0, 1, 0,   -36.2672, -56.8541, 0, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_mid.mdl", transf = { -0.988451, -0.15154, 0, 0,   0.15154, -0.988451, 0, 0,   0, 0, 1, 0,   -12.3264, -56.355, 0, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.34004, -0.940411, 0, 0,   0.940411, -0.34004, 0, 0,   0, 0, 1, 0,   -17.958, -58.167, -0.0102692, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_mid.mdl", transf = { -0.308058, 0.951367, 0, 0,   -0.951367, -0.308058, 0, 0,   0, 0, 1, 0,   -19.2946, -56.5279, 0, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.83121, -0.555959, 0, 0,   0.555959, -0.83121, 0, 0,   0, 0, 1, 0,   -22.2738, -58.1084, -0.00733948, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_mid.mdl", transf = { 0.92256, 0.385853, 0, 0,   -0.385853, 0.92256, 0, 0,   0, 0, 1, 0,   49.984, -23.0901, -0.0499954, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.90903, 0.41673, 0, 0,   -0.41673, -0.90903, 0, 0,   0, 0, 1, 0,   43.7688, -24.9367, -0.0499954, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_mid.mdl", transf = { 0.508777, -0.860898, 0, 0,   0.860898, 0.508777, 0, 0,   0, 0, 1, 0,   48.6121, 7.79181, 0, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { 0.992685, -0.120731, 0, 0,   0.120731, 0.992685, 0, 0,   0, 0, 1, 0,   46.4763, 3.50189, 0, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_mid.mdl", transf = { -0.280076, -0.959978, 0, 0,   0.959978, -0.280076, 0, 0,   0, 0, 1, 0,   45.3206, 1.47125, 0, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.98807, -0.154004, 0, 0,   0.154004, -0.98807, 0, 0,   0, 0, 1, 0,   51.2562, -0.396851, 0, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.413492, 0.910508, 0, 0,   -0.910508, -0.413492, 0, 0,   0, 0, 1, 0,   51.6982, 3.17657, 0, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_mid.mdl", transf = { 0.8466, 0.53223, 0, 0,   -0.53223, 0.8466, 0, 0,   0, 0, 1, 0,   17.4535, -8.92401, -0.0499954, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.578393, -0.815758, 0, 0,   0.815758, -0.578393, 0, 0,   0, 0, 1, 0,   18.5013, -14.0723, -0.00553894, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.235185, 0.971951, 0, 0,   -0.971951, -0.235185, 0, 0,   0, 0, 1, 0,   16.0781, -14.1045, -0.00714111, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.118875, -0.992909, 0, 0,   0.992909, -0.118875, 0, 0,   0, 0, 1, 0,   14.3192, -12.3843, -0.0211334, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.97471, -0.223473, 0, 0,   0.223473, -0.97471, 0, 0,   0, 0, 1, 0,   19.5996, -12.0455, -0.00418854, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.0722461, 0.997387, 0, 0,   -0.997387, -0.0722461, 0, 0,   0, 0, 1, 0,   13.3259, -10.6782, -0.0358276, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.229217, 0.973375, 0, 0,   -0.973375, -0.229217, 0, 0,   0, 0, 1, 0,   11.6982, -6.51324, -0.0499954, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { 0.26097, 0.965347, 0, 0,   -0.965347, 0.26097, 0, 0,   0, 0, 1, 0,   46.8271, -2.69159, 0, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.987833, -0.155519, 0, 0,   0.155519, -0.987833, 0, 0,   0, 0, 1, 0,   44.9689, -4.10248, -0.00704193, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { 0.946545, 0.32257, 0, 0,   -0.32257, 0.946545, 0, 0,   0, 0, 1, 0,   48.8238, -4.10687, -0.00726318, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.868245, -0.496136, 0, 0,   0.496136, -0.868245, 0, 0,   0, 0, 1, 0,   46.2216, -3.77899, 0, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { 0.414452, -0.910071, 0, 0,   0.910071, 0.414452, 0, 0,   0, 0, 1, 0,   41.7883, -3.34143, 0, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { 0.378012, -0.925801, 0, 0,   0.925801, 0.378012, 0, 0,   0, 0, 1, 0,   -9.92027, -61.1384, 0, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.874547, -0.48494, 0, 0,   0.48494, -0.874547, 0, 0,   0, 0, 1, 0,   -12.4158, -51.6165, -0.0172501, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { 0.80795, -0.589251, 0, 0,   0.589251, 0.80795, 0, 0,   0, 0, 1, 0,   -16.2057, -51.6368, -0.016243, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.383065, 0.923721, 0, 0,   -0.923721, -0.383065, 0, 0,   0, 0, 1, 0,   -28.8801, -57.3972, 0, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/sand_heap_small.mdl", transf = { -0.996224, -0.0868208, 0, 0,   0.0868208, -0.996224, 0, 0,   0, 0, 1, 0,   -25.963, -53.5621, 0, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { -0.147351, -0.989084, 0, 0,   0.989084, -0.147351, 0, 0,   0, 0, 1, 0,   26.1387, -24.3418, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { 0.265011, -0.964245, 0, 0,   0.964245, 0.265011, 0, 0,   0, 0, 1, 0,   19.5743, -29.53, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.937602, 0.34771, 0, 0,   -0.34771, 0.937602, 0, 0,   0, 0, 1, 0,   26.9298, -31.1418, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.247403, -0.968913, 0, 0,   0.968913, 0.247403, 0, 0,   0, 0, 1, 0,   31.7467, -28.9941, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.131877, 0.991266, 0, 0,   -0.991266, 0.131877, 0, 0,   0, 0, 1, 0,   36.9639, -29.3889, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.656992, -0.753897, 0, 0,   0.753897, -0.656992, 0, 0,   0, 0, 1, 0,   30.9166, -30.3085, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.815138, 0.579267, 0, 0,   -0.579267, 0.815138, 0, 0,   0, 0, 1, 0,   24.1389, -27.8501, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.997198, 0.0748098, 0, 0,   -0.0748098, -0.997198, 0, 0,   0, 0, 1, 0,   17.8566, -25.2198, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.881371, -0.472424, 0, 0,   0.472424, 0.881371, 0, 0,   0, 0, 1, 0,   12.8438, -26.75, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.969279, -0.245962, 0, 0,   0.245962, 0.969279, 0, 0,   0, 0, 1, 0,   11.2595, -31.8635, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.663545, 0.748137, 0, 0,   -0.748137, 0.663545, 0, 0,   0, 0, 1, 0,   16.3887, -26.3374, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.988417, 0.151759, 0, 0,   -0.151759, -0.988417, 0, 0,   0, 0, 1, 0,   17.4185, -31.4993, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.109034, -0.994038, 0, 0,   0.994038, 0.109034, 0, 0,   0, 0, 1, 0,   14.6981, -27.3512, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.646375, 0.76302, 0, 0,   -0.76302, -0.646375, 0, 0,   0, 0, 1, 0,   10.5345, -30.2982, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.717453, -0.696607, 0, 0,   0.696607, 0.717453, 0, 0,   0, 0, 1, 0,   12.3215, -25.0377, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.0578293, 0.998326, 0, 0,   -0.998326, 0.0578293, 0, 0,   0, 0, 1, 0,   21.927, -24.8341, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.484589, -0.874742, 0, 0,   0.874742, -0.484589, 0, 0,   0, 0, 1, 0,   30.5096, -23.3494, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.149911, -0.988699, 0, 0,   0.988699, 0.149911, 0, 0,   0, 0, 1, 0,   26.4434, -27.4348, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.589033, -0.808109, 0, 0,   0.808109, 0.589033, 0, 0,   0, 0, 1, 0,   33.3832, -30.123, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.635335, 0.772236, 0, 0,   -0.772236, -0.635335, 0, 0,   0, 0, 1, 0,   40.5297, -31.2241, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.633112, 0.77406, 0, 0,   -0.77406, -0.633112, 0, 0,   0, 0, 1, 0,   47.8727, -31.2827, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.862416, 0.506201, 0, 0,   -0.506201, 0.862416, 0, 0,   0, 0, 1, 0,   42.1003, -30.1777, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.8521, -0.523379, 0, 0,   0.523379, -0.8521, 0, 0,   0, 0, 1, 0,   35.7379, -29.9606, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.1077, 0.994183, 0, 0,   -0.994183, 0.1077, 0, 0,   0, 0, 1, 0,   30.0208, -28.1436, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.624239, 0.781233, 0, 0,   -0.781233, 0.624239, 0, 0,   0, 0, 1, 0,   37.2593, -27.2344, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.876986, 0.480516, 0, 0,   -0.480516, 0.876986, 0, 0,   0, 0, 1, 0,   41.347, -30.4927, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.100644, -0.994923, 0, 0,   0.994923, 0.100644, 0, 0,   0, 0, 1, 0,   35.2898, -32.2303, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.493954, -0.869488, 0, 0,   0.869488, -0.493954, 0, 0,   0, 0, 1, 0,   30.0533, -32.7012, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.639472, 0.768814, 0, 0,   -0.768814, -0.639472, 0, 0,   0, 0, 1, 0,   -12.7064, -20.4994, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.877584, 0.479423, 0, 0,   -0.479423, -0.877584, 0, 0,   0, 0, 1, 0,   -16.2168, -20.6182, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/whitebirch_rt_1.mdl", transf = { 0.244429, 0.969667, 0, 0,   -0.969667, 0.244429, 0, 0,   0, 0, 1, 0,   9.56201, -36.373, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/easternwhitepine_rt_1.mdl", transf = { -0.981653, -0.190675, 0, 0,   0.190675, -0.981653, 0, 0,   0, 0, 1, 0,   12.3057, -28.1532, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/commonhazel_rt_1.mdl", transf = { 0.991511, -0.130023, 0, 0,   0.130023, 0.991511, 0, 0,   0, 0, 1, 0,   24.0975, -30.9398, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_5.mdl", transf = { 0.986559, 0.163405, 0, 0,   -0.163405, 0.986559, 0, 0,   0, 0, 1, 0,   30.2145, -29.6727, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/commonhazel_rt_1.mdl", transf = { -0.879599, 0.475717, 0, 0,   -0.475717, -0.879599, 0, 0,   0, 0, 1, 0,   28.2012, -34.4928, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/sugarmaple_rt_1.mdl", transf = { 0.0861342, 0.996284, 0, 0,   -0.996284, 0.0861342, 0, 0,   0, 0, 1, 0,   23.3584, -33.6364, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/sampleconifer_rt_1.mdl", transf = { 0.970169, -0.242429, 0, 0,   0.242429, 0.970169, 0, 0,   0, 0, 1, 0,   31.5623, -33.1732, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/americanboxwood_rt_2.mdl", transf = { -0.254549, -0.96706, 0, 0,   0.96706, -0.254549, 0, 0,   0, 0, 1, 0,   37.5713, -32.0228, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/europeanlinden_rt_2.mdl", transf = { 0.501687, -0.865049, 0, 0,   0.865049, 0.501687, 0, 0,   0, 0, 1, 0,   32.2365, -28.4392, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_5.mdl", transf = { 0.959299, 0.282393, 0, 0,   -0.282393, 0.959299, 0, 0,   0, 0, 1, 0,   7.98108, -42.1654, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_3.mdl", transf = { -0.671469, 0.741033, 0, 0,   -0.741033, -0.671469, 0, 0,   0, 0, 1, 0,   16.2944, -32.4434, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_1.mdl", transf = { -0.922363, -0.386323, 0, 0,   0.386323, -0.922363, 0, 0,   0, 0, 1, 0,   43.7106, -29.8479, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_5.mdl", transf = { -0.97256, -0.232651, 0, 0,   0.232651, -0.97256, 0, 0,   0, 0, 1, 0,   37.323, -34.9979, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/azalea_rt_1.mdl", transf = { -0.891878, -0.452277, 0, 0,   0.452277, -0.891878, 0, 0,   0, 0, 1, 0,   40.0634, -29.0956, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/americanboxwood_rt_1.mdl", transf = { -0.364061, -0.931375, 0, 0,   0.931375, -0.364061, 0, 0,   0, 0, 1, 0,   47.25, -33.574, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_1.mdl", transf = { 0.767494, 0.641056, 0, 0,   -0.641056, 0.767494, 0, 0,   0, 0, 1, 0,   50.3311, -29.1283, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_4.mdl", transf = { 0.879827, 0.475295, 0, 0,   -0.475295, 0.879827, 0, 0,   0, 0, 1, 0,   -17.2573, -18.1353, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_2.mdl", transf = { -0.95246, -0.304664, 0, 0,   0.304664, -0.95246, 0, 0,   0, 0, 1, 0,   -12.5875, -22.8723, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/azalea_rt_1.mdl", transf = { 0.86656, -0.499073, 0, 0,   0.499073, 0.86656, 0, 0,   0, 0, 1, 0,   -24.7925, -27.7773, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/americanboxwood_rt_1.mdl", transf = { 0.77324, -0.634113, 0, 0,   0.634113, 0.77324, 0, 0,   0, 0, 1, 0,   -20.5192, -23.9664, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/commonhazel_rt_2.mdl", transf = { 0.358608, -0.933488, 0, 0,   0.933488, 0.358608, 0, 0,   0, 0, 1, 0,   -23.2649, -28.9648, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_1.mdl", transf = { -0.25492, -0.966962, 0, 0,   0.966962, -0.25492, 0, 0,   0, 0, 1, 0,   -17.7745, -27.7646, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { -0.435395, 0.90024, 0, 0,   -0.90024, -0.435395, 0, 0,   0, 0, 1, 0,   -48.826, 47.5562, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { -0.57178, 0.820407, 0, 0,   -0.820407, -0.57178, 0, 0,   0, 0, 1, 0,   -52.903, 36.748, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { -0.00675926, -0.999977, 0, 0,   0.999977, -0.00675926, 0, 0,   0, 0, 1, 0,   -40.3813, 40.5508, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { -0.766079, 0.642747, 0, 0,   -0.642747, -0.766079, 0, 0,   0, 0, 1, 0,   -31.3428, 48.5876, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { 0.471368, -0.881937, 0, 0,   0.881937, 0.471368, 0, 0,   0, 0, 1, 0,   -49.239, 28.7043, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { 0.756819, -0.653625, 0, 0,   0.653625, 0.756819, 0, 0,   0, 0, 1, 0,   -53.1218, 19.205, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { -0.179887, 0.983687, 0, 0,   -0.983687, -0.179887, 0, 0,   0, 0, 1, 0,   -56.6512, 47.611, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { 0.517526, 0.855668, 0, 0,   -0.855668, 0.517526, 0, 0,   0, 0, 1, 0,   -54.5535, 56.3644, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { 0.173187, -0.984889, 0, 0,   0.984889, 0.173187, 0, 0,   0, 0, 1, 0,   -44.1519, 55.6731, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { -0.482071, 0.876132, 0, 0,   -0.876132, -0.482071, 0, 0,   0, 0, 1, 0,   -39.0129, 50.8358, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { 0.146877, 0.989155, 0, 0,   -0.989155, 0.146877, 0, 0,   0, 0, 1, 0,   -33.9037, 57.2981, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.15247, 0.988308, 0, 0,   -0.988308, -0.15247, 0, 0,   0, 0, 1, 0,   -48.8514, 39.771, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.268707, -0.963222, 0, 0,   0.963222, 0.268707, 0, 0,   0, 0, 1, 0,   -45.5626, 35.1248, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.747341, -0.664441, 0, 0,   0.664441, 0.747341, 0, 0,   0, 0, 1, 0,   -44.3552, 41.4707, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.919449, -0.39321, 0, 0,   0.39321, -0.919449, 0, 0,   0, 0, 1, 0,   -44.4836, 35.3816, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.734593, 0.678508, 0, 0,   -0.678508, 0.734593, 0, 0,   0, 0, 1, 0,   -48.757, 30.6228, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.788157, 0.615474, 0, 0,   -0.615474, -0.788157, 0, 0,   0, 0, 1, 0,   -53.1885, 26.7693, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.625437, -0.780275, 0, 0,   0.780275, 0.625437, 0, 0,   0, 0, 1, 0,   -57.0692, 32.7848, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.932574, 0.360979, 0, 0,   -0.360979, 0.932574, 0, 0,   0, 0, 1, 0,   -57.1261, 24.983, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.62611, 0.779735, 0, 0,   -0.779735, -0.62611, 0, 0,   0, 0, 1, 0,   -56.8358, 19.1754, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.826203, 0.563373, 0, 0,   -0.563373, 0.826203, 0, 0,   0, 0, 1, 0,   -54.7771, 13.4233, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.980124, -0.198386, 0, 0,   0.198386, -0.980124, 0, 0,   0, 0, 1, 0,   -50.1427, 15.666, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.99868, -0.0513673, 0, 0,   0.0513673, 0.99868, 0, 0,   0, 0, 1, 0,   -49.5067, 20.9188, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.749947, 0.661498, 0, 0,   -0.661498, -0.749947, 0, 0,   0, 0, 1, 0,   -46.8022, 25.8049, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.220745, 0.975332, 0, 0,   -0.975332, 0.220745, 0, 0,   0, 0, 1, 0,   -46.0637, 31.0625, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.265381, 0.964144, 0, 0,   -0.964144, 0.265381, 0, 0,   0, 0, 1, 0,   -47.8052, 25.1511, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.475253, 0.879849, 0, 0,   -0.879849, 0.475253, 0, 0,   0, 0, 1, 0,   -44.5802, 30.9016, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.0170173, 0.999855, 0, 0,   -0.999855, 0.0170173, 0, 0,   0, 0, 1, 0,   -43.1648, 36.0336, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.150101, -0.988671, 0, 0,   0.988671, 0.150101, 0, 0,   0, 0, 1, 0,   -34.6615, 38.9463, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.629766, 0.776785, 0, 0,   -0.776785, 0.629766, 0, 0,   0, 0, 1, 0,   -32.8477, 44.3357, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.954311, 0.298814, 0, 0,   -0.298814, -0.954311, 0, 0,   0, 0, 1, 0,   -38.825, 44.3879, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.980653, 0.195754, 0, 0,   -0.195754, -0.980653, 0, 0,   0, 0, 1, 0,   -43.3346, 39.5742, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.69423, -0.719753, 0, 0,   0.719753, 0.69423, 0, 0,   0, 0, 1, 0,   -46.3739, 32.2635, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.914321, -0.40499, 0, 0,   0.40499, -0.914321, 0, 0,   0, 0, 1, 0,   -51.7659, 31.8551, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.860859, -0.508844, 0, 0,   0.508844, 0.860859, 0, 0,   0, 0, 1, 0,   -53.9714, 25.1989, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.389107, 0.921193, 0, 0,   -0.921193, -0.389107, 0, 0,   0, 0, 1, 0,   -55.8572, 33.2451, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.345506, 0.938416, 0, 0,   -0.938416, 0.345506, 0, 0,   0, 0, 1, 0,   -56.3538, 38.4302, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.917972, 0.396645, 0, 0,   -0.396645, 0.917972, 0, 0,   0, 0, 1, 0,   -57.4563, 44.3141, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/shingleoak_rt_1.mdl", transf = { -0.28391, 0.958851, 0, 0,   -0.958851, -0.28391, 0, 0,   0, 0, 1, 0,   -54.8872, 34.7435, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/commonhazel_rt_2.mdl", transf = { 0.911937, 0.41033, 0, 0,   -0.41033, 0.911937, 0, 0,   0, 0, 1, 0,   -54.1431, 28.8221, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/americanboxwood_rt_2.mdl", transf = { 0.999961, 0.00882054, 0, 0,   -0.00882054, 0.999961, 0, 0,   0, 0, 1, 0,   -59.4216, 30.1028, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/douglasfir_rt_3.mdl", transf = { -0.0426043, 0.999092, 0, 0,   -0.999092, -0.0426043, 0, 0,   0, 0, 1, 0,   -60.6674, 22.7007, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/whitebirch_rt_1.mdl", transf = { 0.643371, 0.765555, 0, 0,   -0.765555, 0.643371, 0, 0,   0, 0, 1, 0,   -59.7164, 16.2566, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/sampleconifer_rt_1.mdl", transf = { -0.850288, -0.526317, 0, 0,   0.526317, -0.850288, 0, 0,   0, 0, 1, 0,   -56.7068, 10.0447, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_1.mdl", transf = { -0.342896, 0.939373, 0, 0,   -0.939373, -0.342896, 0, 0,   0, 0, 1, 0,   -51.6377, 7.67834, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/sugarmaple_rt_1.mdl", transf = { 0.519985, -0.854176, 0, 0,   0.854176, 0.519985, 0, 0,   0, 0, 1, 0,   -60.9351, 28.1014, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_5.mdl", transf = { 0.999592, 0.0285674, 0, 0,   -0.0285674, 0.999592, 0, 0,   0, 0, 1, 0,   -61.5576, 34.6444, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/shingleoak_rt_2.mdl", transf = { -0.998041, 0.0625666, 0, 0,   -0.0625666, -0.998041, 0, 0,   0, 0, 1, 0,   -59.7039, 40.0809, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/japanesemaple_rt_2.mdl", transf = { -0.830126, 0.557577, 0, 0,   -0.557577, -0.830126, 0, 0,   0, 0, 1, 0,   -52.9257, 52.1604, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/easternwhitepine_rt_1.mdl", transf = { 0.742736, -0.669584, 0, 0,   0.669584, 0.742736, 0, 0,   0, 0, 1, 0,   -51.6405, 43.568, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/whiteoak_rt_2.mdl", transf = { -0.146593, 0.989197, 0, 0,   -0.989197, -0.146593, 0, 0,   0, 0, 1, 0,   -46.6093, 50.9272, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { 0.969421, -0.245405, 0, 0,   0.245405, 0.969421, 0, 0,   0, 0, 1, 0,   -7.08325, 53.5819, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { 0.880282, -0.474451, 0, 0,   0.474451, 0.880282, 0, 0,   0, 0, 1, 0,   9.98022, 54.396, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { 0.981082, 0.193591, 0, 0,   -0.193591, 0.981082, 0, 0,   0, 0, 1, 0,   25.8992, 57.668, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { -0.810502, -0.585736, 0, 0,   0.585736, -0.810502, 0, 0,   0, 0, 1, 0,   19.8525, 48.3335, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { 0.995203, -0.0978293, 0, 0,   0.0978293, 0.995203, 0, 0,   0, 0, 1, 0,   42.1075, 52.6721, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { -0.395105, 0.918636, 0, 0,   -0.918636, -0.395105, 0, 0,   0, 0, 1, 0,   46.7885, 39.1643, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { -0.893519, -0.449024, 0, 0,   0.449024, -0.893519, 0, 0,   0, 0, 1, 0,   36.9829, 39.1724, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { 0.533675, -0.84569, 0, 0,   0.84569, 0.533675, 0, 0,   0, 0, 1, 0,   0.880859, 20.8777, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_mid.mdl", transf = { -0.442975, 0.896534, 0, 0,   -0.896534, -0.442975, 0, 0,   0, 0, 1, 0,   3.47241, 13.1924, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.272122, 0.962263, 0, 0,   -0.962263, -0.272122, 0, 0,   0, 0, 1, 0,   0.965576, 48.5638, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.967583, 0.252555, 0, 0,   -0.252555, -0.967583, 0, 0,   0, 0, 1, 0,   -5.42468, 51.9144, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.999919, 0.0127513, 0, 0,   -0.0127513, -0.999919, 0, 0,   0, 0, 1, 0,   -0.533936, 49.0264, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.981981, -0.18898, 0, 0,   0.18898, -0.981981, 0, 0,   0, 0, 1, 0,   0.939331, 54.1362, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.0988311, -0.995104, 0, 0,   0.995104, -0.0988311, 0, 0,   0, 0, 1, 0,   -4.27173, 50.486, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.961621, -0.274382, 0, 0,   0.274382, -0.961621, 0, 0,   0, 0, 1, 0,   2.86548, 52.0886, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.896598, 0.442846, 0, 0,   -0.442846, -0.896598, 0, 0,   0, 0, 1, 0,   -4.25085, 49.2771, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.881417, 0.47234, 0, 0,   -0.47234, -0.881417, 0, 0,   0, 0, 1, 0,   2.85571, 48.5454, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.997572, 0.0696459, 0, 0,   -0.0696459, -0.997572, 0, 0,   0, 0, 1, 0,   9.21118, 48.7781, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.92479, -0.380479, 0, 0,   0.380479, -0.92479, 0, 0,   0, 0, 1, 0,   15.0276, 47.3911, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.994534, 0.104411, 0, 0,   -0.104411, -0.994534, 0, 0,   0, 0, 1, 0,   17.6438, 52.9109, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.969819, -0.243824, 0, 0,   0.243824, -0.969819, 0, 0,   0, 0, 1, 0,   22.5081, 48.9805, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.652935, -0.757414, 0, 0,   0.757414, -0.652935, 0, 0,   0, 0, 1, 0,   29.6991, 48.9473, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.900969, -0.433884, 0, 0,   0.433884, -0.900969, 0, 0,   0, 0, 1, 0,   26.1788, 44.4238, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.995652, -0.0931528, 0, 0,   0.0931528, -0.995652, 0, 0,   0, 0, 1, 0,   30.8877, 40.5, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.977271, 0.211992, 0, 0,   -0.211992, 0.977271, 0, 0,   0, 0, 1, 0,   35.5875, 37.6274, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.879325, 0.476223, 0, 0,   -0.476223, -0.879325, 0, 0,   0, 0, 1, 0,   40.8547, 39.9822, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.385218, -0.922826, 0, 0,   0.922826, -0.385218, 0, 0,   0, 0, 1, 0,   41.6228, 46.738, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.94273, -0.333558, 0, 0,   0.333558, -0.94273, 0, 0,   0, 0, 1, 0,   35.45, 47.3844, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.704237, -0.709965, 0, 0,   0.709965, 0.704237, 0, 0,   0, 0, 1, 0,   32.6144, 52.2141, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.310093, 0.950706, 0, 0,   -0.950706, -0.310093, 0, 0,   0, 0, 1, 0,   24.8232, 50.504, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.451293, -0.892376, 0, 0,   0.892376, 0.451293, 0, 0,   0, 0, 1, 0,   17.7487, 46.6892, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.612712, 0.790306, 0, 0,   -0.790306, -0.612712, 0, 0,   0, 0, 1, 0,   12.6407, 43.645, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.995508, 0.09468, 0, 0,   -0.09468, -0.995508, 0, 0,   0, 0, 1, 0,   6.60852, 46.5739, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { -0.345416, 0.93845, 0, 0,   -0.93845, -0.345416, 0, 0,   0, 0, 1, 0,   11.306, 44.0519, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.399064, -0.916923, 0, 0,   0.916923, 0.399064, 0, 0,   0, 0, 1, 0,   -17.4933, -9.17432, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.831246, -0.555904, 0, 0,   0.555904, 0.831246, 0, 0,   0, 0, 1, 0,   -15.3022, -15.9709, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.151617, -0.988439, 0, 0,   0.988439, 0.151617, 0, 0,   0, 0, 1, 0,   -12.975, -13.1836, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.863965, 0.503552, 0, 0,   -0.503552, 0.863965, 0, 0,   0, 0, 1, 0,   -15.0635, -8.4093, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.115513, -0.993306, 0, 0,   0.993306, 0.115513, 0, 0,   0, 0, 1, 0,   -15.2686, -14.5444, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "asset/ground/sand_heap_small.mdl", transf = { 0.615663, 0.788009, 0, 0,   -0.788009, 0.615663, 0, 0,   0, 0, 1, 0,   -18.1938, -15.5806, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/easternredcedar_rt_1.mdl", transf = { 0.417269, -0.908783, 0, 0,   0.908783, 0.417269, 0, 0,   0, 0, 1, 0,   -27.1724, 52.0464, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/orangetree_1_rt_1.mdl", transf = { 0.475759, 0.879576, 0, 0,   -0.879576, 0.475759, 0, 0,   0, 0, 1, 0,   -22.3, 54.2079, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/japanesemaple_rt_1.mdl", transf = { -0.463485, -0.886105, 0, 0,   0.886105, -0.463485, 0, 0,   0, 0, 1, 0,   -14.3011, 56.7439, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_4.mdl", transf = { 0.52815, -0.849151, 0, 0,   0.849151, 0.52815, 0, 0,   0, 0, 1, 0,   -19.6689, 55.8186, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/azalea_rt_1.mdl", transf = { -0.257329, 0.966324, 0, 0,   -0.966324, -0.257329, 0, 0,   0, 0, 1, 0,   45.5961, 47.0129, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/whiteoak_rt_2.mdl", transf = { 0.381055, 0.924552, 0, 0,   -0.924552, 0.381055, 0, 0,   0, 0, 1, 0,   39.0925, 46.6399, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/whitebirch_rt_5.mdl", transf = { -0.284646, -0.958633, 0, 0,   0.958633, -0.284646, 0, 0,   0, 0, 1, 0,   33.1115, 55.738, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/easternwhitepine_rt_2.mdl", transf = { 0.632443, -0.774607, 0, 0,   0.774607, 0.632443, 0, 0,   0, 0, 1, 0,   49.1738, 50.2841, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/orangetree_1_rt_2.mdl", transf = { -0.815748, -0.578407, 0, 0,   0.578407, -0.815748, 0, 0,   0, 0, 1, 0,   50.1277, 45.62, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/commonhazel_rt_3.mdl", transf = { 0.347485, -0.937685, 0, 0,   0.937685, 0.347485, 0, 0,   0, 0, 1, 0,   51.9315, 40.225, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/easternredcedar_rt_1.mdl", transf = { 0.942698, 0.333648, 0, 0,   -0.333648, 0.942698, 0, 0,   0, 0, 1, 0,   53.8635, 35.1282, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_5.mdl", transf = { 0.836223, 0.54839, 0, 0,   -0.54839, 0.836223, 0, 0,   0, 0, 1, 0,   54.0649, 29.428, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_4.mdl", transf = { 0.973861, 0.227145, 0, 0,   -0.227145, 0.973861, 0, 0,   0, 0, 1, 0,   55.9031, 37.6447, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/sourwood_rt_3.mdl", transf = { 0.917057, 0.398757, 0, 0,   -0.398757, 0.917057, 0, 0,   0, 0, 1, 0,   50.2595, 32.3059, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_5.mdl", transf = { 0.908122, 0.418707, 0, 0,   -0.418707, 0.908122, 0, 0,   0, 0, 1, 0,   44.7756, 31.2415, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/europeanlinden_rt_3.mdl", transf = { -0.985684, -0.168605, 0, 0,   0.168605, -0.985684, 0, 0,   0, 0, 1, 0,   55.1766, 27.3094, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/americansycamore_rt_2.mdl", transf = { 0.872151, 0.489237, 0, 0,   -0.489237, 0.872151, 0, 0,   0, 0, 1, 0,   56.619, 39.1083, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/sampleconifer_rt_2.mdl", transf = { -0.968161, 0.250328, 0, 0,   -0.250328, -0.968161, 0, 0,   0, 0, 1, 0,   53.7167, 48.8242, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/americanboxwood_rt_2.mdl", transf = { -0.60021, 0.799842, 0, 0,   -0.799842, -0.60021, 0, 0,   0, 0, 1, 0,   -13.2537, -11.6786, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/azalea_rt_2.mdl", transf = { -0.0680677, 0.997681, 0, 0,   -0.997681, -0.0680677, 0, 0,   0, 0, 1, 0,   -9.28613, -16.8691, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/americanboxwood_rt_1.mdl", transf = { 0.429603, 0.903018, 0, 0,   -0.903018, 0.429603, 0, 0,   0, 0, 1, 0,   -11.2211, -8.57971, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_4.mdl", transf = { -0.994752, -0.102313, 0, 0,   0.102313, -0.994752, 0, 0,   0, 0, 1, 0,   -15.8762, -4.40771, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/commonhazel_rt_3.mdl", transf = { 0.646448, -0.762958, 0, 0,   0.762958, 0.646448, 0, 0,   0, 0, 1, 0,   -16.0975, -12.3782, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/commonhazel_rt_1.mdl", transf = { 0.977636, 0.210306, 0, 0,   -0.210306, 0.977636, 0, 0,   0, 0, 1, 0,   -10.9873, -16.6248, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/americanboxwood_rt_2.mdl", transf = { 0.120463, -0.992718, 0, 0,   0.992718, 0.120463, 0, 0,   0, 0, 1, 0,   -3.64026, 15.3445, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_6.mdl", transf = { -0.741129, 0.671362, 0, 0,   -0.671362, -0.741129, 0, 0,   0, 0, 1, 0,   -1.1311, 2.0509, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_3.mdl", transf = { 0.122367, 0.992485, 0, 0,   -0.992485, 0.122367, 0, 0,   0, 0, 1, 0,   -0.411133, 8.21191, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_1.mdl", transf = { -0.311733, -0.95017, 0, 0,   0.95017, -0.311733, 0, 0,   0, 0, 1, 0,   -1.81226, 13.9327, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_5.mdl", transf = { 0.465268, 0.88517, 0, 0,   -0.88517, 0.465268, 0, 0,   0, 0, 1, 0,   -1.97498, 5.44373, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/commonhazel_rt_4.mdl", transf = { -0.108177, -0.994132, 0, 0,   0.994132, -0.108177, 0, 0,   0, 0, 1, 0,   -3.15149, 11.962, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/americanboxwood_rt_1.mdl", transf = { -0.378128, -0.925753, 0, 0,   0.925753, -0.378128, 0, 0,   0, 0, 1, 0,   0.689453, 2.81543, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_2.mdl", transf = { 0.14479, -0.989462, 0, 0,   0.989462, 0.14479, 0, 0,   0, 0, 1, 0,   2.81592, 8.48389, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/commonhazel_rt_2.mdl", transf = { -0.328446, 0.944523, 0, 0,   -0.944523, -0.328446, 0, 0,   0, 0, 1, 0,   6.76917, 5.5918, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_2.mdl", transf = { 0.693125, 0.720817, 0, 0,   -0.720817, 0.693125, 0, 0,   0, 0, 1, 0,   6.06567, 14.7554, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/commonhazel_rt_2.mdl", transf = { -0.164398, -0.986394, 0, 0,   0.986394, -0.164398, 0, 0,   0, 0, 1, 0,   4.50659, 21.5496, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/americanboxwood_rt_1.mdl", transf = { 0.0442327, -0.999021, 0, 0,   0.999021, 0.0442327, 0, 0,   0, 0, 1, 0,   3.15051, 26.822, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_1.mdl", transf = { -0.822458, -0.568826, 0, 0,   0.568826, -0.822458, 0, 0,   0, 0, 1, 0,   -3.41919, 22.3872, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_3.mdl", transf = { 0.730285, 0.683142, 0, 0,   -0.683142, 0.730285, 0, 0,   0, 0, 1, 0,   -2.97937, 28.278, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/azalea_rt_1.mdl", transf = { 0.824253, 0.566221, 0, 0,   -0.566221, 0.824253, 0, 0,   0, 0, 1, 0,   1.96216, 34.0532, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_6.mdl", transf = { -0.20979, -0.977746, 0, 0,   0.977746, -0.20979, 0, 0,   0, 0, 1, 0,   5.07007, 28.7526, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_5.mdl", transf = { -0.305349, -0.95224, 0, 0,   0.95224, -0.305349, 0, 0,   0, 0, 1, 0,   6.89832, 21.547, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/commonhazel_rt_4.mdl", transf = { 0.101216, -0.994864, 0, 0,   0.994864, 0.101216, 0, 0,   0, 0, 1, 0,   7.60352, 16.7815, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_5.mdl", transf = { -0.3687, 0.929548, 0, 0,   -0.929548, -0.3687, 0, 0,   0, 0, 1, 0,   9.01367, 11.903, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_3.mdl", transf = { 0.748741, 0.662863, 0, 0,   -0.662863, 0.748741, 0, 0,   0, 0, 1, 0,   9.61987, 6.28113, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_1.mdl", transf = { -0.998449, -0.0556756, 0, 0,   0.0556756, -0.998449, 0, 0,   0, 0, 1, 0,   10.7267, 13.3757, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/americanboxwood_rt_2.mdl", transf = { 0.828035, -0.560677, 0, 0,   0.560677, 0.828035, 0, 0,   0, 0, 1, 0,   11.9387, 7.66687, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_2.mdl", transf = { 0.521458, 0.853277, 0, 0,   -0.853277, 0.521458, 0, 0,   0, 0, 1, 0,   -21.702, 17.0219, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_5.mdl", transf = { 0.991734, -0.128312, 0, 0,   0.128312, 0.991734, 0, 0,   0, 0, 1, 0,   -18.2341, 20.7998, -0.0385895, 1 } }
+		result.models[#result.models + 1] = { id= "tree/mapleshrub_rt_5.mdl", transf = { -0.613318, -0.789836, 0, 0,   0.789836, -0.613318, 0, 0,   0, 0, 1, 0,   -24.5858, 19.6757, -0.0385895, 1 } }
+						
+		groundFace = { {63, -63}, { 63, 63}, {-63, 63}, {-63, -63} }
+		result.groundFaces[#result.groundFaces + 1] = { face = groundFace, modes = { { type = "FILL", key = "industry_floor" } } }
+		result.groundFaces[#result.groundFaces + 1] = { face = groundFace, modes = { { type = "STROKE_OUTER", key = "industry_floor_paving" } } }
+		
+		result.edgeLists = {
+			{
+				type = "STREET",
+				params = { type = "country_old_small.lua" },
+				edges = edges,
+				snapNodes = { 0 }
+			}
+		}
+
+
+		result.terrainAlignmentLists = {
+			{
+				type = "EQUAL",
+				faces = terrainFaces,
+				slopeLow = .35
+			}
+		}
+
+		return result
+	end
+}
+
+end

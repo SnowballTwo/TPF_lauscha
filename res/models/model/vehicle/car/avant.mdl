@@ -1,0 +1,273 @@
+function data()
+return {
+	boundingInfo = {
+		bbMax = {
+			2.3981521129608, 0.90505802631378, 1.6629929542542, 
+		},
+		bbMin = {
+			-2.2514359951019, -0.90505802631378, -0.3659560084343, 
+		},
+		
+	},
+	collider = {
+		params = {
+			
+		},
+		type = "MESH",
+		
+	},
+	lods = {
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/car/avant/lod_2_body.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0,
+				}, 
+				{
+					1, 
+				},
+				{
+					2, 
+				}, 
+				{
+					3, 
+				}, 
+				{
+					4, 
+				}, 
+				{
+					5, 
+				}, 
+				{
+					6, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 240,
+			visibleTo = 600,
+			
+		},{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/car/avant/lod_1_body.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				},  {
+					id = "vehicle/car/avant/lod_1_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1.7602, 0.7413, 0.3594, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/car/avant/lod_1_w1.msh",
+					transf = {
+						-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 1.7602, -0.7413, 0.3594, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/car/avant/lod_1_w2.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -1.3857, 0, 0.3594, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0, 0,
+				}, 
+				{
+					1, 0, 0, 0, 
+				},
+				{
+					2, 0, 0, 0, 
+				}, 
+				{
+					3, 0, 0, 0,
+				}, 
+				{
+					4, 0, 0, 0,  
+				}, 
+				{
+					5, 0, 0, 0, 
+				}, 
+				{
+					6, 0, 0, 0,
+				}, 
+			},
+			static = false,
+			visibleFrom = 110,
+			visibleTo = 240,
+			
+		}, {
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/car/avant/lod_0_body.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/car/avant/lod_0_interior.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/car/avant/lod_0_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1.7602, 0.7413, 0.3594, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/car/avant/lod_0_w1.msh",
+					transf = {
+						-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 1.7602, -0.7413, 0.3594, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/car/avant/lod_0_w2.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -1.3857, 0, 0.3594, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0, 0, 0, 
+				}, 
+				{
+					1, 0, 0, 0,  0, 
+				},
+				{
+					2, 0, 0, 0,  0, 
+				}, 
+				{
+					3, 0, 0, 0,  0, 
+				}, 
+				{
+					4, 0, 0, 0,  0, 
+				}, 
+				{
+					5, 0, 0, 0,  0, 
+				}, 
+				{
+					6, 0, 0, 0,  0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 110,
+			
+		}, 
+	},
+	metadata = {
+		availability = {
+			yearFrom = 0,
+			yearTo = 1963,
+			
+		},
+		car = {
+		},
+		roadVehicle = {
+			configs = {
+				{
+					axles = {
+						
+					},
+					fakeBogies = {
+						
+					},
+					wheels = {
+						
+					},
+					
+				}, {
+					axles = {
+						"vehicle/car/avant/lod_1_w2.msh", 
+					},
+					fakeBogies = {
+						{
+							group = 0,
+							offset = 0,
+							position = -0.30000000149012,
+							
+						}, 
+					},
+					wheels = {
+						"vehicle/car/avant/lod_1_w1.msh", 
+					},
+					
+				}, {
+					axles = {
+						"vehicle/car/avant/lod_0_w2.msh", 
+					},
+					fakeBogies = {
+						{
+							group = 0,
+							offset = 0,
+							position = -0.30000000149012,
+							
+						}, 
+					},
+					wheels = {
+						"vehicle/car/avant/lod_0_w1.msh", 
+					},
+					
+				}, 
+			},
+			power = 50,
+			soundSet = {
+				horn = "",
+				name = "car_old",
+				
+			},
+			topSpeed = 30,
+			tractiveEffort = 6.9,
+			weight = 1.6,
+			
+		},
+		
+	},
+	
+}
+end

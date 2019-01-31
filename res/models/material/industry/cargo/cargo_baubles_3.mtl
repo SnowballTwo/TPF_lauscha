@@ -1,0 +1,64 @@
+function data()
+return {
+	order = 0,
+	params = {
+		fade_out_range = {
+			fadeOutEndDist = 20000,
+			fadeOutStartDist = 10000,
+			
+		},
+		map_albedo = {
+			compressionAllowed = true,
+			fileName = "models/industry/cargo/cargo_baubles_003_albedo.dds",
+			magFilter = "LINEAR",
+			minFilter = "LINEAR_MIPMAP_LINEAR",
+			mipmapAlphaScale = 0,
+			redGreen = false,
+			scaleDownAllowed = true,
+			type = "TWOD",
+			wrapS = "CLAMP_TO_EDGE",
+			wrapT = "CLAMP_TO_EDGE",
+			
+		},
+		map_metal_gloss_ao = {
+			compressionAllowed = true,
+			fileName = "models/industry/cargo/cargo_items_003_metal_gloss_ao.dds",
+			magFilter = "LINEAR",
+			minFilter = "LINEAR_MIPMAP_LINEAR",
+			mipmapAlphaScale = 0,
+			redGreen = false,
+			scaleDownAllowed = true,
+			type = "TWOD",
+			wrapS = "CLAMP_TO_EDGE",
+			wrapT = "CLAMP_TO_EDGE",
+			
+		},
+		map_normal = {
+			compressionAllowed = true,
+			fileName = "models/industry/cargo/cargo_items_003_normal.dds",
+			magFilter = "LINEAR",
+			minFilter = "LINEAR_MIPMAP_LINEAR",
+			mipmapAlphaScale = 0,
+			redGreen = true,
+			scaleDownAllowed = true,
+			type = "TWOD",
+			wrapS = "CLAMP_TO_EDGE",
+			wrapT = "CLAMP_TO_EDGE",
+			
+		},
+		polygon_offset = {
+			factor = 0,
+			units = 0,
+			
+		},
+		two_sided = {
+			flipNormal = false,
+			twoSided = false,
+			
+		},
+		
+	},
+	type = "PHYSICAL_NRML_MAP",
+	
+}
+end

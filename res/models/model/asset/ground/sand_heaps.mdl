@@ -1,0 +1,67 @@
+function data()
+return {
+	boundingInfo = {
+		bbMax = {
+			21.157218933105, 11.198930740356, 7.0143060684204, 
+		},
+		bbMin = {
+			-24.193077087402, -11.033836364746, -9.9999999747524e-007, 
+		},
+		
+	},
+	collider = {
+		params = {
+			
+		},
+		type = "MESH",
+		
+	},
+	lods = {
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "asset/ground/lod_0_sand_heap_01.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 18, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "asset/ground/lod_0_sand_heap_02.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -18, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "asset/ground/lod_0_sand_heap_03.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 6110,
+			
+		}, 
+	},
+	metadata = {
+		
+	},
+	
+}
+end

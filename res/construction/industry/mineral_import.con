@@ -1,0 +1,122 @@
+local constructionutil = require "constructionutil"
+local paramsutil = require "paramsutil"
+local vec3 = require "vec3"
+local transf = require "transf"
+
+function data()
+
+return { 
+	type = "INDUSTRY",
+	description = {
+		name = _("mineralstock"),
+	},
+	availability = {
+
+	},
+	
+	params = paramsutil.makeIndustryParams(),
+	updateFn = function(params)
+		local result = { }
+
+		result.models = { }
+		result.groundFaces = { }
+		result.stocks = { }
+		result.stockRules = { }
+		
+		local height = ( params.productionLevel or 0 - 4 ) * 0.7
+		local level = (params.productionLevel or 0) + 1
+		local capacity = 50;
+
+		for i = 1, level do
+			capacity = capacity * 2
+		end
+
+		--collider
+		result.models[#result.models + 1] = { id = "asset/industry/collider_stone_dump.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 } }
+				
+		result.models[#result.models + 1] = { id = "asset/ground/mineral_heap_big.mdl", transf = { 0.980785, 0.19509, 0, 0,   -0.19509, 0.980785, 0, 0,   0, 0, 1, 0,   -28.433, -21.1636, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/mineral_heap_big.mdl", transf = { 0.980785, -0.19509, 0, 0,   0.19509, 0.980785, 0, 0,   0, 0, 1, 0,   -20.7913, -10.1636, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/mineral_heap_mid.mdl", transf = { 0.382683, -0.92388, 0, 0,   0.92388, 0.382683, 0, 0,   0, 0, 1, 0,   -14.6407, -20.5382, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/mineral_heap_mid.mdl", transf = { -0.55557, -0.83147, 0, 0,   0.83147, -0.55557, 0, 0,   0, 0, 1, 0,   -40.3743, -21.4109, -0.031517+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/mineral_heap_small.mdl", transf = { -0.55557, -0.83147, 0, 0,   0.83147, -0.55557, 0, 0,   0, 0, 1, 0,   -39.6308, -14.9624, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/mineral_heap_big.mdl", transf = { -0.55557, -0.83147, 0, 0,   0.83147, -0.55557, 0, 0,   0, 0, 1, 0,   -4.44431, -13.7018, -0.0169754+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/mineral_heap_mid.mdl", transf = { -0.55557, -0.83147, 0, 0,   0.83147, -0.55557, 0, 0,   0, 0, 1, 0,   -7.43317, -23.3324, -0.0145493+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/mineral_heap_small.mdl", transf = { -4.37114e-008, -1, 0, 0,   1, -4.37114e-008, 0, 0,   0, 0, 1, 0,   -13.9336, -27.2663, -0.0112457+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_6.mdl", transf = { 0.0500267, -0.998748, 0, 0,   0.998748, 0.0500267, 0, 0,   0, 0, 1, 0,   -51.5864, -28.6021, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_4.mdl", transf = { 0.578173, -0.815914, 0, 0,   0.815914, 0.578173, 0, 0,   0, 0, 1, 0,   -48.5803, -9.09985, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_10.mdl", transf = { -0.594791, -0.803881, 0, 0,   0.803881, -0.594791, 0, 0,   0, 0, 1, 0,   -45.7054, -29.8206, -0.0389557+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_11.mdl", transf = { 0.639878, -0.768477, 0, 0,   0.768477, 0.639878, 0, 0,   0, 0, 1, 0,   -47.7168, -32.2821, -0.0120392+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_10.mdl", transf = { -0.982135, 0.18818, 0, 0,   -0.18818, -0.982135, 0, 0,   0, 0, 1, 0,   -47.0689, -30.3928, -0.0324249+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_7.mdl", transf = { 0.377817, 0.92588, 0, 0,   -0.92588, 0.377817, 0, 0,   0, 0, 1, 0,   -46.008, -31.6025, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_8.mdl", transf = { -0.998774, 0.0495001, 0, 0,   -0.0495001, -0.998774, 0, 0,   0, 0, 1, 0,   -49.8827, -15.7375, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_11.mdl", transf = { 0.757414, 0.652935, 0, 0,   -0.652935, 0.757414, 0, 0,   0, 0, 1, 0,   -54.6631, -12.8928, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_8.mdl", transf = { -0.86423, 0.503097, 0, 0,   -0.503097, -0.86423, 0, 0,   0, 0, 1, 0,   -53.1288, -10.8442, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_3.mdl", transf = { 0.999955, -0.00953963, 0, 0,   0.00953963, 0.999955, 0, 0,   0, 0, 1, 0,   -51.565, -14.6315, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/mineral_heap_big.mdl", transf = { 0.980785, -0.19509, 0, 0,   0.19509, 0.980785, 0, 0,   0, 0, 1, 0,   34.9348, -14.593, -0.0275803+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/mineral_heap_big.mdl", transf = { 0.382683, -0.92388, 0, 0,   0.92388, 0.382683, 0, 0,   0, 0, 1, 0,   21.7733, -21.5864, -0.0272522+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/mineral_heap_mid.mdl", transf = { 0.19509, -0.980785, 0, 0,   0.980785, 0.19509, 0, 0,   0, 0, 1, 0,   35.2653, -24.6944, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/mineral_heap_small.mdl", transf = { -0.55557, -0.83147, 0, 0,   0.83147, -0.55557, 0, 0,   0, 0, 1, 0,   25.5024, -8.83221, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/mineral_heap_small.mdl", transf = { -0.55557, -0.83147, 0, 0,   0.83147, -0.55557, 0, 0,   0, 0, 1, 0,   29.5136, -29.4133, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/mineral_heap_small.mdl", transf = { -0.55557, -0.83147, 0, 0,   0.83147, -0.55557, 0, 0,   0, 0, 1, 0,   42.4435, -25.4216, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/mineral_heap_small.mdl", transf = { -0.55557, -0.83147, 0, 0,   0.83147, -0.55557, 0, 0,   0, 0, 1, 0,   -2.40222, -26.5578, -0.0258179+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_1.mdl", transf = { -0.569614, 0.821912, 0, 0,   -0.821912, -0.569614, 0, 0,   0, 0, 1, 0,   49.1979, -31.263, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_2.mdl", transf = { 0.730776, 0.682617, 0, 0,   -0.682617, 0.730776, 0, 0,   0, 0, 1, 0,   14.3199, -7.12628, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_8.mdl", transf = { -0.873997, 0.485931, 0, 0,   -0.485931, -0.873997, 0, 0,   0, 0, 1, 0,   5.4574, -27.0273, -0.0492935+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_8.mdl", transf = { 0.601705, -0.798719, 0, 0,   0.798719, 0.601705, 0, 0,   0, 0, 1, 0,   5.32135, -31.2225, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_10.mdl", transf = { 0.801966, -0.597369, 0, 0,   0.597369, 0.801966, 0, 0,   0, 0, 1, 0,   7.90155, -29.6885, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_9.mdl", transf = { 0.718954, -0.695058, 0, 0,   0.695058, 0.718954, 0, 0,   0, 0, 1, 0,   6.2807, -28.8707, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_11.mdl", transf = { -0.956169, -0.292815, 0, 0,   0.292815, -0.956169, 0, 0,   0, 0, 1, 0,   4.27942, -29.4103, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_10.mdl", transf = { 0.98055, 0.196271, 0, 0,   -0.196271, 0.98055, 0, 0,   0, 0, 1, 0,   2.07965, -30.5997, -0.0220795+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_8.mdl", transf = { -0.986987, 0.160803, 0, 0,   -0.160803, -0.986987, 0, 0,   0, 0, 1, 0,   3.81134, -30.4425, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_11.mdl", transf = { 0.967909, -0.251302, 0, 0,   0.251302, 0.967909, 0, 0,   0, 0, 1, 0,   44.1381, -33.205, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_10.mdl", transf = { 0.749471, 0.662037, 0, 0,   -0.662037, 0.749471, 0, 0,   0, 0, 1, 0,   43.4456, -31.3291, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_10.mdl", transf = { 0.825365, -0.5646, 0, 0,   0.5646, 0.825365, 0, 0,   0, 0, 1, 0,   44.7043, -36.1962, -0.0422592+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_8.mdl", transf = { -0.301284, -0.953535, 0, 0,   0.953535, -0.301284, 0, 0,   0, 0, 1, 0,   44.4847, -34.6633, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_9.mdl", transf = { -0.894957, -0.446152, 0, 0,   0.446152, -0.894957, 0, 0,   0, 0, 1, 0,   42.8696, -34.1223, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_8.mdl", transf = { 0.926621, 0.375997, 0, 0,   -0.375997, 0.926621, 0, 0,   0, 0, 1, 0,   51.6228, -35.1281, -0.0043335+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_7.mdl", transf = { 0.952474, 0.304619, 0, 0,   -0.304619, 0.952474, 0, 0,   0, 0, 1, 0,   53.5781, -25.5173, 0+height, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_7.mdl", transf = { -0.0126554, -0.99992, 0, 0,   0.99992, -0.0126554, 0, 0,   0, 0, 1, 0,   49.4551, -25.0426, 0, 1 } }
+		result.models[#result.models + 1] = { id = "asset/rock1_11.mdl", transf = { -0.240848, 0.970563, 0, 0,   -0.970563, -0.240848, 0, 0,   0, 0, 1, 0,   3.44763, -28.5904, 0+height, 1 } }
+
+				
+		local terrainFaces = {}
+		terrainFaces[#terrainFaces + 1] = { {63, -63, 0}, {63, 6, 0}, {-63, 6, 0}, {-63, -63, 0},  } 
+		
+		if (level >= 1) then
+			constructionutil.makeStocks({
+				stocks = {
+					{ cargoType = "MINERALS",	type = "SENDING", 	x = 0, 	y = -48, 	sizex = 14,	sizey = 2 }
+				},
+				stockRules = {
+					{ input = { { 0 } }, output = { { 1 } }, capacity = capacity }
+				}
+			}, result)
+		end
+		
+		result.terrainAlignmentLists = {
+			{
+				type = "EQUAL",
+				faces = terrainFaces,
+				slopeLow = .35
+			}
+		}	
+		
+		local edges = { }
+		
+		edges[#edges + 1] = { { 0.0, -79.0,  0.0 },  { 00.0, 8.0, 0.00 } }
+		edges[#edges + 1] = { { 0.0, -66.0,  0.0 },  { 00.0, 8.0, 0.00 } }
+		
+		result.edgeLists = {
+			{
+				type = "STREET",
+				params = { type = "country_old_small.lua" },
+				edges = edges,
+				snapNodes = { 0 }
+			}
+		}
+
+		return result
+	end
+}
+
+end

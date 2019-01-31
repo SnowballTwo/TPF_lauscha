@@ -1,0 +1,273 @@
+local vec3 = require "vec3"
+local transf = require "transf"
+function data()
+return {
+	boundingInfo = {
+		bbMax = {
+			2.9773321151733, 1.0804109573364, 2.9427399635315, 
+		},
+		bbMin = {
+			-2.9773321151733, -1.0804109573364, -0.47391700744629, 
+		},
+		
+	},
+	collider = {
+		params = {
+			
+		},
+		type = "MESH",
+		
+	},
+	lods = {
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/truck/benz_1912_lkw/lod_2_benz1912lkw.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/benz_1912_lkw/lod_2_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -1.6878, 0, 0.4427, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/benz_1912_lkw/lod_2_w2.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2.276, -0.8273, 0.464, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/benz_1912_lkw/lod_2_w2.msh",
+					transf = {
+						-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 2.276, 0.8273, 0.464, 1, 
+					},
+					type = "MESH",
+					
+				},	{
+					id = "vehicle/truck/benz_1912_lkw/lod_0_interior.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0,  0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 180,
+			visibleTo = 820,
+			
+		}, {
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/truck/benz_1912_lkw/lod_1_benz1912lkw.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/benz_1912_lkw/lod_1_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -1.6878, 0, 0.4427, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/benz_1912_lkw/lod_1_w2.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2.276, -0.8273, 0.464, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/benz_1912_lkw/lod_1_w2.msh",
+					transf = {
+						-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 2.276, 0.8273, 0.464, 1, 
+					},
+					type = "MESH",
+					
+				},	{
+					id = "vehicle/truck/benz_1912_lkw/lod_0_interior.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0,  0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 80,
+			visibleTo = 180,
+			
+		}, {
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/truck/benz_1912_lkw/lod_0_body.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/benz_1912_lkw/lod_0_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -1.6878, 0, 0.4936, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/benz_1912_lkw/lod_0_w2.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2.276, -0.8273, 0.464, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/benz_1912_lkw/lod_0_w2.msh",
+					transf = {
+						-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 2.276, 0.8273, 0.464, 1, 
+					},
+					type = "MESH",
+					
+				},	{
+					id = "vehicle/truck/benz_1912_lkw/lod_0_interior.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/benz_1912_lkw/lod_0_body_logo.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				},
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0,  0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 80,
+			
+		}, 
+	},
+	metadata = {
+		description = {
+			name = _("Benz"),
+			description = _("A typical early lorry by Mercedes-Benz still running on solid rubber tires.")
+		},
+		roadVehicle = {
+			topSpeed = 40,
+			weight = 1.5,
+			power = 35,
+			tractiveEffort = 5,
+			configs = {
+				{
+				},
+				{
+					wheels = {
+						"vehicle/truck/benz_1912_lkw/lod_1_w2.msh", 
+					},
+					axles = { 						
+						"vehicle/truck/benz_1912_lkw/lod_1_w1.msh" 
+					},
+					fakeBogies = { { group = 0, position = 0.0, offset = 0.0 } }
+				},
+				{
+					wheels = {
+						"vehicle/truck/benz_1912_lkw/lod_0_w2.msh", 
+					},
+					axles = { 
+						"vehicle/truck/benz_1912_lkw/lod_0_w1.msh" 
+					},
+					fakeBogies = { { group = 0, position = 0.0, offset = 0.0 } }
+				}
+			},
+			soundSet = "truck_old"
+		},
+		transportVehicle = {
+			seats = {
+						{ group =1, transf = transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(0.9, 0.36, 1)), crew = true},
+					},
+			carrier = "ROAD",
+			capacities = {
+				{ type = "LOGS", capacity = 32 },
+				{ type = "LIVESTOCK", capacity = 32 },
+				{ type = "COAL", capacity = 32 },
+				{ type = "IRON_ORE", capacity = 32 },
+				{ type = "STONE", capacity = 32 },
+				{ type = "GRAIN", capacity = 32 },
+				{ type = "CRUDE", capacity = 32 },
+				{ type = "STEEL", capacity = 32 },
+				{ type = "PLANKS", capacity = 32 },
+				{ type = "PLASTIC", capacity = 32 },
+				{ type = "SLAG", capacity = 32 },
+				{ type = "OIL", capacity = 32 },
+				{ type = "CONSTRUCTION_MATERIALS", capacity = 32 },
+				{ type = "MACHINES", capacity = 32 },
+				{ type = "FUEL", capacity = 32 },
+				{ type = "TOOLS", capacity = 32 },
+				{ type = "FOOD", capacity = 32 },
+				{ type = "GOODS", capacity = 32 },
+				{ type = "BAUBLES", capacity = 32 },
+				{ type = "TREES", capacity = 32 },
+				{ type = "SAND", capacity = 32 },
+				{ type = "MINERALS", capacity = 32 },
+				{ type = "POTASH", capacity = 32 },
+			},
+			loadSpeed = 2
+		},
+		availability = {
+			yearFrom = 1912,
+			yearTo = 1975
+		},
+		cost = {
+			price = -1
+		},
+		maintenance = {
+			runningCosts = -1,
+			lifespan = 30
+		}
+	},
+	
+}
+end

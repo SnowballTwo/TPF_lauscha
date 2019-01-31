@@ -1,0 +1,229 @@
+function data()
+return {
+	boundingInfo = {
+		bbMax = {
+			1.9786729812622, 0.89206999540329, 1.8434629440308, 
+		},
+		bbMin = {
+			-1.9715620279312, -0.89206999540329, 0.20041899383068, 
+		},
+		
+	},
+	collider = {
+		params = {
+			
+		},
+		type = "MESH",
+		
+	},
+	lods = {
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/car/ford_fordor_1934/lod_2_body.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{ 0 }, 
+				{ 1 }, 
+				{ 2 }, 
+				{ 3 }, 
+				{ 4 }, 
+			},
+			static = false,
+			visibleFrom = 280,
+			visibleTo = 600,
+			
+		},{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/car/ford_fordor_1934/lod_1_body.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/car/ford_fordor_1934/lod_1_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1.4326, -0.5394, 0.3674, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/car/ford_fordor_1934/lod_1_w1.msh",
+					transf = {
+						-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 1.4326, 0.5394, 0.3674, 1, 
+					},
+					type = "MESH",
+					
+				},{
+					id = "vehicle/car/ford_fordor_1934/lod_1_w2.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -1.2824, 0, 0.3674, 1, 
+					},
+					type = "MESH",
+					
+				},
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{ 0, 0, 0, 0,  }, 
+				{ 1, 0, 0, 0,  }, 
+				{ 2, 0, 0, 0,  }, 
+				{ 3, 0, 0, 0,  }, 
+				{ 4, 0, 0, 0,  }, 
+			},
+			static = false,
+			visibleFrom = 100,
+			visibleTo = 280,
+			
+		},{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/car/ford_fordor_1934/lod_0_body.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/car/ford_fordor_1934/lod_0_interior.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/car/ford_fordor_1934/lod_0_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1.4326, -0.5394, 0.3674, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/car/ford_fordor_1934/lod_0_w1.msh",
+					transf = {
+						-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 1.4326, 0.5394, 0.3674, 1, 
+					},
+					type = "MESH",
+					
+				},{
+					id = "vehicle/car/ford_fordor_1934/lod_0_w2.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -1.2824, 0, 0.3674, 1, 
+					},
+					type = "MESH",
+					
+				},
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{ 0, 0, 0, 0, 0, }, 
+				{ 1, 0, 0, 0, 0, }, 
+				{ 2, 0, 0, 0, 0, }, 
+				{ 3, 0, 0, 0, 0, }, 
+				{ 4, 0, 0, 0, 0, }, 
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 100,
+			
+		}, 
+	},
+	metadata = {
+		availability = {
+			yearFrom = 0,
+			yearTo = 1963,
+			
+		},
+		car = {
+			-- TODO: add driver seat somehow. 
+			-- { group =1, transf = transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(-0.1757, 0.2165, 0.3528)), crew = true},
+		},
+		roadVehicle = {
+			configs = {
+				{
+					axles = {
+						
+					},
+					fakeBogies = {
+						
+					},
+					wheels = {
+						
+					},
+					
+				}, 
+				{
+					axles = {
+						"vehicle/car/ford_fordor_1934/lod_1_w2.msh", 
+					},
+					fakeBogies = {
+						{
+							group = 0,
+							offset = 0,
+							position = -0.10000000149012,
+							
+						}, 
+					},
+					wheels = {
+						"vehicle/car/ford_fordor_1934/lod_1_w1.msh", 
+					},
+					
+				}, 
+				{
+					axles = {
+						"vehicle/car/ford_fordor_1934/lod_0_w2.msh", 
+					},
+					fakeBogies = {
+						{
+							group = 0,
+							offset = 0,
+							position = -0.10000000149012,
+							
+						}, 
+					},
+					wheels = {
+						"vehicle/car/ford_fordor_1934/lod_0_w1.msh", 
+					},
+					
+				}, 
+			},
+			power = 44,
+			soundSet = {
+				horn = "",
+				name = "car_old",
+				
+			},
+			topSpeed = 30,
+			tractiveEffort = 6.6,
+			weight = 1.1000000238419,
+			
+		},
+		
+	},
+	
+}
+end

@@ -1,0 +1,276 @@
+local vec3 = require "vec3"
+local transf = require "transf"
+
+function data()
+return {
+	boundingInfo = {
+		bbMax = {
+			6.8575000762939, 1.3035019636154, 3.2154319286346, 
+		},
+		bbMin = {
+			-5.9623646736145, -1.3035019636154, -0.0072360038757324, 
+		},
+		
+	},
+	collider = {
+		params = {
+			
+		},
+		type = "MESH",
+		
+	},
+	lods = {
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/truck/40_tons_lod_2_body.grp",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 3.5114998817444, 0, 0, 1, 
+					},
+					type = "GROUP",
+					
+				}, {
+					id = "vehicle/truck/40_tons_lod_2_trailer.grp",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2.2750000953674, 0, 0, 1, 
+					},
+					type = "GROUP",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 250,
+			visibleTo = 1190,
+			
+		}, 
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/truck/40_tons_lod_1_body.grp",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 3.5114998817444, 0, 0, 1, 
+					},
+					type = "GROUP",
+					
+				}, {
+					id = "vehicle/truck/40_tons_lod_1_trailer.grp",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2.2750000953674, 0, 0, 1, 
+					},
+					type = "GROUP",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 150,
+			visibleTo = 250,
+			
+		}, 
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/truck/40_tons_lod_0_body.grp",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 3.5114998817444, 0, 0, 1, 
+					},
+					type = "GROUP",
+					
+				}, {
+					id = "vehicle/truck/40_tons_lod_0_trailer.grp",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2.2750000953674, 0, 0, 1, 
+					},
+					type = "GROUP",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 150,
+			
+		}, 
+	},
+	metadata = {
+		availability = {
+			yearFrom = 1990,
+			yearTo = 0,
+			
+		},
+		cost = {
+			price = -1,
+			
+		},
+		description = {
+			name = _("40 Tons Truck"),
+			description = _("A six axle semi-trailer truck, equipped with a V8 turbo diesel engine of 456 kW power."),
+			
+		},
+		maintenance = {
+			lifespan = 35,
+			runningCosts = -1,
+			
+		},
+		roadVehicle = {
+			configs = {
+				{
+					axles = {
+						"vehicle/truck/40_tons/lod_2_w2.msh", 
+					},
+					fakeBogies = {
+						{
+							group = 1,
+							offset = 0,
+							position = 4,
+							
+						}, {
+							group = 7,
+							offset = 0,
+							position = 2.5750000476837,
+							
+						}, {
+							group = 7,
+							offset = 0,
+							position = -1,
+							
+						}, 
+					},
+					wheels = {
+						"vehicle/truck/40_tons/lod_2_w1.msh", 
+					},
+					
+				}, {
+					axles = {
+						"vehicle/truck/40_tons/lod_1_w2.msh", 
+					},
+					fakeBogies = {
+						{
+							group = 1,
+							offset = 0,
+							position = 4,
+							
+						}, {
+							group = 7,
+							offset = 0,
+							position = 2.5750000476837,
+							
+						}, {
+							group = 7,
+							offset = 0,
+							position = -1,
+							
+						}, 
+					},
+					wheels = {
+						"vehicle/truck/40_tons/lod_1_w1.msh", 
+					},
+					
+				}, 
+				{
+					axles = {
+						"vehicle/truck/40_tons/lod_0_w2.msh", 
+					},
+					fakeBogies = {
+						{
+							group = 1,
+							offset = 0,
+							position = 4,
+							
+						}, {
+							group = 14,
+							offset = 0,
+							position = 2.5750000476837,
+							
+						}, {
+							group = 14,
+							offset = 0,
+							position = -1,
+							
+						}, 
+					},
+					wheels = {
+						"vehicle/truck/40_tons/lod_0_w1.msh", 
+					},
+					
+				}, 
+			},
+			power = 456,
+			soundSet = {
+				horn = "",
+				name = "truck_modern",
+				
+			},
+			topSpeed = 100,
+			tractiveEffort = 60,
+			weight = 10,
+			
+		},
+		transportVehicle = {
+			seats = {
+						{ group =1, transf = transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(1.3, 0.5, 0.7)), crew = true},
+					},
+			capacities = {
+				{ type = "LOGS", capacity = 80 },
+				{ type = "LIVESTOCK", capacity = 80 },
+				{ type = "COAL", capacity = 80 },
+				{ type = "IRON_ORE", capacity = 80 },
+				{ type = "STONE", capacity = 80 },
+				{ type = "GRAIN", capacity = 80 },
+				{ type = "CRUDE", capacity = 80 },
+				{ type = "STEEL", capacity = 80 },
+				{ type = "PLANKS", capacity = 80 },
+				{ type = "PLASTIC", capacity = 80 },
+				{ type = "SLAG", capacity = 80 },
+				{ type = "OIL", capacity = 80 },
+				{ type = "CONSTRUCTION_MATERIALS", capacity = 80 },
+				{ type = "MACHINES", capacity = 80 },
+				{ type = "FUEL", capacity = 80 },
+				{ type = "TOOLS", capacity = 80 },
+				{ type = "FOOD", capacity = 80 },
+				{ type = "GOODS", capacity = 80 },
+				{ type = "BAUBLES", capacity = 80 },
+				{ type = "TREES", capacity = 80 },
+				{ type = "SAND", capacity = 80 },
+				{ type = "MINERALS", capacity = 80 },
+				{ type = "POTASH", capacity = 80 },
+			},
+			carrier = "ROAD",
+			loadSpeed = 5
+		},
+		
+	},
+	
+}
+end

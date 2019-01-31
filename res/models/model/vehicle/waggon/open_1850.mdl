@@ -1,0 +1,439 @@
+function data()
+return {
+	boundingInfo = {
+		bbMax = {
+			3.3591649532318, 1.3326870203018, 2.737401008606, 
+		},
+		bbMin = {
+			-3.3591649532318, -1.3326870203018, -0.53216099739075, 
+		},
+		
+	},
+	collider = {
+		params = {
+			
+		},
+		type = "MESH",
+		
+	},
+	lods = {
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/waggon/open_1850/open_1850_lod_2_body.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_2_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+					
+				},  {
+					id = "vehicle/waggon/open_1850/open_1850_lod_2_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_2_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_2_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+					
+				},{
+					id = "vehicle/waggon/open_1850/open_1850_lod_2_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_2_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_2_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_2_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",	
+					
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_2_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",	
+					
+				},{
+					id = "vehicle/waggon/open_1850/open_1850_lod_2_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",	
+					
+				},{
+					id = "vehicle/waggon/open_1850/open_1850_lod_2_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",	
+					
+				},{
+					id = "vehicle/waggon/open_1850/open_1850_lod_2_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -1.5249, 0, 0.4915, 1, 
+					},
+					type = "MESH",
+					
+				},  {
+					id = "vehicle/waggon/open_1850/open_1850_lod_2_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1.5249, 0, 0.4915, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 1, 2, 3, 4, 5,6,7,0, 0 
+				}, 
+			},
+			static = false,
+			visibleFrom = 250,
+			visibleTo = 1010,
+			
+		}, 
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/waggon/open_1850/open_1850_lod_1_body.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_1_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_1_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_1_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+
+				},{
+					id = "vehicle/waggon/open_1850/open_1850_lod_1_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+
+				},{
+					id = "vehicle/waggon/open_1850/open_1850_lod_1_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+
+				},{
+					id = "vehicle/waggon/open_1850/open_1850_lod_1_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_1_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_1_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_1_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_1_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_1_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_1_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -1.5249, 0, 0.4915, 1, 
+					},
+					type = "MESH",
+					
+				},  {
+					id = "vehicle/waggon/open_1850/open_1850_lod_1_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1.5249, 0, 0.4915, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/open_1850/lod_0_logo_body.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				},
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 1, 2, 3, 4, 5, 6, 7, 0, 0 , 0 
+				}, 
+			},
+			static = false,
+			visibleFrom = 120,
+			visibleTo = 250,
+			
+		}, 
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/waggon/open_1850/open_1850_lod_0_body.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_0_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_0_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_0_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+
+				},{
+					id = "vehicle/waggon/open_1850/open_1850_lod_0_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+
+				},{
+					id = "vehicle/waggon/open_1850/open_1850_lod_0_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+
+				},{
+					id = "vehicle/waggon/open_1850/open_1850_lod_0_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_0_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_0_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",	
+					
+				},{
+					id = "vehicle/waggon/open_1850/open_1850_lod_0_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",	
+					
+				},{
+					id = "vehicle/waggon/open_1850/open_1850_lod_0_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",	
+					
+				},{
+					id = "vehicle/waggon/open_1850/open_1850_lod_0_cargo_load.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1,
+					},
+					type = "MESH",	
+					
+				}, {
+					id = "vehicle/waggon/open_1850/open_1850_lod_0_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -1.5249, 0, 0.4915, 1, 
+					},
+					type = "MESH",
+					
+				},  {
+					id = "vehicle/waggon/open_1850/open_1850_lod_0_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1.5249, 0, 0.4915, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/open_1850/lod_0_logo_body.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				},
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 1, 2, 3, 4,5,6,7, 0, 0, 0 
+				}, 
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 120,
+			
+		}, 
+	},
+	metadata = {
+		description = {
+			name = _("Open wagon"),
+			description = _("Twin axle freight wagon.")
+		},
+		railVehicle = {
+			topSpeed = 80,
+			weight = 5,
+			configs = {
+				{
+					axles = { "vehicle/waggon/open_1850/open_1850_lod_2_w1.msh" }
+				},
+				{
+					axles = { "vehicle/waggon/open_1850/open_1850_lod_1_w1.msh" }
+				},
+				{
+					axles = { "vehicle/waggon/open_1850/open_1850_lod_0_w1.msh" }
+				}
+			},
+			soundSet = "waggon_freight_old"
+		},
+		transportVehicle = {
+			carrier = "RAIL",
+			capacities = {
+				{ type = "COAL", capacity = 16, loadIndicator = { type = "LEVEL", params = { id = 2, maxHeight = 1.2 } } },
+				{ type = "IRON_ORE", capacity = 16, loadIndicator = { type = "LEVEL", params = { id = 3, maxHeight = 1.2 } } },
+				{ type = "STONE", capacity = 16, loadIndicator = { type = "LEVEL", params = { id = 4, maxHeight = 1.2 } } },
+				{ type = "GRAIN", capacity = 16, loadIndicator = { type = "LEVEL", params = { id = 5, maxHeight = 1.2 } } },
+				{ type = "SLAG", capacity = 16, loadIndicator = { type = "LEVEL", params = { id = 6, maxHeight = 1.2 } } },
+				{ type = "SAND", capacity = 16, loadIndicator = { type = "LEVEL", params = { id = 7, maxHeight = 1.2 } } },
+				{ type = "POTASH", capacity = 16, loadIndicator = { type = "LEVEL", params = { id = 8, maxHeight = 1.2 } } },				
+				{ type = "MINERALS", capacity = 16, loadIndicator = { type = "LEVEL", params = { id = 9, maxHeight = 1.2 } } },
+			},
+			loadSpeed = 1
+		},
+		availability = {
+			yearFrom = 1850,
+			yearTo = 1912
+		},
+		cost = {
+			price = -1
+		},
+		maintenance = {
+			runningCosts = -1,
+			lifespan = 40
+		}
+		
+	},
+	
+}
+end

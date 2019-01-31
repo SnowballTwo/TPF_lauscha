@@ -1,0 +1,50 @@
+local transf = require "transf"
+
+function data() return { 
+	type = "ASSET_DEFAULT",
+	buildMode = "MULTI",
+	categories = { "tree" },
+	availability = {
+		yearFrom = 0,
+		yearTo = 0,
+	},
+	description = {
+		name = "Forester plant",
+		description = "A huge amout of trees"
+	},	
+	order = 0,
+	skipCollision = false,
+	autoRemovable = true,	
+	updateFn = function(params)	
+			
+		local transforms = params.transforms
+		local trees = {
+			"tree/fichte1.mdl", 
+			"tree/fichte2.mdl",
+			"tree/fichte3.mdl", 
+			"tree/laerche1.mdl", 
+			"tree/laerche2.mdl",
+			"tree/douglasie1.mdl",
+			"tree/douglasie2.mdl",
+			"tree/douglasie3.mdl"}
+		
+		local result = { models = {} }
+		local terrainFaces = {}
+			
+		for k = 1,#transforms do
+			result.models[#result.models+1] =
+				{					
+					id = trees[math.random(1, #trees)],
+					transf = transforms[k]			
+				}
+		end
+		
+		result.terrainAlignmentLists = { {
+			type = "EQUAL",
+			faces =  {},			
+		} }
+			
+		return result
+
+	end,
+} end

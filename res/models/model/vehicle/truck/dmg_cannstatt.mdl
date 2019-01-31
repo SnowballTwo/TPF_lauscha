@@ -1,0 +1,268 @@
+local vec3 = require "vec3"
+local transf = require "transf"
+
+function data()
+return {
+	boundingInfo = {
+		bbMax = {
+			1.9699840545654, 0.73222798109055, 2.4889459609985, 
+		},
+		bbMin = {
+			-2.3102269172668, -0.73222798109055, -0.47430199384689, 
+		},
+		
+	},
+	collider = {
+		params = {
+			
+		},
+		type = "MESH",
+		
+	},
+	lods = {
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/truck/dmg_cannstatt/dmg_cannstatt_lod_2_body.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/dmg_cannstatt/dmg_cannstatt_lod_2_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1.4814, -0.4775, 0.411, 1, 
+					},
+					type = "MESH",
+					
+				},{
+					id = "vehicle/truck/dmg_cannstatt/dmg_cannstatt_lod_2_w1.msh",
+					transf = {
+						-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 1.4814, 0.4775, 0.411, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/dmg_cannstatt/dmg_cannstatt_lod_2_w2.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -1.4057, 0, 0.4694, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0, 0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 300,
+			visibleTo = 730,
+			
+		}, {
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/truck/dmg_cannstatt/dmg_cannstatt_lod_1_body.msh",
+					transf = {
+						1.1, 0, 0, 0, 0, 1.1, 0, 0, 0, 0, 1.1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/dmg_cannstatt/dmg_cannstatt_lod_1_w1.msh",
+					transf = {
+						1.1, 0, 0, 0, 0, 1.1, 0, 0, 0, 0, 1.1, 0, 1.4814, -0.4775, 0.411, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/dmg_cannstatt/dmg_cannstatt_lod_1_w1.msh",
+					transf = {
+						-1.1, 0, 0, 0, 0, -1.1, 0, 0, 0, 0, 1.1, 0, 1.4814, 0.4775, 0.411, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/dmg_cannstatt/dmg_cannstatt_lod_1_w2.msh",
+					transf = {
+						1.1, 0, 0, 0, 0, 1.1, 0, 0, 0, 0, 1.1, 0, -1.4057, 0, 0.4694, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0, 0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 100,
+			visibleTo = 300,
+			
+		}, {
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/truck/dmg_cannstatt/dmg_cannstatt_lod_0_body.msh",
+					transf = {
+						1.1, 0, 0, 0, 0, 1.1, 0, 0, 0, 0, 1.1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/dmg_cannstatt/dmg_cannstatt_lod_0_w1.msh",
+					transf = {
+						1.1, 0, 0, 0, 0, 1.1, 0, 0, 0, 0, 1.1, 0, 1.4814, -0.4775, 0.411, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/dmg_cannstatt/dmg_cannstatt_lod_0_w1.msh",
+					transf = {
+						-1.1, 0, 0, 0, 0, -1.1, 0, 0, 0, 0, 1.1, 0, 1.4814, 0.4775, 0.411, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/dmg_cannstatt/dmg_cannstatt_lod_0_w2.msh",
+					transf = {
+						1.1, 0, 0, 0, 0, 1.1, 0, 0, 0, 0, 1.1, 0, -1.4057, 0, 0.4694, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+				-- lights
+				{
+					id = "vehicle/asset/lod_0_light_round_white.msh",
+					--manual lights
+					transf = transf.scaleRotZYXTransl(vec3.new(1.0,0.8,0.8),transf.degToRad( 0.0, 0.0, 0.0), vec3.new( 2.168, -0.34, 1.077)),
+					type = "MESH", 
+				},
+				{
+					id = "vehicle/asset/lod_0_light_round_white.msh",
+					--manual lights
+					transf = transf.scaleRotZYXTransl(vec3.new(1.0,0.8,0.8),transf.degToRad( 0.0, 0.0, 0.0), vec3.new( 2.168, 0.34, 1.077)),
+					type = "MESH", 
+				},
+				{
+					id = "vehicle/truck/dmg_cannstatt/lod_0_logo_body.msh",
+					transf = {
+						1.1, 0, 0, 0, 0, 1.1, 0, 0, 0, 0, 1.1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				},
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0, 0,  0, 0,  0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 100,
+			
+		}, 
+	},
+	metadata = {
+		
+		description = {
+			name = _("DMG Cannstatt"),
+			description = _("Daimler Motors Corporation was a German engine and later automobile manufacturer, in operation from 1890 until 1926.")
+		},
+		roadVehicle = {
+			topSpeed = 25,
+			weight = 1,
+			power = 14,
+			tractiveEffort = 8,
+			configs = {
+				{
+				},
+				{
+					wheels = {
+						"vehicle/truck/dmg_cannstatt/dmg_cannstatt_lod_1_w1.msh", 
+					},
+					axles = { 						
+						"vehicle/truck/dmg_cannstatt/dmg_cannstatt_lod_1_w2.msh" 
+					},
+					fakeBogies = { { group = 0, position = 0.0, offset = 0.0 } }
+				},
+				{
+					wheels = {
+						"vehicle/truck/dmg_cannstatt/dmg_cannstatt_lod_0_w1.msh", 
+					},
+					axles = { 
+						"vehicle/truck/dmg_cannstatt/dmg_cannstatt_lod_0_w2.msh" 
+					},
+					fakeBogies = { { group = 0, position = 0.0, offset = 0.0 } }
+				}
+			},
+			soundSet = "truck_old"
+		},
+		transportVehicle = {
+			seats = {
+						{ group =1, transf = transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(0.6, -0.1, 1.3)), crew = true},
+					},
+			carrier = "ROAD",
+			capacities = {
+				{ type = "LOGS", capacity = 24 },
+				{ type = "LIVESTOCK", capacity = 24 },
+				{ type = "COAL", capacity = 24 },
+				{ type = "IRON_ORE", capacity = 24 },
+				{ type = "STONE", capacity = 24 },
+				{ type = "GRAIN", capacity = 24 },
+				{ type = "CRUDE", capacity = 24 },
+				{ type = "STEEL", capacity = 24 },
+				{ type = "PLANKS", capacity = 24 },
+				{ type = "PLASTIC", capacity = 24 },
+				{ type = "SLAG", capacity = 24 },
+				{ type = "OIL", capacity = 24 },
+				{ type = "CONSTRUCTION_MATERIALS", capacity = 24 },
+				{ type = "MACHINES", capacity = 24 },
+				{ type = "FUEL", capacity = 24 },
+				{ type = "TOOLS", capacity = 24 },
+				{ type = "FOOD", capacity = 24 },
+				{ type = "GOODS", capacity = 24 },
+				{ type = "BAUBLES", capacity = 24 },
+				{ type = "TREES", capacity = 24 },
+				{ type = "SAND", capacity = 24 },
+				{ type = "MINERALS", capacity = 24 },
+				{ type = "POTASH", capacity = 24 },
+			},
+			loadSpeed = 1.5
+		},
+		availability = {
+			yearFrom = 1890,
+			yearTo = 1946
+		},
+		cost = {
+			price = -1
+		},
+		maintenance = {
+			runningCosts = -1,
+			lifespan = 30
+		}
+	},
+	
+}
+end

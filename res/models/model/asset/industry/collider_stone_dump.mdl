@@ -1,0 +1,51 @@
+function data()
+return {
+	boundingInfo = {
+		bbMin = {
+			-60, -64, -5
+		},
+		bbMax = {
+			60, 0, 15, 
+		},	
+	},
+	collider = {
+		params = {
+			center = { 0, -32, 5 },
+			halfExtents = { 61, 31.5, 10 }
+		},
+		type = "BOX"
+	},
+	lods = {
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "asset/rock_2_9_lod_0.msh",
+					transf = {
+						.01, 0, 0, 0, 0, .01, 0, 0, 0, 0, .01, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 300,
+			
+		}, 
+	},
+	metadata = {
+	},
+	
+}
+end

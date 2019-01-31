@@ -1,0 +1,71 @@
+function data()
+return {
+	animations = {
+		
+	},
+	matConfigs = {
+		{
+			0, 
+		}, 
+	},
+	subMeshes = {
+		{
+			indices = {
+				normal = {
+					count = 6144,
+					offset = 61060,
+					
+				},
+				position = {
+					count = 6144,
+					offset = 48772,
+					
+				},
+				tangent = {
+					count = 6144,
+					offset = 67204,
+					
+				},
+				uv0 = {
+					count = 6144,
+					offset = 54916,
+					
+				},
+				
+			},
+			materials = {
+				"asset/ground/sand_heap.mtl", 
+			},
+			
+		}, 
+	},
+	vertexAttr = {
+		normal = {
+			count = 18432,
+			numComp = 3,
+			offset = 5780,
+			
+		},
+		position = {
+			count = 3468,
+			numComp = 3,
+			offset = 0,
+			
+		},
+		tangent = {
+			count = 24560,
+			numComp = 4,
+			offset = 24212,
+			
+		},
+		uv0 = {
+			count = 2312,
+			numComp = 2,
+			offset = 3468,
+			
+		},
+		
+	},
+	
+}
+end

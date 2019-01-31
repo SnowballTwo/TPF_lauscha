@@ -1,0 +1,373 @@
+local constructionutil = require "constructionutil"
+local paramsutil = require "paramsutil"
+local vec3 = require "vec3"
+local transf = require "transf"
+
+
+	local function makeParams()
+		return {
+			{
+				key = "productionLevel",
+				name = _("Production Level"),
+				values = { _("0") },
+				yearFrom = 1850,
+				yearTo = 0
+			},
+			{
+				key = "prodState",
+				name = _("State"),
+				values = { _("decorating"), _("selling") },
+				yearFrom = 1850,
+				yearTo = 0
+			},
+		}
+	end
+
+function createGroup(models, horizontal, x, y)
+
+	local bench = "building/era_a/com_1_asset_ground_double_bench.mdl"
+	local table = "building/era_a/com_1_asset_ground_table_01.mdl"
+
+	if (horizontal) then
+		models[#models + 1] = { id = bench, transf = transf.rotZTransl( math.pi, vec3.new( x, y -1 , 0))}
+		models[#models + 1] = { id = bench, transf = transf.rotZTransl( 0       , vec3.new( x, y + 1 , 0))}
+		models[#models + 1] = { id = table, transf = transf.rotZTransl( math.pi, vec3.new( x, y , 0))}
+	else
+		models[#models + 1] = { id = bench, transf = transf.rotZTransl( 0.5 * math.pi, vec3.new( x-1, y , 0))}
+		models[#models + 1] = { id = bench, transf = transf.rotZTransl( 1.5 * math.pi, vec3.new( x+1, y , 0))}
+		models[#models + 1] = { id = table, transf = transf.rotZTransl( 1.5 *math.pi, vec3.new( x, y , 0))}
+	end
+	
+end
+
+function createTree(models, horizontal, x, y, size, treesPlanted)
+
+	local angle = 0.5 * math.pi
+
+	if horizontal then
+		angle = 0
+	end
+
+	models[#models + 1] = {
+		id = "asset/tree_bed_old.mdl", 
+		transf = transf.mul( 
+			transf.rotZTransl(angle, vec3.new( x, y , 0)),
+			transf.scale(vec3.new(size * 2,size * 2,size * 2)))
+		}
+
+	if treesPlanted then
+		models[#models + 1] = {
+			id = "tree/fichte.mdl", 
+			transf = transf.mul( 
+				transf.rotZTransl(angle, vec3.new( x, y , 0)),
+				transf.scale(vec3.new(size,size,size)))
+			}
+	end
+	
+end
+
+function createGluehweinstand(models, x, y)
+	local boothstart = "building/era_a/com_1_asset_ground_food_booth_start.mdl"
+	local boothend = "building/era_a/com_1_asset_ground_food_booth_end.mdl"
+	local booth = {
+		"building/era_a/com_1_asset_ground_food_booth_01.mdl",
+		"building/era_a/com_1_asset_ground_food_booth_02.mdl",
+		"building/era_a/com_1_asset_ground_food_booth_03.mdl",
+		"building/era_a/com_1_asset_ground_food_booth_04.mdl",
+		"building/era_a/com_1_asset_ground_food_booth_05.mdl"
+	}
+	local sign = "building/era_a/com_1_asset_ground_sign_01.mdl"
+	local shade = "building/era_a/com_1_asset_ground_sunshade_01.mdl"
+
+	local radius = 2.5	
+
+	models[#models + 1] = {
+		id = shade, 
+		transf = transf.mul(
+			transf.rotZTransl(math.pi * 0.25, vec3.new( x, y , 0)),
+			transf.scale(vec3.new( radius, radius , 1))
+		) 
+	}
+
+	for i=0, 7 do
+
+		local angle = i * math.pi / 4
+		local dx = math.cos( angle ) * radius
+		local dy = math.sin( angle ) * radius
+
+		
+
+		models[#models + 1] = {
+			id = boothstart, 
+			transf = transf.mul(
+				transf.rotZTransl(angle + 0.5 * math.pi, vec3.new( x + dx, y + dy , 0)),
+				transf.transl(vec3.new( -0.5, 0 , 0))
+			) 
+		}
+
+		models[#models + 1] = {
+			id = booth[i % 5 + 1], 
+			transf = transf.mul(
+				transf.rotZTransl(angle + 0.5 * math.pi, vec3.new( x + dx, y + dy , 0)),
+				transf.transl(vec3.new( -0.5, 0 , 0))
+			) 
+		}
+
+		models[#models + 1] = {
+			id = booth[i % 5 + 1], 
+			transf = transf.mul(
+				transf.rotZTransl(angle + 0.5 * math.pi, vec3.new( x + dx, y + dy , 0)),
+				transf.transl(vec3.new( 0.5, 0 , 0))
+			) 
+		}
+		
+		models[#models + 1] = {
+			id = boothend, 
+			transf = transf.mul(
+				transf.rotZTransl(angle + 0.5 * math.pi, vec3.new( x + dx, y + dy , 0)),
+				transf.transl(vec3.new( 0.5, 0 , 0))
+			) 
+		}
+
+	end
+
+	
+
+end
+
+function data()
+return { 
+	type = "INDUSTRY",
+	description = {
+		name = _("christmasmarket"),
+	},
+	availability = {
+
+	},
+	params = makeParams(),
+	updateFn = function(params)
+		local result = { }
+		
+		result.models = { }
+		result.groundFaces = { }
+		result.stocks = { }
+		result.stockRules = { }
+
+		local horizontalTreePositions = {}
+		local verticalTreePositions = {}
+		local treesPlanted = params.prodState	== 1
+
+		for i=-28,28,4 do 
+			if math.abs( i ) > 5 then
+				horizontalTreePositions[#horizontalTreePositions + 1] = {i, -31.5}
+				horizontalTreePositions[#horizontalTreePositions + 1] = {i, 31.5}
+			end
+			
+		end
+
+		for i=-31,31,3.875 do 
+			if math.abs( i ) > 5 then
+				verticalTreePositions[#verticalTreePositions + 1] = {-31.5, i}			
+				verticalTreePositions[#verticalTreePositions + 1] = {31.5, i}
+			end
+		end
+		
+		--collider
+		result.models[#result.models + 1] = { id = "asset/industry/collider_christmas_market.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 } }
+			
+		createGroup(result.models, true, 6, 0)
+		createTree(result.models, false, 10, 0, 1, treesPlanted)
+		createGroup(result.models, true, 14, 0)
+		createTree(result.models, false, 18, 0, 1, treesPlanted)
+		createGroup(result.models, true, 22, 0)
+
+		createGroup(result.models, true, -6, 0)
+		createTree(result.models, false, -10, 0, 1, treesPlanted)
+		createGroup(result.models, true, -14, 0)
+		createTree(result.models, false, -18, 0, 1, treesPlanted)
+		createGroup(result.models, true, -22, 0)
+
+		createGroup(result.models, false, 0, 6)
+		createTree(result.models, true, 0, 10, 1, treesPlanted)
+		createGroup(result.models, false, 0, 14)
+		createTree(result.models, true, 0, 18, 1, treesPlanted)
+		createGroup(result.models, false, 0, 22)
+
+		createGroup(result.models, false, 0, -6)
+		createTree(result.models, true, 0, -10, 1, treesPlanted)
+		createGroup(result.models, false, 0, -14)
+		createTree(result.models, true, 0, -18, 1, treesPlanted)
+		createGroup(result.models, false, 0, -22)
+		
+		result.models[#result.models + 1] = {
+			id = "asset/tree_bed_old.mdl", 
+			transf = transf.scale(vec3.new(1,2,1))
+			}
+		
+		for i = 1, #horizontalTreePositions do
+			createTree(result.models, true, horizontalTreePositions[i][1], horizontalTreePositions[i][2], 0.5, treesPlanted)			
+		end
+
+		for i = 1, #verticalTreePositions do
+			createTree(result.models, false, verticalTreePositions[i][1], verticalTreePositions[i][2], 0.5, treesPlanted)
+		end
+
+		result.models[#result.models + 1] = {
+			id = "asset/park_fountain_1.mdl", 
+			transf = transf.rotZTransl(0, vec3.new( -16, 16 , 0))
+			}
+
+			result.models[#result.models + 1] = {
+			id = "asset/park_fountain_2.mdl", 
+			transf = transf.rotZTransl(0, vec3.new( 16, -16 , 0))
+			}
+					
+		local terrainFaces = {}
+		terrainFaces[#terrainFaces + 1] = { {40, -40, 0}, {40, 40, 0}, {-40, 40, 0}, {-40, -40, 0},  } 
+		
+		groundFace =  { {40, -40, 0}, {40, 40, 0}, {-40, 40, 0}, {-40, -40, 0},  } 
+		
+		result.groundFaces[#result.groundFaces + 1] = { face = groundFace, modes = { { type = "FILL", key = "paving" } } }
+		
+		if params.prodState	== 0 then
+			constructionutil.makeStocks({
+				stocks = {
+					{ cargoType = "TREES",	type = "RECEIVING", x = 24, y = 24, sizex = 1,	sizey = 1 }
+				},
+				stockRules = {
+					{ input = { { 1 } }, output = { { 0 } }, capacity = 1000 }
+				}
+			}, result)
+		end
+
+		if params.prodState	== 1 then
+
+			result.models[#result.models + 1] = {
+				id = "tree/fichte.mdl", 
+				transf = transf.scale(vec3.new(3,3,3))
+			}	
+
+			createGluehweinstand(result.models, 14,22)
+			createGluehweinstand(result.models, 24,12)
+			createGluehweinstand(result.models, 10,10)
+	
+			createGluehweinstand(result.models, -14,-22)
+			createGluehweinstand(result.models, -24,-12)
+			createGluehweinstand(result.models, -10,-10)
+
+			constructionutil.makeStocks({
+				stocks = {
+					{ cargoType = "TREES",	type = "RECEIVING", 	x = -24, y = -24, 	sizex = 1,	sizey = 1 },
+					{ cargoType = "BAUBLES",	type = "RECEIVING", 	x = 24, y = 24, 	sizex = 1,	sizey = 1 }
+				},
+				stockRules = {
+					{ input = { { 1, 0 } }, output = { { 0, 0 } }, capacity = 1000 },
+					{ input = { { 0, 1 } }, output = { { 0, 0 } }, capacity = 1000 }
+				}
+			}, result)		
+
+			result.personCapacity = { type = "COMMERCIAL", capacity = 100 };
+
+		end
+
+		
+		
+		
+		result.terrainAlignmentLists = {
+			{
+				type = "EQUAL",
+				faces = terrainFaces,
+				slopeLow = .35
+			}
+		}	
+		
+		local edges = { }
+		local leftedges = { }
+		local rightedges = { }
+		local backedges = { }
+		local frontedges = { }
+		
+		frontedges[#frontedges + 1] = { { 0, -56.0,  0.0 },  { 0.0, 16.0, 0.00 } }		
+		frontedges[#frontedges + 1] = { { 0, -40.0,  0.0 },  { 0.0, 8.0, 0.00 } }
+		frontedges[#frontedges + 1] = { { 0, -40.0,  0.0 },  { 0.0, 8.0, 0.00 } }		
+		frontedges[#frontedges + 1] = { { 0, -32.0,  0.0 },  { 0.0, 8.0, 0.00 } }
+
+		leftedges[#leftedges + 1] = { { -56.0,0,  0.0 },  {  16.0,0,0.00 } }		
+		leftedges[#leftedges + 1] = { { -40.0,0,  0.0 },  {  8.0,0, 0.00 } }
+		leftedges[#leftedges + 1] = { { -40.0,  0,0.0 },  {  8.0,0, 0.00 } }		
+		leftedges[#leftedges + 1] = { { -32.0,  0,0.0 },  { 8.0,0, 0.00 } }
+
+		backedges[#backedges + 1] = { { 0, 56.0,  0.0 },  { 0.0, -16.0, 0.00 } }		
+		backedges[#backedges + 1] = { { 0, 40.0,  0.0 },  { 0.0, -8.0, 0.00 } }
+		backedges[#backedges + 1] = { { 0, 40.0,  0.0 },  { 0.0, -8.0, 0.00 } }		
+		backedges[#backedges + 1] = { { 0, 32.0,  0.0 },  { 0.0, -8.0, 0.00 } }
+
+		rightedges[#rightedges + 1] = { { 56.0,0,  0.0 },  {  -16.0,0,0.00 } }		
+		rightedges[#rightedges + 1] = { { 40.0,0,  0.0 },  {  -8.0,0, 0.00 } }
+		rightedges[#rightedges + 1] = { { 40.0,  0,0.0 },  {  -8.0,0, 0.00 } }		
+		rightedges[#rightedges + 1] = { { 32.0,  0,0.0 },  { -8.0,0, 0.00 } }
+
+		
+		
+		edges[#edges + 1] = { { -40, -40.0,  0.0 },  { 40.0, 0.0, 0.00 } }		
+		edges[#edges + 1] = { { 0, -40.0,  0.0 },  { 40.0, 0.0, 0.00 } }
+
+		edges[#edges + 1] = { { 0, -40.0,  0.0 },  { 40.0, 0.0, 0.00 } }		
+		edges[#edges + 1] = { { 40, -40.0,  0.0 },  { 40.0, 0.0, 0.00 } }
+		
+		edges[#edges + 1] = { { 40, -40.0,  0.0 },  { 0.0, 40.0, 0.00 } }
+		edges[#edges + 1] = { { 40, 0.0,  0.0 },  { 0.0, 40.0, 0.00 } }
+
+		edges[#edges + 1] = { { 40, 0.0,  0.0 },  { 0.0, 40.0, 0.00 } }
+		edges[#edges + 1] = { { 40, 40.0,  0.0 },  { 0.0, 40.0, 0.00 } }
+
+		edges[#edges + 1] = { { 40, 40.0,  0.0 },  { -40.0, 0.0, 0.00 } }
+		edges[#edges + 1] = { { 0, 40.0,  0.0 },  { -40.0, 0.0, 0.00 } }
+
+		edges[#edges + 1] = { { 0, 40.0,  0.0 },  { -40.0, 0.0, 0.00 } }
+		edges[#edges + 1] = { { -40, 40.0,  0.0 },  { -40.0, 0.0, 0.00 } }
+
+		edges[#edges + 1] = { { -40, 40.0,  0.0 },  { 00.0, -40.0, 0.00 } }
+		edges[#edges + 1] = { { -40, 0.0,  0.0 },  { 00.0, -40.0, 0.00 } }
+
+		edges[#edges + 1] = { { -40, 0.0,  0.0 },  { 00.0, -40.0, 0.00 } }
+		edges[#edges + 1] = { { -40, -40.0,  0.0 },  { 00.0, -40.0, 0.00 } }
+
+		result.edgeLists = {
+			{
+				type = "STREET",
+				params = { type = "old_small.lua" },
+				edges = frontedges,
+				snapNodes = {0}
+			},
+			{
+				type = "STREET",
+				params = { type = "old_small.lua" },
+				edges = backedges,
+				snapNodes = {0}
+			},
+			{
+				type = "STREET",
+				params = { type = "old_small.lua" },
+				edges = leftedges,
+				snapNodes = {0}
+			},
+			{
+				type = "STREET",
+				params = { type = "old_small.lua" },
+				edges = rightedges,
+				snapNodes = {0}
+			},
+			{
+				type = "STREET",
+				params = { type = "old_small.lua" },
+				edges = edges,
+				snapNodes = {}
+			}
+		}
+
+		return result
+	end
+}
+
+end

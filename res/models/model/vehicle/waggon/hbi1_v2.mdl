@@ -1,0 +1,201 @@
+function data()
+return {
+	boundingInfo = {
+		bbMax = {
+			7.9388990402222, 1.7026489973068, 4.6074352264404, 
+		},
+		bbMin = {
+			-8.4486074447632, -1.7026489973068, -0.0088170170783997, 
+		},
+		
+	},
+	collider = {
+		params = {
+			
+		},
+		type = "MESH",
+		
+	},
+	lods = {
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/waggon/hbi1/lod_2_hbi.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/hbi1/lod_2_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -4.3857002258301, 0, 0.51899999380112, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/hbi1/lod_2_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 4.3857002258301, 0, 0.51899999380112, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 300,
+			visibleTo = 1610,
+			
+		}, {
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/waggon/hbi1/lod_1_hbi.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/hbi1/lod_1_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -4.3857002258301, 0, 0.51899999380112, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/hbi1/lod_1_w2.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 4.3857002258301, 0, 0.51899999380112, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/hbi1/lod_0_logo_hbi1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0, 0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 150,
+			visibleTo = 300,
+			
+		}, {
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/waggon/hbi1/lod_0_hbi.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/hbi1/lod_0_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -4.3857002258301, 0, 0.51899999380112, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/hbi1/lod_0_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 4.3857002258301, 0, 0.51899999380112, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/hbi1/lod_0_logo_hbi1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0,  0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 150,
+			
+		}, 
+	},
+	metadata = {
+		description = {
+			name = _("Goods wagon Hbi"),
+			description = _("Twin-axle boxcar with sliding doors, specially for sensitive goods on palettes.")
+		},
+		railVehicle = {
+			topSpeed = 160,		-- 160.0
+			weight = 18,
+			configs = {
+				{ },
+				{ },
+				{
+					axles = { "vehicle/waggon/hbi1/lod_0_w1.msh" }
+				}
+			},
+			soundSet = "waggon_freight_modern"
+		},
+		transportVehicle = {
+			carrier = "RAIL",
+			capacities = {
+				{ type = "LIVESTOCK", capacity = 52 },
+				{ type = "PLASTIC", capacity = 52 },
+				{ type = "MACHINES", capacity = 52 },
+				{ type = "TOOLS", capacity = 52 },
+				{ type = "FOOD", capacity = 52 },
+				{ type = "GOODS", capacity = 52 },
+				{ type = "BAUBLES", capacity = 52 },
+				{ type = "TREES", capacity = 52 },
+			},
+			loadSpeed = 3
+		},
+		availability = {
+			yearFrom = 1970,
+			yearTo = 0
+		},
+		cost = {
+			price = -1
+		},
+		maintenance = {
+			runningCosts = -1,
+			lifespan = 40
+		}
+	},
+	
+}
+end

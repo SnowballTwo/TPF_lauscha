@@ -1,0 +1,99 @@
+function data()
+return {
+	animations = {
+		
+	},
+	matConfigs = {
+		{
+			0, 
+		},
+		{
+			1, 
+		}, 
+		{
+			2, 
+		},
+		{
+			3, 
+		}, 		
+		{
+			4, 
+		}, 
+		{
+			5, 
+		}, 	
+		{
+			6, 
+		}, 	
+		{
+			7, 
+		}, 
+	},
+	subMeshes = {
+		{
+			indices = {
+				normal = {
+					count = 96,
+					offset = 1044,
+					
+				},
+				position = {
+					count = 96,
+					offset = 852,
+					
+				},
+				tangent = {
+					count = 96,
+					offset = 1140,
+					
+				},
+				uv0 = {
+					count = 96,
+					offset = 948,
+					
+				},
+				
+			},
+			materials = {
+				"vehicle/waggon/coal.mtl",
+				"vehicle/waggon/iron.mtl",
+				"vehicle/waggon/stone.mtl",
+				"vehicle/waggon/grain.mtl",
+				"vehicle/waggon/slag.mtl", 
+				"vehicle/waggon/sand.mtl", 
+				"vehicle/waggon/potash.mtl", 
+				"vehicle/waggon/minerals.mtl", 
+			},
+			
+		}, 
+	},
+	vertexAttr = {
+		normal = {
+			count = 288,
+			numComp = 3,
+			offset = 180,
+			
+		},
+		position = {
+			count = 108,
+			numComp = 3,
+			offset = 0,
+			
+		},
+		tangent = {
+			count = 384,
+			numComp = 4,
+			offset = 468,
+			
+		},
+		uv0 = {
+			count = 72,
+			numComp = 2,
+			offset = 108,
+			
+		},
+		
+	},
+	
+}
+end

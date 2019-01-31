@@ -1,0 +1,79 @@
+function data()
+return {
+	boundingInfo = {
+		bbMax = {
+			3.029000043869, 1.2690000534058, 2.6177339553833, 
+		},
+		bbMin = {
+			-3.029000043869, -1.2690000534058, 0, 
+		},
+		
+	},
+	collider = {
+		params = {
+			
+		},
+		type = "MESH",
+		
+	},
+	lods = {
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "industry/cargo/lod_1_cargo_baubles_large.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 80,
+			visibleTo = 1200,
+			
+		},{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "industry/cargo/lod_0_cargo_baubles_large.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 80,
+			
+		}, 
+	},
+	metadata = {
+		
+	},
+	
+}
+end

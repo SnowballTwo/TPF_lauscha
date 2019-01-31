@@ -1,0 +1,171 @@
+function data()
+return {
+	boundingInfo = {
+		bbMax = {
+			1.0, 0.98036199808121, 1.8561190366745, 
+		},
+		bbMin = {
+			-1.0, -0.97808599472046, 0.0057439999654889, 
+		},
+		
+	},
+	collider = {
+		params = {
+			
+		},
+		type = "MESH",
+		
+	},
+	lods = {
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "tree/fraserfir_rt_1_lod1.msh",
+					transf = {0, 0, -0.200, 0, 0, 0.200, 0, 0, 0.300, 0, 0, 0, -1, 0, 0, 1, },
+					type = "MESH",
+					
+				}, 
+				{
+					id = "tree/fraserfir_rt_1_lod1.msh",
+					transf = {0, 0, -0.200, 0, 0, 0.200, 0, 0, 0.300, 0, 0, 0, -1, 0.5, 0, 1, },
+					type = "MESH",
+					
+				},
+				{
+					id = "tree/fraserfir_rt_1_lod1.msh",
+					transf = {0, 0, -0.200, 0, 0, 0.200, 0, 0, 0.300, 0, 0, 0, -1, 1, 0, 1, },
+					type = "MESH",
+					
+				},
+				{
+					id = "tree/fraserfir_rt_1_lod1.msh",
+					transf = {0, 0, -0.200, 0, 0, 0.200, 0, 0, 0.300, 0, 0, 0, -1, 0, 0.5, 1, },
+					type = "MESH",
+					
+				},
+				{
+					id = "tree/fraserfir_rt_1_lod1.msh",
+					transf = {0, 0, -0.200, 0, 0, 0.200, 0, 0, 0.300, 0, 0, 0, -1, 0.5, 0.5, 1, },
+					type = "MESH",
+					
+				},
+				{
+					id = "tree/fraserfir_rt_1_lod1.msh",
+					transf = {0, 0, -0.200, 0, 0, 0.200, 0, 0, 0.300, 0, 0, 0, -1, 1, 0.5, 1, },
+					type = "MESH",
+					
+				},
+				{
+					id = "tree/fraserfir_rt_1_lod1.msh",
+					transf = {0, 0, -0.200, 0, 0, 0.200, 0, 0, 0.300, 0, 0, 0, -1, 0, 1, 1, },
+					type = "MESH",
+					
+				},
+				{
+					id = "tree/fraserfir_rt_1_lod1.msh",
+					transf = {0, 0, -0.200, 0, 0, 0.200, 0, 0, 0.300, 0, 0, 0, -1, 0.5, 1, 1, },
+					type = "MESH",
+					
+				},
+				{
+					id = "tree/fraserfir_rt_1_lod1.msh",
+					transf = {0, 0, -0.200, 0, 0, 0.200, 0, 0, 0.300, 0, 0, 0, -1, 1, 1, 1, },
+					type = "MESH",
+					
+				}
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 100,
+			visibleTo = 600,
+			
+		}, {
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "tree/fraserfir_rt_1_lod0.msh",
+					transf = {0, 0, -0.200, 0, 0, 0.200, 0, 0, 0.300, 0, 0, 0, -1, 0, 0, 1, },
+					type = "MESH",
+					
+				}, 
+				{
+					id = "tree/fraserfir_rt_1_lod0.msh",
+					transf = {0, 0, -0.200, 0, 0, 0.200, 0, 0, 0.300, 0, 0, 0, -1, 0.5, 0, 1, },
+					type = "MESH",
+					
+				},
+				{
+					id = "tree/fraserfir_rt_1_lod0.msh",
+					transf = {0, 0, -0.200, 0, 0, 0.200, 0, 0, 0.300, 0, 0, 0, -1, 1, 0, 1, },
+					type = "MESH",
+					
+				},
+				{
+					id = "tree/fraserfir_rt_1_lod0.msh",
+					transf = {0, 0, -0.200, 0, 0, 0.200, 0, 0, 0.300, 0, 0, 0, -1, 0, 0.5, 1, },
+					type = "MESH",
+					
+				},
+				{
+					id = "tree/fraserfir_rt_1_lod0.msh",
+					transf = {0, 0, -0.200, 0, 0, 0.200, 0, 0, 0.300, 0, 0, 0, -1, 0.5, 0.5, 1, },
+					type = "MESH",
+					
+				},
+				{
+					id = "tree/fraserfir_rt_1_lod0.msh",
+					transf = {0, 0, -0.200, 0, 0, 0.200, 0, 0, 0.300, 0, 0, 0, -1, 1, 0.5, 1, },
+					type = "MESH",
+					
+				},
+				{
+					id = "tree/fraserfir_rt_1_lod0.msh",
+					transf = {0, 0, -0.200, 0, 0, 0.200, 0, 0, 0.300, 0, 0, 0, -1, 0, 1, 1, },
+					type = "MESH",
+					
+				},
+				{
+					id = "tree/fraserfir_rt_1_lod0.msh",
+					transf = {0, 0, -0.200, 0, 0, 0.200, 0, 0, 0.300, 0, 0, 0, -1, 0.5, 1, 1, },
+					type = "MESH",
+					
+				},
+				{
+					id = "tree/fraserfir_rt_1_lod0.msh",
+					transf = {0, 0, -0.200, 0, 0, 0.200, 0, 0, 0.300, 0, 0, 0, -1, 1, 1, 1, },
+					type = "MESH",
+					
+				}
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 100,
+			
+		}, 
+	},
+	metadata = {
+		
+	},
+	
+}
+end

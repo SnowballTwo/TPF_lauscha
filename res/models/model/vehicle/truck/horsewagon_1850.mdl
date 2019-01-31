@@ -1,0 +1,163 @@
+local vec3 = require "vec3"
+local transf = require "transf"
+function data()
+return {
+	lods = {
+		{
+				animations = {
+					
+				},
+				children = {
+					{
+						id = "vehicle/truck/horsewagon_1850_lod_1_body.grp",
+						transf = {
+							1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+						},
+						type = "GROUP",
+						
+					}, {
+						id = "vehicle/bus/postkutsche_lod_1_horses.grp",
+						transf = {
+							1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 4.0147, 0, 0, 1, 
+						},
+						type = "GROUP",
+						
+					},
+					
+				},
+				events = {
+					drive = {
+						[2] = {
+							forward = true,
+							name = "drive",
+						},
+					},
+					
+				},
+				matConfigs = {
+					{
+						0, 0,
+					}, 
+				},
+				static = false,
+				visibleFrom = 70,
+				visibleTo = 810,
+				
+			}, 
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/truck/horsewagon_1850_lod_0_body.grp",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "GROUP",
+					
+				}, {
+					id = "vehicle/bus/postkutsche_lod_0_horses.grp",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 4.0147, 0, 0, 1, 
+					},
+					type = "GROUP",
+					
+				},
+				
+			},
+			events = {
+				drive = {
+					[2] = {
+						forward = true,
+						name = "drive",
+					},
+				},
+				
+			},
+			matConfigs = {
+				{
+					0, 0,
+				}, 
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 70,
+			
+		}, 
+	},
+	metadata = {
+		description = {
+			name = _("Horse wagon"),
+			description = _("A two-horse vehicle with a simple twin axle carriage.")
+		},
+		roadVehicle = {
+			topSpeed = 15,
+			weight = 1.5,
+			power = 2,
+			tractiveEffort = 1.8,
+			configs = {
+				{
+					axles = { 
+						"vehicle/truck/horse_wagon/horse_wagon_lod_1_w1.msh", 
+						"vehicle/truck/horse_wagon/horse_wagon_lod_1_w2.msh", 
+					},
+					fakeBogies = { { group = 7, position = 4.0147, offset = 0.0 } }
+				},
+				{
+					axles = { 
+						"vehicle/truck/horse_wagon/horse_wagon_lod_0_w1.msh", 
+						"vehicle/truck/horse_wagon/horse_wagon_lod_0_w2.msh", 
+					},
+					fakeBogies = { { group = 8, position = 4.0147, offset = 0.0 } }
+				}
+			},
+			soundSet = "truck_horse"
+		},
+		transportVehicle = {
+			carrier = "ROAD",
+			capacities = {
+				{ type = "LOGS", capacity = 16 },
+				{ type = "LIVESTOCK", capacity = 16 },
+				{ type = "COAL", capacity = 16 },
+				{ type = "IRON_ORE", capacity = 16 },
+				{ type = "STONE", capacity = 16 },
+				{ type = "GRAIN", capacity = 16 },
+				{ type = "CRUDE", capacity = 16 },
+				{ type = "STEEL", capacity = 16 },
+				{ type = "PLANKS", capacity = 16 },
+				{ type = "PLASTIC", capacity = 16 },
+				{ type = "SLAG", capacity = 16 },
+				{ type = "OIL", capacity = 16 },
+				{ type = "CONSTRUCTION_MATERIALS", capacity = 16 },
+				{ type = "MACHINES", capacity = 16 },
+				{ type = "FUEL", capacity = 16 },
+				{ type = "TOOLS", capacity = 16 },
+				{ type = "FOOD", capacity = 16 },
+				{ type = "GOODS", capacity = 16 },
+				{ type = "BAUBLES", capacity = 16 },
+				{ type = "TREES", capacity = 16 },
+				{ type = "SAND", capacity = 16 },
+				{ type = "MINERALS", capacity = 16 },
+				{ type = "POTASH", capacity = 16 },
+			},
+			loadSpeed = 1,
+			seats = {
+						{ group =1, transf = transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(1.9, -0.1, 0.9)), crew = true},
+					},
+		},
+		availability = {
+			yearFrom = 1850,
+			yearTo = 1907
+		},
+		cost = {
+			price = -1
+		},
+		maintenance = {
+			runningCosts = -1,
+			lifespan = 15
+		}
+	},
+	
+}
+end

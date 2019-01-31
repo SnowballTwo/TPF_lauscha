@@ -1,0 +1,88 @@
+function data()
+return {
+	params = {
+		fade_out_range = {
+			fadeOutEndDist = 20000,
+			fadeOutStartDist = 10000,
+			
+		},
+		map_albedo = {
+			compressionAllowed = true,
+			fileName = "models/vehicle/waggon/potash.dds",
+			magFilter = "LINEAR",
+			minFilter = "LINEAR_MIPMAP_LINEAR",
+			mipmapAlphaScale = 0,
+			type = "TWOD",
+			wrapS = "REPEAT",
+			wrapT = "REPEAT",
+			
+		},
+		map_metal_gloss_ao = {
+			compressionAllowed = true,
+			fileName = "models/vehicle/waggon/cargo_stone_metal_gloss_ao.dds",
+			magFilter = "LINEAR",
+			minFilter = "LINEAR_MIPMAP_LINEAR",
+			mipmapAlphaScale = 0,
+			type = "TWOD",
+			wrapS = "REPEAT",
+			wrapT = "REPEAT",
+			
+		},
+		map_normal = {
+			compressionAllowed = true,
+			fileName = "models/vehicle/waggon/cargo_stone_normal.dds",
+			magFilter = "LINEAR",
+			minFilter = "LINEAR_MIPMAP_LINEAR",
+			mipmapAlphaScale = 0,
+			type = "TWOD",
+			wrapS = "REPEAT",
+			wrapT = "REPEAT",
+			
+		},
+		polygon_offset = {
+			factor = 0,
+			units = 0,
+			
+		},
+		two_sided = {
+			flipNormal = false,
+			twoSided = false,
+			
+		},
+		map_op_1 = {
+			compressionAllowed = true,
+			fileName = "models/industry/overlay_textures/small_04.tga",
+			magFilter = "LINEAR",
+			minFilter = "LINEAR_MIPMAP_LINEAR",
+			mipmapAlphaScale = 0,
+			type = "TWOD",
+			wrapS = "REPEAT",
+			wrapT = "REPEAT",
+		},
+		operation_1 = {
+			op = "OVERLAY",
+			mode = "NORMAL",
+			scale = { 1.0/20, 1.0/20 },
+			opacity = 0.9
+		},
+		map_op_2 = {
+			compressionAllowed = true,
+			fileName = "models/industry/overlay_textures/big_04.tga",
+			magFilter = "LINEAR",
+			minFilter = "LINEAR_MIPMAP_LINEAR",
+			mipmapAlphaScale = 0,
+			type = "TWOD",
+			wrapS = "REPEAT",
+			wrapT = "REPEAT",
+		},
+		operation_2 = {
+			op = "OVERLAY",
+			mode = "NORMAL",
+			scale = { 1.0/10, 1.0/10 },
+			opacity = 0.3
+		},
+	},
+	type = "PHYSICAL_NRML_MAP_OP",	
+	
+}
+end

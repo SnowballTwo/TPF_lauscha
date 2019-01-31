@@ -1,0 +1,267 @@
+local vec3 = require "vec3"
+local transf = require "transf"
+
+function data()
+return {
+	boundingInfo = {
+		bbMax = {
+			3.189001083374, 1.1996840238571, 3.0848240852356, 
+		},
+		bbMin = {
+			-3.0658431053162, -1.1996840238571, -0.47877499461174, 
+		},
+		
+	},
+	collider = {
+		params = {
+			
+		},
+		type = "MESH",
+		
+	},
+	lods = {
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/truck/opel_blitz/lod_2_opelblitz.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/opel_blitz/lod_2_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -1.4843, 0, 0.4757, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/opel_blitz/lod_2_w2.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2.2848, 0.8081, 0.4757, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/opel_blitz/lod_2_w2.msh",
+					transf = {
+						-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 2.2848, -0.8081, 0.4757, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0,  0,
+				}, 
+			},
+			static = false,
+			visibleFrom = 180,
+			visibleTo = 860,
+			
+		}, {
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/truck/opel_blitz/lod_1_opelblitz.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/opel_blitz/lod_1_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -1.4843, 0, 0.4757, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/opel_blitz/lod_1_w2.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2.2848, 0.8081, 0.4757, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/opel_blitz/lod_1_w2.msh",
+					transf = {
+						-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 2.2848, -0.8081, 0.4757, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0,  0,
+				}, 
+			},
+			static = false,
+			visibleFrom = 80,
+			visibleTo = 180,
+			
+		}, {
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/truck/opel_blitz/lod_0_opelblitz.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/opel_blitz/lod_0_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -1.4843, 0, 0.4757, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/opel_blitz/lod_0_w2.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 2.2848, 0.8081, 0.4757, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/opel_blitz/lod_0_w2.msh",
+					transf = {
+						-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 2.2848, -0.8081, 0.4757, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/opel_blitz/lod_0_interior.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				},
+				{
+					id = "vehicle/asset/lod_0_light_round_white.msh",
+					--manual lights
+					transf = transf.scaleRotZYXTransl(vec3.new(1.0,1.0,1.0),transf.degToRad( 0.0, 0.0, 0.0), vec3.new( 2.9, 0.68, 1.06)),
+					type = "MESH", 
+				},{
+					id = "vehicle/asset/lod_0_light_round_white.msh",
+					--manual lights
+					transf = transf.scaleRotZYXTransl(vec3.new(1.0,1.0,1.0),transf.degToRad( 0.0, 0.0, 0.0), vec3.new( 2.9, -0.68, 1.06)),
+					type = "MESH", 
+				},				
+				{
+					id = "vehicle/driver_static/lod_0_driver_static.msh",
+					transf = {
+						1.0, 0, 0, 0, 0, 1.0, 0, 0, 0, 0, 1.0, 0, -2.9, -0.22, 0.15, 1, 
+					},
+					type = "MESH",
+				},{
+					id = "vehicle/truck/opel_blitz/lod_0_opelblitz_logo.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0,  0,0,
+				}, 
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 80,
+			
+		}, 
+	},
+	metadata = {
+		description = {
+			name = _("Opel Blitz"),
+			description = _("A very popular lorry from Opel, built in diverse variants.")
+		},
+		roadVehicle = {
+			topSpeed = 60,
+			weight = 2.5,
+			power = 73.5,
+			tractiveEffort = 7,
+			configs = {
+				{
+				},
+				{
+					axles = { "vehicle/truck/opel_blitz/lod_1_w1.msh" },
+					wheels = { "vehicle/truck/opel_blitz/lod_1_w2.msh" },
+					fakeBogies = { { group = 0, position = 0.0, offset = 0.0 } }
+				},
+				{
+					axles = { "vehicle/truck/opel_blitz/lod_0_w1.msh" },
+					wheels = { "vehicle/truck/opel_blitz/lod_0_w2.msh" },
+					fakeBogies = { { group = 0, position = 0.0, offset = 0.0 } }
+				}
+			},
+			soundSet = "truck_old"
+		},
+		transportVehicle = {
+			carrier = "ROAD",
+			capacities = {
+				{ type = "LOGS", capacity = 44 },
+				{ type = "LIVESTOCK", capacity = 44 },
+				{ type = "COAL", capacity = 44 },
+				{ type = "IRON_ORE", capacity = 44 },
+				{ type = "STONE", capacity = 44 },
+				{ type = "GRAIN", capacity = 44 },
+				{ type = "CRUDE", capacity = 44 },
+				{ type = "STEEL", capacity = 44 },
+				{ type = "PLANKS", capacity = 44 },
+				{ type = "PLASTIC", capacity = 44 },
+				{ type = "SLAG", capacity = 44 },
+				{ type = "OIL", capacity = 44 },
+				{ type = "CONSTRUCTION_MATERIALS", capacity = 44 },
+				{ type = "MACHINES", capacity = 44 },
+				{ type = "FUEL", capacity = 44 },
+				{ type = "TOOLS", capacity = 44 },
+				{ type = "FOOD", capacity = 44 },
+				{ type = "GOODS", capacity = 44 },
+				{ type = "BAUBLES", capacity = 44 },
+				{ type = "TREES", capacity = 44 },
+				{ type = "SAND", capacity = 44 },
+				{ type = "MINERALS", capacity = 44 },
+				{ type = "POTASH", capacity = 44 },
+			},
+			loadSpeed = 3
+		},
+		availability = {
+			yearFrom = 1935,
+			yearTo = 1995
+		},
+		cost = {
+			price = -1
+		},
+		maintenance = {
+			runningCosts = -1,
+			lifespan = 30
+		}
+	},
+	
+}
+end

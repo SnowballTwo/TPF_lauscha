@@ -1,0 +1,357 @@
+local constructionutil = require "constructionutil"
+local transf = require "transf"
+local vec3 = require "vec3"
+local vec2 = require "vec2"
+
+local tile_size = 256
+
+function compareById(a,b)
+	return a.models["asset/marker.mdl"] < b.models["asset/marker.mdl"]
+  end
+  
+function getMarkers()
+
+	local entities = game.interface.getEntities({ pos = {0,0}, radius = 900000 }, { type="ASSET_GROUP"});
+		
+	local markers = {}
+
+	if entities then
+		for i=1, #entities do
+			local c = entities[i]
+			local data = game.interface.getEntity(c)
+			local markercount = data.models["asset/marker.mdl"] or 0
+			if markercount > 0 then
+				markers[#markers + 1] = data
+			end
+		end	
+	end
+
+	table.sort(markers, compareById)
+
+	return markers
+end	
+
+function getFinishers()
+	
+	local entities = game.interface.getEntities({ pos = {0,0}, radius = 900000 }, { type="ASSET_GROUP"});
+		
+	local finishers = {}
+
+	if entities then
+		for i=1, #entities do
+			local c = entities[i]
+			local data = game.interface.getEntity(c)
+			local finishercount = data.models["asset/finisher.mdl"] or 0
+			if finishercount > 0 then
+				finishers[#finishers + 1] = data
+			end
+		end	
+	end
+
+	return finishers
+end	
+
+
+
+function intersects(line1, line2) 
+
+	local v1x1 = line1[1][1]
+	local v1y1 = line1[1][2]
+	local v1x2 = line1[2][1]
+	local v1y2 = line1[2][2]
+
+	local v2x1 = line2[1][1]
+	local v2y1 = line2[1][2]
+	local v2x2 = line2[2][1]
+	local v2y2 = line2[2][2]
+
+    local d1, d2;
+    local a1, a2, b1, b2, c1, c2;
+   
+    a1 = v1y2 - v1y1;
+    b1 = v1x1 - v1x2;
+    c1 = (v1x2 * v1y1) - (v1x1 * v1y2);
+   
+    d1 = (a1 * v2x1) + (b1 * v2y1) + c1;
+    d2 = (a1 * v2x2) + (b1 * v2y2) + c1;
+    
+	if d1 > 0 and d2 > 0 then
+		return false
+	end
+
+	if d1 < 0 and d2 < 0 then
+		return false
+	end
+    
+    a2 = v2y2 - v2y1;
+    b2 = v2x1 - v2x2;
+    c2 = (v2x2 * v2y1) - (v2x1 * v2y2);
+    
+    d1 = (a2 * v1x1) + (b2 * v1y1) + c2;
+    d2 = (a2 * v1x2) + (b2 * v1y2) + c2;
+   
+    if d1 > 0 and d2 > 0 then
+		return false
+	end
+
+	if d1 < 0 and d2 < 0 then
+		return false
+	end
+
+    --colinear
+	if (a1 * b2) - (a2 * b1) == 0.0 then
+		return false
+	end
+   
+    return true
+end
+
+function getPolygon(markers)
+
+	local polygon = {}
+	
+	for i = 1, #markers do
+		local marker = markers[i]
+		polygon[#polygon + 1] = {marker.position[1], marker.position[2]}		
+	end
+	
+	if #polygon > 2 then
+		return polygon
+	else
+		return nil
+	end
+end
+
+function getBounds(polygon)
+
+	local xmin, xmax, ymin, ymax
+
+	for i = 1, #polygon do
+		local point = polygon[i]
+
+		if (not xmin or point[1] < xmin) then
+			xmin = point[1]
+		end
+
+		if (not xmax or point[1] > xmax) then
+			xmax = point[1]
+		end
+
+		if (not ymin or point[2] < ymin) then
+			ymin = point[2]
+		end
+
+		if (not ymax or point[2] > ymax) then
+			ymax = point[2]
+		end
+	end
+
+	return {
+		x = xmin,
+		y = ymin,
+		width = xmax - xmin,
+		height = ymax - ymin
+	}
+
+end
+
+function isInPolygon(point, polygon, bounds)
+
+	local intersections = 0
+	
+	--outside of bounding box
+	if (point[1] < bounds.x or point[1] > bounds.x + bounds.width or
+		point[2] < bounds.y or point[2] > bounds.y + bounds.height) then
+		return false
+	end
+
+	local horizontal = {{bounds.x, point[2] }, {point[1], point[2]}}	
+
+	for i = 1, #polygon do
+
+		local j = i + 1
+		if j > #polygon then
+			j = 1
+		end
+
+		local line = {polygon[i], polygon[j]}	
+
+		if (intersects(horizontal, line)) then
+			intersections = intersections + 1
+		end
+	end
+
+	return intersections % 2 == 1
+end
+
+
+local densities = {24,36,48,64,96,128,160}
+local modes = { "plan", "plant", "finish" }
+local types = { "all", "conifer", "broadleaf" }
+local sizes = { "all", "large", "medium", "small", "shrub" }
+
+function dump(o)
+	if type(o) == 'table' then
+	local s = '{ '
+	for k,v in pairs(o) do
+	   if type(k) ~= 'number' then k = '"'..k..'"' end
+	   s = s .. '['..k..'] = ' .. dump(v) .. ','
+	end
+	return s .. '} '
+	else
+	   return tostring(o)
+	end
+ end
+
+function data() return { 
+	type = "ASSET_DEFAULT",
+	buildMode = "MULTI",
+	categories = { "tree" },
+	tag = "PlanterMarker",
+	availability = {
+		yearFrom = 0,
+		yearTo = 0,
+	},
+	description = {
+		name = "Planter",
+		description = "Plane und Pflanze Waldflächen"
+	},
+	
+	order = 0,
+	skipCollision = true,
+	autoRemovable = true,
+	params = {
+		{
+			key = "mode",
+			name = _("Mode"),
+			values = { _("plan"), _("plant"), _("finish") },
+			defaultIndex = 0,
+		},
+		{
+			key = "density",
+			name = _("Density"),
+			values = {"24","36","48","64","96","128","160"},
+			defaultIndex = 3,
+		}		
+	},
+	updateFn = function( params )
+	
+		local result = { models = {} }
+		local mode = modes[params.mode + 1]		
+		local density = densities[params.density + 1]
+		
+		local markers = getMarkers()
+		local finishers = getFinishers()
+
+		result.models = {}
+		
+		result.terrainAlignmentLists = { {
+			type = "EQUAL",
+			faces =  { }
+		} }
+				
+		if mode == "finish" then			
+				
+			result.models[#result.models + 1] =
+			{
+				id = "asset/finisher.mdl",
+				transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 }
+			}
+			game.interface.setZone("plantzone", nil)
+				
+			for i = 1, #markers do
+				local marker = markers[i]
+				game.interface.bulldoze(marker.id)
+			end						
+
+		elseif mode == "plan" then
+
+			for i = 1, #finishers do
+				local finisher = finishers[i]
+				game.interface.bulldoze(finisher.id)
+			end	
+			
+			for i = 1, #markers + 1 do
+				result.models[#result.models + 1] =
+				{
+					id = "asset/marker.mdl",
+					transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 }
+				}
+			end
+
+			local plantpoly = getPolygon(markers)
+			
+			if plantpoly then
+				plantzone = { polygon = plantpoly, draw = true, drawColor = { 1, .5, .0, .7 } }
+				game.interface.setZone("plantzone", plantzone)
+			end
+			
+		elseif mode == "plant" then
+				
+			for i = 1, #markers + 1 do
+				result.models[#result.models + 1] =
+				{
+					id = "asset/marker.mdl",
+					transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 }
+				}
+			end
+
+			local plantpoly = getPolygon(markers)
+			if not plantpoly or #plantpoly < 3 then
+				return result
+			end
+
+			local bounds = getBounds(plantpoly)
+			local treeDensity = 1.0 / density			
+		
+			local area = bounds.width * bounds.height
+			if not area or area < 1e-6 then
+				return result
+			end
+
+			local numTrees = math.max(1, math.floor(treeDensity * area))
+			local transforms = {}
+
+			for k = 1,numTrees do
+
+				local x = math.random( ) * bounds.width + bounds.x
+				local y = math.random( ) * bounds.height + bounds.y
+
+				local plant = isInPolygon({x,y}, plantpoly, bounds)
+				
+				if plant then
+					
+					local height = game.interface.getHeight({x,y})
+					local transform = transf.rotZTransl(math.random() * math.pi * 2.0, vec3.new(x,y,height))
+
+					--A cell size of tile_size should be sufficient to avoid laggy planning
+					local cellx = tostring(math.floor(x / tile_size - bounds.x));
+					local celly = tostring(math.floor(y / tile_size - bounds.y));
+					
+					if not transforms[cellx] then
+						transforms[cellx] = {}
+					end
+
+					if not transforms[cellx][celly]  then
+						transforms[cellx][celly]  = {}
+					end
+
+
+					transforms[cellx][celly][#(transforms[cellx][celly]) + 1] = transform	
+				end				
+
+			end
+
+			for x, transformsx in pairs(transforms) do
+				for y, transformsy in pairs(transformsx) do
+					game.interface.buildConstruction("asset/tree.con", { transforms = transformsy }, { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, -0.15, 1 })
+				end
+			end			
+		else
+			error("Planter: invalid operation ", mode)
+		end	
+	
+		return result
+		
+	end,
+} end

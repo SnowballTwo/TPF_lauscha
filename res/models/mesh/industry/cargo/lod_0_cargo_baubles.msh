@@ -1,0 +1,99 @@
+function data()
+return {
+	animations = {
+		
+	},
+	matConfigs = {
+		{
+			0, 0, 
+		}, 
+	},
+	subMeshes = {
+		{
+			indices = {
+				normal = {
+					count = 144,
+					offset = 14104,
+					
+				},
+				position = {
+					count = 144,
+					offset = 13816,
+					
+				},
+				tangent = {
+					count = 144,
+					offset = 14248,
+					
+				},
+				uv0 = {
+					count = 144,
+					offset = 13960,
+					
+				},
+				
+			},
+			materials = {
+				"industry/cargo/cargo_items_1.mtl", 
+			},
+			
+		}, {
+			indices = {
+				normal = {
+					count = 2400,
+					offset = 19192,
+					
+				},
+				position = {
+					count = 2400,
+					offset = 14392,
+					
+				},
+				tangent = {
+					count = 2400,
+					offset = 21592,
+					
+				},
+				uv0 = {
+					count = 2400,
+					offset = 16792,
+					
+				},
+				
+			},
+			materials = {
+				"industry/cargo/cargo_baubles_3.mtl", 
+			},
+			
+		}, 
+	},
+	vertexAttr = {
+		normal = {
+			count = 7632,
+			numComp = 3,
+			offset = 3352,
+			
+		},
+		position = {
+			count = 1536,
+			numComp = 3,
+			offset = 0,
+			
+		},
+		tangent = {
+			count = 2832,
+			numComp = 4,
+			offset = 10984,
+			
+		},
+		uv0 = {
+			count = 1816,
+			numComp = 2,
+			offset = 1536,
+			
+		},
+		
+	},
+	
+}
+end

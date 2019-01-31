@@ -1,0 +1,208 @@
+function data()
+return {
+	boundingInfo = {
+		bbMax = {
+			3.7555150985718, 1.5256500244141, 3.6031980514526, 
+		},
+		bbMin = {
+			-3.7555150985718, -1.5256500244141, -0.53295797109604, 
+		},
+		
+	},
+	collider = {
+		params = {
+			
+		},
+		type = "MESH",
+		
+	},
+	lods = {
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/waggon/goods_1850/goods_1850_lod_2_body.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/goods_1850/goods_1850_lod_2_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1.6429, 0, 0.4803, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/goods_1850/goods_1850_lod_2_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -1.6429, 0, 0.4803, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 250,
+			visibleTo = 1030,
+			
+		}, 
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/waggon/goods_1850/goods_1850_lod_1_body.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/goods_1850/goods_1850_lod_1_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1.6429, 0, 0.4803, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/goods_1850/goods_1850_lod_1_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -1.6429, 0, 0.4803, 1, 
+					},
+					type = "MESH",
+					
+				},  {
+					id = "vehicle/waggon/goods_1850/lod_0_logo_body.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0,  0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 120,
+			visibleTo = 250,
+			
+		}, 
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/waggon/goods_1850/goods_1850_lod_0_body.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/goods_1850/goods_1850_lod_0_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1.6429, 0, 0.4803, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/goods_1850/goods_1850_lod_0_w1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -1.6429, 0, 0.4803, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/waggon/goods_1850/lod_0_logo_body.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0, 0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 120,
+			
+		}, 
+	},
+	metadata = {
+		description = {
+			name = _("Goods wagon"),
+			description = _("Common used boxcar.")
+		},
+		railVehicle = {
+			topSpeed = 80,
+			weight = 5,
+			configs = {
+				{
+					axles = { "vehicle/waggon/goods_1850/goods_1850_lod_2_w1.msh" }
+				},
+				{
+					axles = { "vehicle/waggon/goods_1850/goods_1850_lod_1_w1.msh" }
+				},
+				{
+					axles = { "vehicle/waggon/goods_1850/goods_1850_lod_0_w1.msh" }
+				}
+			},
+			soundSet = "waggon_freight_old"
+		},
+		transportVehicle = {
+			carrier = "RAIL",
+			capacities = {
+				{ type = "LIVESTOCK", capacity = 16 },
+				{ type = "PLASTIC", capacity = 16 },
+				{ type = "MACHINES", capacity = 16 },
+				{ type = "TOOLS", capacity = 16 },
+				{ type = "FOOD", capacity = 16 },
+				{ type = "GOODS", capacity = 16 },
+				{ type = "BAUBLES", capacity = 16 },
+				{ type = "TREES", capacity = 16 },
+			},
+			loadSpeed = 1
+		},
+		availability = {
+			yearFrom = 1850,
+			yearTo = 1915
+		},
+		cost = {
+			price = -1
+		},
+		maintenance = {
+			runningCosts = -1,
+			lifespan = 50
+		}
+		
+	},
+	
+}
+end

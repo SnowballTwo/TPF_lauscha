@@ -1,0 +1,499 @@
+local constructionutil = require "constructionutil"
+local paramsutil = require "paramsutil"
+local vec3 = require "vec3"
+local transf = require "transf"
+
+function data()
+
+return { 
+	type = "INDUSTRY",
+	description = {
+		name = _("potashworks"),
+	},
+	availability = {
+
+	},
+	soundConfig = {
+		soundSet = { name = "saw_mill" },
+		effects = {
+			select =  {
+				"selected_industry_saw_mill1.wav",
+				"selected_industry_saw_mill2.wav",
+				"selected_industry_saw_mill3.wav"
+			}
+		}
+	},
+	order = 1001,
+	params = paramsutil.makeIndustryParams(),
+	updateFn = function(params)
+		local result = { }
+
+		local level = (params.productionLevel or 0) + 1
+			
+		local terrainFaces = { }	
+		local groundFace = { }
+		local fenceFace = { }
+		local edges = { }
+
+		edges[#edges + 1] = { { 0.0, -79.0,  0.0 },  { 0.0, 15.0, 0.00 } }
+		edges[#edges + 1] = { { 0.0, -64.0,  0.0 },  { 0.0, 15.0, 0.00 } }
+		
+		edges[#edges + 1] = { { 0.0, -64.0,  0.0 },  { -20.0, 64.0, 0.00 } }
+		edges[#edges + 1] = { {-20.0,  0.0,  0.0 },  { -20.0, 64.0, 0.00 } }
+		
+		edges[#edges + 1] = { {-20.0,  0.0,  0.0 },  { 00.0,  64.0, 0.00 } }
+		edges[#edges + 1] = { {34.0,  40.0,  0.0 },  { 64.0,  00.0, 0.00 } }
+		
+		edges[#edges + 1] = { {34.0,  40.0,  0.0 },  { 24.0,  00.0, 0.00 } }
+		edges[#edges + 1] = { {58.0,  40.0,  0.0 },  { 24.0,  00.0, 0.00 } }
+		
+		edges[#edges + 1] = { {58.0,  40.0,  0.0 },  { 00.0, -20.0, 0.00 } }
+		edges[#edges + 1] = { {58.0,  20.0,  0.0 },  { 00.0, -20.0, 0.00 } }
+		
+		edges[#edges + 1] = { {58.0,  20.0,  0.0 },  {-24.0,  00.0, 0.00 } }
+		edges[#edges + 1] = { {34.0,  20.0,  0.0 },  {-24.0,  00.0, 0.00 } }
+		
+		edges[#edges + 1] = { {34.0,  20.0,  0.0 },  { 00.0,  20.0, 0.00 } }
+		edges[#edges + 1] = { {34.0,  40.0,  0.0 },  { 00.0,  20.0, 0.00 } }
+
+		
+		result.models = { }
+		result.groundFaces = { }
+		result.stocks = { }
+		result.stockRules = { }
+		
+		--collider
+		result.models[#result.models + 1] = { id = "asset/industry/collider_rock_9.mdl", transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1 } }
+
+		result.models[#result.models + 1] = {
+			id = "building/era_a/ind_2_2x1_01_01.mdl",
+			transf = transf.rotZYXTransl(transf.degToRad(290.0, 0.0, 0.0), vec3.new(-5, -20 , 0))
+		}
+		
+		if (level == 1) then
+			constructionutil.makeStocks({
+				stocks = {
+					{ cargoType = "LOGS", 		type = "RECEIVING", x = 26,	y = -48, 	sizex = 2,	sizey = 2 },
+					{ cargoType = "POTASH", 	type = "SENDING",  x = 51,	y = -48, 	sizex = 2,	sizey = 2 },
+				},
+				stockRules = {
+					{ input = { { 3, 0 } }, output = { { 0, 1 } }, capacity = 100 },
+				}
+			}, result)		
+			
+			terrainFaces[#terrainFaces + 1] = { {-63, -63, 0}, {63, -63, 0}, {63, 63, 0}, {-63, 63, 0} } 
+			
+		end
+		
+		if (level >= 2) then			
+			
+			result.models[#result.models + 1] = {
+				id = "building/era_a/ind_1_1x1_01_02.mdl",
+				transf = transf.rotZYXTransl(transf.degToRad(180.0, 0.0, 0.0), vec3.new(33, 0 , 0))
+			}	
+		end
+		
+		if (level == 2) then
+			constructionutil.makeStocks({
+				stocks = {
+					{ cargoType = "LOGS", 		type = "RECEIVING", x = -40,	y = -40, 	sizex = 2,	sizey = 4 },
+					{ cargoType = "POTASH", 	type = "SENDING",  x = 40,	y = -48, 	sizex = 2,	sizey = 2 },
+				},
+				stockRules = {
+					{ input = { { 3, 0 } }, output = { { 0, 1 } }, capacity = 200 },
+				}
+			}, result)		
+			
+			terrainFaces[#terrainFaces + 1] = { {-63, -63, 0}, {63, -63, 0}, {63, 63, 0}, {-63, 63, 0} } 
+			
+			groundFace =  { {22, -10}, {47, -10}, {47, 5}, {22, 5}, } 	
+			result.groundFaces[#result.groundFaces + 1] = { face = groundFace, modes = { { type = "FILL", key = "industry_gravel_big_01" } } }
+			result.groundFaces[#result.groundFaces + 1] = { face = groundFace, modes = { { type = "STROKE_OUTER", key = "building_paving" } } }
+			
+		end
+
+		if (level >= 3) then			
+			result.models[#result.models + 1] = {
+				id = "building/era_a/ind_1_1x1_01_02.mdl",
+				transf = transf.rotZYXTransl(transf.degToRad(180.0, 0.0, 0.0), vec3.new(53, 0 , 0))
+			}
+		end
+
+		if (level == 3) then
+			constructionutil.makeStocks({
+				stocks = {
+					{ cargoType = "LOGS", 		type = "RECEIVING", x = -40,	y = -36, 	sizex = 3,	sizey = 5 },
+					{ cargoType = "POTASH", 	type = "SENDING",  x = 40,	y = -48, 	sizex = 3,	sizey = 3 },
+				},
+				stockRules = {
+					{ input = { { 3, 0 } }, output = { { 0, 1 } }, capacity = 400 },
+				}
+			}, result)		
+			
+			terrainFaces[#terrainFaces + 1] = { {-63, -63, 0}, {63, -63, 0}, {63, 63, 0}, {-63, 63, 0} } 
+			
+			groundFace =  { {22, -10}, {62, -10}, {62, 5}, {22, 5}, } 	
+			result.groundFaces[#result.groundFaces + 1] = { face = groundFace, modes = { { type = "FILL", key = "industry_gravel_big_01" } } }
+			result.groundFaces[#result.groundFaces + 1] = { face = groundFace, modes = { { type = "STROKE_OUTER", key = "building_paving" } } }
+			
+		end
+		
+		if (level >= 4) then
+			result.models[#result.models + 1] = {
+				id = "building/era_a/res_1_2x1_05_03.mdl",
+				transf = transf.rotZYXTransl(transf.degToRad(50.0, 0.0, 0.0), vec3.new(-20, 20 , 0))
+			}
+			result.models[#result.models + 1] = {
+				id = "building/era_a/ind_1_1x1_01_02.mdl",
+				transf = transf.rotZYXTransl(transf.degToRad(180.0, 0.0, 0.0), vec3.new(33, -15 , 0))
+			}
+			result.models[#result.models + 1] = {
+				id = "building/era_a/ind_1_1x1_01_02.mdl",
+				transf = transf.rotZYXTransl(transf.degToRad(180.0, 0.0, 0.0), vec3.new(53, -15 , 0))
+			}
+		end
+
+		if (level == 4) then
+			constructionutil.makeStocks({
+				stocks = {
+					{ cargoType = "LOGS", 		type = "RECEIVING", x = -46,	y = -25, 	sizex = 3,	sizey = 8 },
+					{ cargoType = "POTASH", 	type = "SENDING",  x = 40,	y = -48, 	sizex = 3,	sizey = 3 },
+				},
+				stockRules = {
+					{ input = { { 3, 0 } }, output = { { 0, 1 } }, capacity = 800 },
+				}
+			}, result)		
+			
+			terrainFaces[#terrainFaces + 1] = { {-63, -63, 0}, {63, -63, 0}, {63, 63, 0}, {-63, 63, 0} } 
+			
+			groundFace =  { {22, -26}, {62, -26}, {62, 5}, {22, 5}, } 	
+			result.groundFaces[#result.groundFaces + 1] = { face = groundFace, modes = { { type = "FILL", key = "industry_gravel_big_01" } } }
+			result.groundFaces[#result.groundFaces + 1] = { face = groundFace, modes = { { type = "STROKE_OUTER", key = "building_paving" } } }
+			
+		end
+		
+		if (level >= 5) then
+			
+			result.models[#result.models + 1] = {
+				id = "building/era_a/res_1_2x1_05_03.mdl",
+				transf = transf.rotZYXTransl(transf.degToRad(35.0, 0.0, 0.0), vec3.new(0, 37 , 0))
+			}
+			result.models[#result.models + 1] = {
+				id = "building/era_a/ind_2_2x1_01_01.mdl",
+				transf = transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(50, 45 , 0))
+			}
+		end
+
+		if (level == 5) then
+			constructionutil.makeStocks({
+				stocks = {
+					{ cargoType = "LOGS", 		type = "RECEIVING", x = -40,	y = -26, 	sizex = 5,	sizey = 8 },
+					{ cargoType = "POTASH", 	type = "SENDING",  x = 40,	y = -48, 	sizex = 5,	sizey = 3 },
+				},
+				stockRules = {
+					{ input = { { 3, 0 } }, output = { { 0, 1 } }, capacity = 1600 },
+				}
+			}, result)		
+			
+			terrainFaces[#terrainFaces + 1] = { {-63, -63, 0}, {63, -63, 0}, {63, 63, 0}, {-63, 63, 0} } 
+			
+			groundFace =  { {22, -26}, {62, -26}, {62, 5}, {22, 5}, } 	
+			result.groundFaces[#result.groundFaces + 1] = { face = groundFace, modes = { { type = "FILL", key = "industry_gravel_big_01" } } }
+			result.groundFaces[#result.groundFaces + 1] = { face = groundFace, modes = { { type = "STROKE_OUTER", key = "building_paving" } } }
+			
+		end
+		
+		if (level == 1) then
+			math.randomseed(params.seed + 1)
+			
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { -0.975469, -0.220137, 0, 0,   0.220137, -0.975469, 0, 0,   0, 0, 1, 0,   -56.089, -41.2885, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { -0.266397, 0.963863, 0, 0,   -0.963863, -0.266397, 0, 0,   0, 0, 1, 0,   -58.1328, -47.0752, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { 0.286024, 0.958222, 0, 0,   -0.958222, 0.286024, 0, 0,   0, 0, 1, 0,   -51.8259, -38.6887, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { -0.966509, 0.256634, 0, 0,   -0.256634, -0.966509, 0, 0,   0, 0, 1, 0,   -54.5974, -46.0146, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { -0.292724, 0.956197, 0, 0,   -0.956197, -0.292724, 0, 0,   0, 0, 1, 0,   -55.1381, -53.2164, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { 0.94167, -0.336539, 0, 0,   0.336539, 0.94167, 0, 0,   0, 0, 1, 0,   -47.5202, -56.108, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { 0.329985, -0.943986, 0, 0,   0.943986, 0.329985, 0, 0,   0, 0, 1, 0,   -41.8938, -53.0941, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { -0.997703, 0.0677329, 0, 0,   -0.0677329, -0.997703, 0, 0,   0, 0, 1, 0,   -37.904, -49.2063, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { -0.992953, 0.118512, 0, 0,   -0.118512, -0.992953, 0, 0,   0, 0, 1, 0,   -42.6663, -41.6688, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { 0.359682, 0.933075, 0, 0,   -0.933075, 0.359682, 0, 0,   0, 0, 1, 0,   -50.299, -42.2949, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { 0.330347, 0.94386, 0, 0,   -0.94386, 0.330347, 0, 0,   0, 0, 1, 0,   -34.0554, -53.1772, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { 0.989204, -0.146545, 0, 0,   0.146545, 0.989204, 0, 0,   0, 0, 1, 0,   -28.1811, -49.1896, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { -0.544898, -0.838503, 0, 0,   0.838503, -0.544898, 0, 0,   0, 0, 1, 0,   -28.7362, -41.7916, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { -0.85698, 0.51535, 0, 0,   -0.51535, -0.85698, 0, 0,   0, 0, 1, 0,   -33.5971, -39.9506, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { 0.881462, -0.472255, 0, 0,   0.472255, 0.881462, 0, 0,   0, 0, 1, 0,   -32.3757, -46.2781, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { 0.577977, 0.816053, 0, 0,   -0.816053, 0.577977, 0, 0,   0, 0, 1, 0,   -51.332, -29.0148, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { 0.888954, -0.457997, 0, 0,   0.457997, 0.888954, 0, 0,   0, 0, 1, 0,   -54.4024, -34.876, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { 0.433409, -0.901198, 0, 0,   0.901198, 0.433409, 0, 0,   0, 0, 1, 0,   -46.8448, -33.8453, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { 0.910357, 0.413825, 0, 0,   -0.413825, 0.910357, 0, 0,   0, 0, 1, 0,   -48.4802, -26.3102, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { 0.911858, 0.410505, 0, 0,   -0.410505, 0.911858, 0, 0,   0, 0, 1, 0,   -47.9191, -20.6367, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { -0.967728, -0.251998, 0, 0,   0.251998, -0.967728, 0, 0,   0, 0, 1, 0,   -50.7866, -32.7188, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { -0.708783, 0.705427, 0, 0,   -0.705427, -0.708783, 0, 0,   0, 0, 1, 0,   -54.519, -21.9478, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { 0.455395, 0.890289, 0, 0,   -0.890289, 0.455395, 0, 0,   0, 0, 1, 0,   -56.5992, -16.0221, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { 0.019318, -0.999813, 0, 0,   0.999813, 0.019318, 0, 0,   0, 0, 1, 0,   -56.6432, -25.4832, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { -0.66905, 0.743218, 0, 0,   -0.743218, -0.66905, 0, 0,   0, 0, 1, 0,   -31.4913, -36.6831, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { 0.583285, -0.812267, 0, 0,   0.812267, 0.583285, 0, 0,   0, 0, 1, 0,   -32.7143, -30.5928, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { -0.994434, -0.105364, 0, 0,   0.105364, -0.994434, 0, 0,   0, 0, 1, 0,   -37.3892, -32.0311, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { -0.732182, 0.681109, 0, 0,   -0.681109, -0.732182, 0, 0,   0, 0, 1, 0,   -39.7548, -26.3397, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { 0.941476, -0.33708, 0, 0,   0.33708, 0.941476, 0, 0,   0, 0, 1, 0,   -42.5729, -21.6263, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { -0.25325, -0.967401, 0, 0,   0.967401, -0.25325, 0, 0,   0, 0, 1, 0,   -41.2071, -16.0585, -0.0181122, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { -0.154554, -0.987984, 0, 0,   0.987984, -0.154554, 0, 0,   0, 0, 1, 0,   -38.3719, -21.0765, -0.0181122, 1 } }
+				
+		end
+		
+		if (level < 4) then
+			math.randomseed(params.seed + 2)
+		
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.659518, -0.751688, 0, 0,   0.751688, 0.659518, 0, 0,   0, 0, 1, 0,   -18.1997, -47.6144, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.858754, -0.512389, 0, 0,   0.512389, -0.858754, 0, 0,   0, 0, 1, 0,   -19.6031, -53.8562, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.0741883, -0.997244, 0, 0,   0.997244, -0.0741883, 0, 0,   0, 0, 1, 0,   -16.916, -58.4764, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.518346, 0.855171, 0, 0,   -0.855171, 0.518346, 0, 0,   0, 0, 1, 0,   -14.6616, -53.6824, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.517526, -0.855668, 0, 0,   0.855668, 0.517526, 0, 0,   0, 0, 1, 0,   -19.1412, -58.4086, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.757883, 0.65239, 0, 0,   -0.65239, -0.757883, 0, 0,   0, 0, 1, 0,   -19.8828, -52.2344, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.958565, 0.284876, 0, 0,   -0.284876, -0.958565, 0, 0,   0, 0, 1, 0,   -18.3633, -46.2678, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.819557, -0.572998, 0, 0,   0.572998, 0.819557, 0, 0,   0, 0, 1, 0,   -16.9755, -40.9598, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.763856, -0.645387, 0, 0,   0.645387, -0.763856, 0, 0,   0, 0, 1, 0,   -16.9825, -47.791, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.944507, 0.328491, 0, 0,   -0.328491, -0.944507, 0, 0,   0, 0, 1, 0,   -19.0021, -54.7299, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.619735, 0.784811, 0, 0,   -0.784811, 0.619735, 0, 0,   0, 0, 1, 0,   -50.6156, 3.51385, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.915791, -0.401656, 0, 0,   0.401656, -0.915791, 0, 0,   0, 0, 1, 0,   -52.6416, -2.60516, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.314738, -0.949179, 0, 0,   0.949179, 0.314738, 0, 0,   0, 0, 1, 0,   -53.4, -8.27289, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.531728, -0.846915, 0, 0,   0.846915, 0.531728, 0, 0,   0, 0, 1, 0,   -44.6351, -5.84222, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.250188, -0.968197, 0, 0,   0.968197, 0.250188, 0, 0,   0, 0, 1, 0,   -39.9277, 0.37085, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.915482, -0.402358, 0, 0,   0.402358, -0.915482, 0, 0,   0, 0, 1, 0,   -44.3454, -2.88782, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.120463, -0.992718, 0, 0,   0.992718, 0.120463, 0, 0,   0, 0, 1, 0,   -51.6456, -2.09589, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.821584, -0.570087, 0, 0,   0.570087, -0.821584, 0, 0,   0, 0, 1, 0,   -44.211, 0.692932, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.202848, 0.97921, 0, 0,   -0.97921, -0.202848, 0, 0,   0, 0, 1, 0,   -40.1288, 4.8194, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.997774, -0.0666807, 0, 0,   0.0666807, 0.997774, 0, 0,   0, 0, 1, 0,   -47.4338, -2.06769, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.905739, -0.423837, 0, 0,   0.423837, -0.905739, 0, 0,   0, 0, 1, 0,   -52.3723, 4.2276, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.842218, -0.539137, 0, 0,   0.539137, -0.842218, 0, 0,   0, 0, 1, 0,   -41.9556, 0.880981, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.105984, 0.994368, 0, 0,   -0.994368, 0.105984, 0, 0,   0, 0, 1, 0,   -32.4952, -1.14642, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.960321, 0.278896, 0, 0,   -0.278896, 0.960321, 0, 0,   0, 0, 1, 0,   -32.0142, 0.406372, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.911227, -0.411904, 0, 0,   0.411904, 0.911227, 0, 0,   0, 0, 1, 0,   -35.117, 5.94873, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.75525, -0.655437, 0, 0,   0.655437, -0.75525, 0, 0,   0, 0, 1, 0,   -26.8829, -3.70966, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.442545, -0.896746, 0, 0,   0.896746, 0.442545, 0, 0,   0, 0, 1, 0,   31.9668, -17.2039, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.0494043, 0.998779, 0, 0,   -0.998779, 0.0494043, 0, 0,   0, 0, 1, 0,   25.9927, -14.7686, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.925299, 0.379237, 0, 0,   -0.379237, -0.925299, 0, 0,   0, 0, 1, 0,   20.3505, -11.9644, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.779705, -0.626147, 0, 0,   0.626147, -0.779705, 0, 0,   0, 0, 1, 0,   18.7098, -17.6133, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.0908138, 0.995868, 0, 0,   -0.995868, -0.0908138, 0, 0,   0, 0, 1, 0,   23.3545, -20.7579, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.425356, 0.905026, 0, 0,   -0.905026, -0.425356, 0, 0,   0, 0, 1, 0,   29.0416, -19.1594, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.619208, 0.785227, 0, 0,   -0.785227, -0.619208, 0, 0,   0, 0, 1, 0,   34.5392, -19.0092, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.911346, -0.411642, 0, 0,   0.411642, -0.911346, 0, 0,   0, 0, 1, 0,   39.9501, -18.7634, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.990192, -0.139713, 0, 0,   0.139713, 0.990192, 0, 0,   0, 0, 1, 0,   31.4392, -18.8585, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.333693, 0.942682, 0, 0,   -0.942682, -0.333693, 0, 0,   0, 0, 1, 0,   23.5548, -24.9076, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.911898, 0.410418, 0, 0,   -0.410418, -0.911898, 0, 0,   0, 0, 1, 0,   22.9448, -18.7283, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.999028, -0.044089, 0, 0,   0.044089, 0.999028, 0, 0,   0, 0, 1, 0,   19.2184, -23.88, -0.0417099, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.924534, 0.3811, 0, 0,   -0.3811, 0.924534, 0, 0,   0, 0, 1, 0,   -23.6868, 19.614, -0.0202789, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.811176, 0.584803, 0, 0,   -0.584803, -0.811176, 0, 0,   0, 0, 1, 0,   -27.262, 24.2972, -0.0202789, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.0342692, 0.999413, 0, 0,   -0.999413, 0.0342692, 0, 0,   0, 0, 1, 0,   -30.662, 20.4454, -0.0202789, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.971932, 0.235261, 0, 0,   -0.235261, -0.971932, 0, 0,   0, 0, 1, 0,   -28.7973, 26.0621, -0.0202789, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.856832, -0.515596, 0, 0,   0.515596, 0.856832, 0, 0,   0, 0, 1, 0,   -25.2395, 29.7228, -0.0202789, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.679739, -0.733454, 0, 0,   0.733454, 0.679739, 0, 0,   0, 0, 1, 0,   -25.9281, 24.5154, -0.0202789, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.757069, -0.653334, 0, 0,   0.653334, 0.757069, 0, 0,   0, 0, 1, 0,   -20.2711, 27.6671, -0.0202789, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.889699, 0.456547, 0, 0,   -0.456547, -0.889699, 0, 0,   0, 0, 1, 0,   -15.7718, 32.2662, -0.0202789, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.99998, -0.00632782, 0, 0,   0.00632782, 0.99998, 0, 0,   0, 0, 1, 0,   -11.741, 37.2797, -0.0202789, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.960294, -0.278988, 0, 0,   0.278988, -0.960294, 0, 0,   0, 0, 1, 0,   -8.60542, 41.1599, -0.0202789, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.029957, -0.999551, 0, 0,   0.999551, -0.029957, 0, 0,   0, 0, 1, 0,   -2.59126, 42.2817, -0.0202789, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.291165, 0.956673, 0, 0,   -0.956673, 0.291165, 0, 0,   0, 0, 1, 0,   -9.40701, 44.6844, -0.0202789, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.110559, -0.99387, 0, 0,   0.99387, 0.110559, 0, 0,   0, 0, 1, 0,   -18.8227, 34.9786, -0.0202789, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.95919, 0.282761, 0, 0,   -0.282761, 0.95919, 0, 0,   0, 0, 1, 0,   -27.5314, 30.1646, -0.0202789, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.65692, 0.75396, 0, 0,   -0.75396, 0.65692, 0, 0,   0, 0, 1, 0,   -33.6785, 26.4065, -0.0202789, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.999892, 0.0146686, 0, 0,   -0.0146686, -0.999892, 0, 0,   0, 0, 1, 0,   -38.5178, 21.8787, -0.0202789, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.0780122, -0.996952, 0, 0,   0.996952, -0.0780122, 0, 0,   0, 0, 1, 0,   -33.7103, 24.0581, -0.0202789, 1 } }
+
+		end
+		
+		if (level == 4) then
+			math.randomseed(params.seed + 3)
+		
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.358966, 0.933351, 0, 0,   -0.933351, 0.358966, 0, 0,   0, 0, 1, 0,   -22.0617, -41.1304, -0.0166931, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.280783, -0.959771, 0, 0,   0.959771, -0.280783, 0, 0,   0, 0, 1, 0,   -25.2234, -47.3735, -0.0166931, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.396513, -0.918029, 0, 0,   0.918029, -0.396513, 0, 0,   0, 0, 1, 0,   -28.3215, -52.2725, -0.0166931, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.038006, -0.999278, 0, 0,   0.999278, -0.038006, 0, 0,   0, 0, 1, 0,   -23.0364, -52.9035, -0.0166931, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.23335, 0.972393, 0, 0,   -0.972393, -0.23335, 0, 0,   0, 0, 1, 0,   -21.7643, -47.648, -0.0166931, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.854947, -0.518715, 0, 0,   0.518715, 0.854947, 0, 0,   0, 0, 1, 0,   -22.8289, -37.424, -0.0166931, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.992373, 0.123271, 0, 0,   -0.123271, -0.992373, 0, 0,   0, 0, 1, 0,   -24.3348, -32.2322, -0.0166931, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.876525, 0.481357, 0, 0,   -0.481357, 0.876525, 0, 0,   0, 0, 1, 0,   -23.9719, -26.8701, -0.0166931, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.242662, 0.970111, 0, 0,   -0.970111, -0.242662, 0, 0,   0, 0, 1, 0,   -19.3521, -32.5678, -0.0166931, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.745938, 0.666016, 0, 0,   -0.666016, 0.745938, 0, 0,   0, 0, 1, 0,   -18.8627, -39.8259, -0.0166931, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.890399, -0.455182, 0, 0,   0.455182, -0.890399, 0, 0,   0, 0, 1, 0,   -22.318, -44.8089, -0.0166931, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.620788, 0.783979, 0, 0,   -0.783979, 0.620788, 0, 0,   0, 0, 1, 0,   -27.0996, -42.2685, -0.0166931, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.998828, 0.0483988, 0, 0,   -0.0483988, -0.998828, 0, 0,   0, 0, 1, 0,   -24.3207, -49.4549, -0.0166931, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.790159, -0.612902, 0, 0,   0.612902, -0.790159, 0, 0,   0, 0, 1, 0,   -18.9563, -47.3968, -0.0166931, 1 } }
+			result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.144031, -0.989573, 0, 0,   0.989573, 0.144031, 0, 0,   0, 0, 1, 0,   -20.2616, -53.0345, -0.0166931, 1 } }
+
+		end
+		
+		if (level == 5) then
+			math.randomseed(params.seed + 4)
+		
+			result.models[#result.models + 1] = { id = "asset/ground/wood_plates_02.mdl", transf = { -0.831479, -0.555555, 0, 0,   0.555555, -0.831479, 0, 0,   0, 0, 1, 0,   -9.09605, 40.0077, -0.0279083, 1 } }
+			result.models[#result.models + 1] = { id = "asset/ground/wood_plates_02.mdl", transf = { -0.195106, -0.980782, 0, 0,   0.980782, -0.195106, 0, 0,   0, 0, 1, 0,   -7.099, 37.2502, -0.0279083, 1 } }
+			result.models[#result.models + 1] = { id = "asset/ground/wood_plates_02.mdl", transf = { -0.707119, -0.707095, 0, 0,   0.707095, -0.707119, 0, 0,   0, 0, 1, 0,   -20.3323, 27.9086, -0.0279083, 1 } }
+			result.models[#result.models + 1] = { id = "asset/ground/wood_plates_01.mdl", transf = { -0.555584, -0.83146, 0, 0,   0.83146, -0.555584, 0, 0,   0, 0, 1, 0,   -28.3699, 18.3538, -0.0279083, 1 } }
+			result.models[#result.models + 1] = { id = "asset/ground/wood_plates_01.mdl", transf = { -0.923872, 0.382702, 0, 0,   -0.382702, -0.923872, 0, 0,   0, 0, 1, 0,   -25.6968, 16.9872, -0.0279083, 1 } }
+			result.models[#result.models + 1] = { id = "asset/ground/wood_plates_01.mdl", transf = { -0.831479, -0.555555, 0, 0,   0.555555, -0.831479, 0, 0,   0, 0, 1, 0,   -27.0758, 12.7625, -0.0279083, 1 } }
+			
+		end
+		
+		math.randomseed(params.seed + 5)
+		
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_big.mdl", transf = { -0.923874, -0.382697, 0, 0,   0.382697, -0.923874, 0, 0,   0, 0, 1, 0,   3.28691, -31.8317, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/logs_big.mdl", transf = { -1, -1.52349e-005, 0, 0,   1.52349e-005, -1, 0, 0,   0, 0, 1, 0,   9.72148, -58.5176, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/logs_big.mdl", transf = { -1, -1.52349e-005, 0, 0,   1.52349e-005, -1, 0, 0,   0, 0, 1, 0,   8.79367, -54.2089, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/barrel_wood.mdl", transf = { 2.82525e-006, -1, 0, 0,   1, 2.82525e-006, 0, 0,   0, 0, 1, 0,   2.66783, -37.1248, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/barrel_wood.mdl", transf = { 2.82525e-006, -1, 0, 0,   1, 2.82525e-006, 0, 0,   0, 0, 1, 0,   12.542, -29.8817, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/barrel_waste.mdl", transf = { -0.980785, -0.195089, 0, 0,   0.195089, -0.980785, 0, 0,   0, 0, 1, 0,   -5.92191, -11.8029, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_big.mdl", transf = { -0.92388, -0.382683, 0, 0,   0.382683, -0.92388, 0, 0,   0, 0, 1, 0,   1.19147, -23.006, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_small.mdl", transf = { -0.92388, -0.382683, 0, 0,   0.382683, -0.92388, 0, 0,   0, 0, 1, 0,   3.55945, -16.6157, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_small.mdl", transf = { -0.92388, -0.382683, 0, 0,   0.382683, -0.92388, 0, 0,   0, 0, 1, 0,   2.74675, -14.0112, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "asset/barrel_water_wood.mdl", transf = { -0.92388, -0.382683, 0, 0,   0.382683, -0.92388, 0, 0,   0, 0, 1, 0,   -2.61658, -10.5898, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "asset/barrel_water_wood.mdl", transf = { -0.92388, -0.382683, 0, 0,   0.382683, -0.92388, 0, 0,   0, 0, 1, 0,   -1.53511, -10.458, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/goods_small.mdl", transf = { 0.195076, -0.980788, 0, 0,   0.980788, 0.195076, 0, 0,   0, 0, 1, 0,   10.1549, -30.5366, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/wooden_box_02.mdl", transf = { 0.195076, -0.980788, 0, 0,   0.980788, 0.195076, 0, 0,   0, 0, 1, 0,   0.984009, -9.57007, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/wooden_box_02.mdl", transf = { 0.382671, -0.923885, 0, 0,   0.923885, 0.382671, 0, 0,   0, 0, 1, 0,   3.39322, -8.63806, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.373274, -0.927721, 0, 0,   0.927721, -0.373274, 0, 0,   0, 0, 1, 0,   -12.6505, -57.7585, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.781301, 0.624155, 0, 0,   -0.624155, -0.781301, 0, 0,   0, 0, 1, 0,   -13.1634, -50.85, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.273817, 0.961782, 0, 0,   -0.961782, 0.273817, 0, 0,   0, 0, 1, 0,   -9.54924, -59.2437, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.978269, 0.20734, 0, 0,   -0.20734, -0.978269, 0, 0,   0, 0, 1, 0,   -11.4213, -53.7354, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.800065, 0.599913, 0, 0,   -0.599913, 0.800065, 0, 0,   0, 0, 1, 0,   14.0019, 2.51367, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.958116, -0.28638, 0, 0,   0.28638, 0.958116, 0, 0,   0, 0, 1, 0,   13.8293, -4.26086, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.509927, 0.860218, 0, 0,   -0.860218, -0.509927, 0, 0,   0, 0, 1, 0,   15.35, -9.59534, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.634326, 0.773066, 0, 0,   -0.773066, 0.634326, 0, 0,   0, 0, 1, 0,   9.23848, 3.771, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.490334, 0.871534, 0, 0,   -0.871534, -0.490334, 0, 0,   0, 0, 1, 0,   -2.17493, 4.37109, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.102778, -0.994704, 0, 0,   0.994704, -0.102778, 0, 0,   0, 0, 1, 0,   -7.36516, 4.34009, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.951236, 0.308463, 0, 0,   -0.308463, 0.951236, 0, 0,   0, 0, 1, 0,   -12.6492, 3.33899, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_big.mdl", transf = { 1, 0, 0, 0,   0, 1, 0, 0,   0, 0, 1, 0,   28.8236, -30.8339, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_big.mdl", transf = { 1, 0, 0, 0,   0, 1, 0, 0,   0, 0, 1, 0,   38.0746, -30.5905, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_small.mdl", transf = { 1, 0, 0, 0,   0, 1, 0, 0,   0, 0, 1, 0,   44.5224, -29.6194, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_small.mdl", transf = { -6.39758e-007, -1, 0, 0,   1, -6.39758e-007, 0, 0,   0, 0, 1, 0,   47.2713, -29.8931, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_small.mdl", transf = { -6.39758e-007, -1, 0, 0,   1, -6.39758e-007, 0, 0,   0, 0, 1, 0,   45.9552, -32.7903, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_big.mdl", transf = { -0.980785, -0.195092, 0, 0,   0.195092, -0.980785, 0, 0,   0, 0, 1, 0,   53.6408, -30.4886, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/wooden_box_03.mdl", transf = { -1.49926e-005, -1, 0, 0,   1, -1.49926e-005, 0, 0,   0, 0, 1, 0,   28.7552, -7.40088, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/wooden_box_03.mdl", transf = { -1.49926e-005, -1, 0, 0,   1, -1.49926e-005, 0, 0,   0, 0, 1, 0,   36.2383, -7.48608, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_big.mdl", transf = { 0.382694, -0.923875, 0, 0,   0.923875, 0.382694, 0, 0,   0, 0, 1, 0,   10.51, 46.0291, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_big.mdl", transf = { 0.382694, -0.923875, 0, 0,   0.923875, 0.382694, 0, 0,   0, 0, 1, 0,   14.9821, 51.5562, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/logs_big.mdl", transf = { -0.382695, 0.923875, 0, 0,   -0.923875, -0.382695, 0, 0,   0, 0, 1, 0,   14.9723, 22.2034, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/logs_big.mdl", transf = { -0.382695, 0.923875, 0, 0,   -0.923875, -0.382695, 0, 0,   0, 0, 1, 0,   9.47975, 20.5981, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/logs_big.mdl", transf = { 0.831465, 0.555578, 0, 0,   -0.555578, 0.831465, 0, 0,   0, 0, 1, 0,   0.900696, 17.3491, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/logs_small.mdl", transf = { 0.831465, 0.555578, 0, 0,   -0.555578, 0.831465, 0, 0,   0, 0, 1, 0,   -4.87924, 12.8234, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/logs_small.mdl", transf = { 0.831465, 0.555578, 0, 0,   -0.555578, 0.831465, 0, 0,   0, 0, 1, 0,   -2.17494, 10.3712, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/logs_small.mdl", transf = { 0.831473, -0.555566, 0, 0,   0.555566, 0.831473, 0, 0,   0, 0, 1, 0,   4.72296, 14.3254, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/logs_small.mdl", transf = { 0.555574, -0.831467, 0, 0,   0.831467, 0.555574, 0, 0,   0, 0, 1, 0,   1.62521, 12.1111, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/barrel_wood.mdl", transf = { 2.82525e-006, -1, 0, 0,   1, 2.82525e-006, 0, 0,   0, 0, 1, 0,   -31.5877, 14.9206, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/barrel_wood.mdl", transf = { 2.82525e-006, -1, 0, 0,   1, 2.82525e-006, 0, 0,   0, 0, 1, 0,   -29.5758, 12.6744, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "asset/barrel_water_wood.mdl", transf = { -0.92388, -0.382683, 0, 0,   0.382683, -0.92388, 0, 0,   0, 0, 1, 0,   -29.5395, 14.988, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "asset/barrel_water_wood.mdl", transf = { -0.92388, -0.382683, 0, 0,   0.382683, -0.92388, 0, 0,   0, 0, 1, 0,   -31.1606, 13.4008, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "asset/barrel_water_wood.mdl", transf = { -0.92388, -0.382683, 0, 0,   0.382683, -0.92388, 0, 0,   0, 0, 1, 0,   6.24467, 43.6578, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "asset/barrel_water_wood.mdl", transf = { -0.92388, -0.382683, 0, 0,   0.382683, -0.92388, 0, 0,   0, 0, 1, 0,   5.14383, 45.5308, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "broadleaf"), transf = { 0.924703, -0.380689, 0, 0,   0.380689, 0.924703, 0, 0,   0, 0, 1, 0,   -43.8548, 43.7732, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "broadleaf"), transf = { 0.746025, 0.665918, 0, 0,   -0.665918, 0.746025, 0, 0,   0, 0, 1, 0,   -48.8557, 40.0308, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "broadleaf"), transf = { 0.977527, -0.210809, 0, 0,   0.210809, 0.977527, 0, 0,   0, 0, 1, 0,   -52.0471, 33.8353, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "broadleaf"), transf = { 0.27725, -0.960798, 0, 0,   0.960798, 0.27725, 0, 0,   0, 0, 1, 0,   -54.4194, 26.8843, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "broadleaf"), transf = { -0.741298, 0.671176, 0, 0,   -0.671176, -0.741298, 0, 0,   0, 0, 1, 0,   -45.286, 35.7167, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "broadleaf"), transf = { -0.704756, 0.70945, 0, 0,   -0.70945, -0.704756, 0, 0,   0, 0, 1, 0,   -40.3271, 42.9777, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "broadleaf"), transf = { -0.996183, -0.0872925, 0, 0,   0.0872925, -0.996183, 0, 0,   0, 0, 1, 0,   -35.68, 48.2616, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "broadleaf"), transf = { -0.980491, -0.196565, 0, 0,   0.196565, -0.980491, 0, 0,   0, 0, 1, 0,   -41.5385, 51.1108, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "broadleaf"), transf = { -0.598109, 0.801415, 0, 0,   -0.801415, -0.598109, 0, 0,   0, 0, 1, 0,   -48.2039, 49.3165, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "broadleaf"), transf = { -0.89418, -0.447707, 0, 0,   0.447707, -0.89418, 0, 0,   0, 0, 1, 0,   -53.4574, 43.0593, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "broadleaf"), transf = { 0.266247, 0.963905, 0, 0,   -0.963905, 0.266247, 0, 0,   0, 0, 1, 0,   -53.7018, 23.0897, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "broadleaf"), transf = { -0.648376, -0.761321, 0, 0,   0.761321, -0.648376, 0, 0,   0, 0, 1, 0,   -55.1314, 16.6098, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "broadleaf"), transf = { 0.952587, 0.304265, 0, 0,   -0.304265, 0.952587, 0, 0,   0, 0, 1, 0,   -49.0441, 19.6771, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "broadleaf"), transf = { 0.992797, 0.119809, 0, 0,   -0.119809, 0.992797, 0, 0,   0, 0, 1, 0,   -46.429, 25.2535, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "broadleaf"), transf = { -0.859275, 0.511514, 0, 0,   -0.511514, -0.859275, 0, 0,   0, 0, 1, 0,   -42.1007, 29.9939, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "broadleaf"), transf = { -0.825209, 0.564827, 0, 0,   -0.564827, -0.825209, 0, 0,   0, 0, 1, 0,   -37.3129, 35.7775, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "broadleaf"), transf = { -0.997293, -0.0735311, 0, 0,   0.0735311, -0.997293, 0, 0,   0, 0, 1, 0,   -33.5773, 41.2817, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "broadleaf"), transf = { 0.970247, 0.242116, 0, 0,   -0.242116, 0.970247, 0, 0,   0, 0, 1, 0,   -28.7808, 45.9019, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "broadleaf"), transf = { -0.126017, -0.992028, 0, 0,   0.992028, -0.126017, 0, 0,   0, 0, 1, 0,   -24.2585, 49.001, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "broadleaf"), transf = { -0.68089, -0.732386, 0, 0,   0.732386, -0.68089, 0, 0,   0, 0, 1, 0,   -19.0742, 52.5564, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.0763273, 0.997083, 0, 0,   -0.997083, 0.0763273, 0, 0,   0, 0, 1, 0,   -27.2784, 54.8521, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.881795, 0.471632, 0, 0,   -0.471632, 0.881795, 0, 0,   0, 0, 1, 0,   -41.5981, 15.4052, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.369714, -0.929146, 0, 0,   0.929146, -0.369714, 0, 0,   0, 0, 1, 0,   -51.3531, 13.703, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.995096, -0.0989144, 0, 0,   0.0989144, 0.995096, 0, 0,   0, 0, 1, 0,   -56.621, 13.2334, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.93904, 0.343808, 0, 0,   -0.343808, 0.93904, 0, 0,   0, 0, 1, 0,   -44.9075, 16.8304, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.241952, 0.970288, 0, 0,   -0.970288, 0.241952, 0, 0,   0, 0, 1, 0,   -40.3638, 14.0175, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.998657, 0.0518103, 0, 0,   -0.0518103, 0.998657, 0, 0,   0, 0, 1, 0,   -42.4119, 58.0623, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.906767, -0.421632, 0, 0,   0.421632, -0.906767, 0, 0,   0, 0, 1, 0,   -49.6408, 58.4081, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.940775, -0.339032, 0, 0,   0.339032, -0.940775, 0, 0,   0, 0, 1, 0,   -54.8194, 58.8893, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.180676, 0.983543, 0, 0,   -0.983543, 0.180676, 0, 0,   0, 0, 1, 0,   -57.6515, 54.1998, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.451411, 0.892316, 0, 0,   -0.892316, 0.451411, 0, 0,   0, 0, 1, 0,   -52.8141, 56.4171, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.646202, -0.763167, 0, 0,   0.763167, 0.646202, 0, 0,   0, 0, 1, 0,   -46.4212, 58.465, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.475453, -0.879741, 0, 0,   0.879741, -0.475453, 0, 0,   0, 0, 1, 0,   -39.8772, 58.0239, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.299649, -0.954049, 0, 0,   0.954049, 0.299649, 0, 0,   0, 0, 1, 0,   -60.7047, 30.0697, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.0363171, 0.99934, 0, 0,   -0.99934, 0.0363171, 0, 0,   0, 0, 1, 0,   -11.3475, 54.4518, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.0273336, 0.999626, 0, 0,   -0.999626, -0.0273336, 0, 0,   0, 0, 1, 0,   -5.70943, 56.2633, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.315227, 0.949016, 0, 0,   -0.949016, 0.315227, 0, 0,   0, 0, 1, 0,   -12.9122, 59.0881, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.889902, 0.456152, 0, 0,   -0.456152, -0.889902, 0, 0,   0, 0, 1, 0,   5.70151, 52.8605, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.52812, 0.84917, 0, 0,   -0.84917, -0.52812, 0, 0,   0, 0, 1, 0,   0.793045, 57.1384, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.752817, -0.658229, 0, 0,   0.658229, -0.752817, 0, 0,   0, 0, 1, 0,   6.57802, 56.7526, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.579512, 0.814964, 0, 0,   -0.814964, -0.579512, 0, 0,   0, 0, 1, 0,   -1.10466, 57.3241, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.494257, -0.869316, 0, 0,   0.869316, 0.494257, 0, 0,   0, 0, 1, 0,   5.58217, 55.101, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.587764, 0.809032, 0, 0,   -0.809032, -0.587764, 0, 0,   0, 0, 1, 0,   -2.58197, 58.834, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.758532, 0.651636, 0, 0,   -0.651636, 0.758532, 0, 0,   0, 0, 1, 0,   -8.91054, 57.3683, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.999999, -0.00149822, 0, 0,   0.00149822, -0.999999, 0, 0,   0, 0, 1, 0,   -21.2989, 38.6177, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.151747, 0.988419, 0, 0,   -0.988419, 0.151747, 0, 0,   0, 0, 1, 0,   -16.2861, 34.8564, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.72972, 0.683746, 0, 0,   -0.683746, 0.72972, 0, 0,   0, 0, 1, 0,   -19.4929, 40.6675, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.883654, -0.468141, 0, 0,   0.468141, 0.883654, 0, 0,   0, 0, 1, 0,   -17.6105, 36.356, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.377007, -0.92621, 0, 0,   0.92621, -0.377007, 0, 0,   0, 0, 1, 0,   13.2201, 8.62622, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.990281, -0.139084, 0, 0,   0.139084, 0.990281, 0, 0,   0, 0, 1, 0,   7.40518, 8.59967, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.899115, -0.437713, 0, 0,   0.437713, 0.899115, 0, 0,   0, 0, 1, 0,   1.67563, 8.03784, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_big.mdl", transf = { -5.71012e-006, 1, 0, 0,   -1, -5.71012e-006, 0, 0,   0, 0, 1, 0,   28.2756, 11.0637, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_big.mdl", transf = { -5.71012e-006, 1, 0, 0,   -1, -5.71012e-006, 0, 0,   0, 0, 1, 0,   33.7729, 9.40002, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_big.mdl", transf = { -5.71012e-006, 1, 0, 0,   -1, -5.71012e-006, 0, 0,   0, 0, 1, 0,   54.9502, 8.89783, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_small.mdl", transf = { -5.71012e-006, 1, 0, 0,   -1, -5.71012e-006, 0, 0,   0, 0, 1, 0,   38.2751, 12.5329, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_small.mdl", transf = { -5.71012e-006, 1, 0, 0,   -1, -5.71012e-006, 0, 0,   0, 0, 1, 0,   38.0938, 9.79413, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_small.mdl", transf = { -5.71012e-006, 1, 0, 0,   -1, -5.71012e-006, 0, 0,   0, 0, 1, 0,   38.6006, 6.55457, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_small.mdl", transf = { 0.980784, 0.195099, 0, 0,   -0.195099, 0.980784, 0, 0,   0, 0, 1, 0,   50.3976, 11.2258, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_small.mdl", transf = { 0.980784, 0.195099, 0, 0,   -0.195099, 0.980784, 0, 0,   0, 0, 1, 0,   49.8147, 7.65912, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_small.mdl", transf = { 1, 8.88506e-006, 0, 0,   -8.88506e-006, 1, 0, 0,   0, 0, 1, 0,   46.202, 6.28064, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/potash_big.mdl", transf = { -1, -1.52349e-005, 0, 0,   1.52349e-005, -1, 0, 0,   0, 0, 1, 0,   46.7642, 49.4825, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/crude_small.mdl", transf = { 2.82525e-006, -1, 0, 0,   1, 2.82525e-006, 0, 0,   0, 0, 1, 0,   37.7994, 47.7101, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/crude_small.mdl", transf = { 2.82525e-006, -1, 0, 0,   1, 2.82525e-006, 0, 0,   0, 0, 1, 0,   38.8236, 49.897, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/logs_big.mdl", transf = { 1, -1.05381e-005, 0, 0,   1.05381e-005, 1, 0, 0,   0, 0, 1, 0,   44.78, 29.4105, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/logs_small.mdl", transf = { -1.49926e-005, -1, 0, 0,   1, -1.49926e-005, 0, 0,   0, 0, 1, 0,   50.4815, 28.188, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/logs_small.mdl", transf = { 0.195076, -0.980788, 0, 0,   0.980788, 0.195076, 0, 0,   0, 0, 1, 0,   50.1076, 30.8838, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "industry/cargo/goods_small.mdl", transf = { 0.195076, -0.980788, 0, 0,   0.980788, 0.195076, 0, 0,   0, 0, 1, 0,   40.6993, 7.91583, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/wooden_box_02.mdl", transf = { 0.195076, -0.980788, 0, 0,   0.980788, 0.195076, 0, 0,   0, 0, 1, 0,   42.8411, 6.83551, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/wooden_box_02.mdl", transf = { 0.195076, -0.980788, 0, 0,   0.980788, 0.195076, 0, 0,   0, 0, 1, 0,   42.4078, 8.1842, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/wooden_box_02.mdl", transf = { -1.49926e-005, -1, 0, 0,   1, -1.49926e-005, 0, 0,   0, 0, 1, 0,   58.2977, 49.8975, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = "asset/ground/wooden_box_02.mdl", transf = { 0.195076, -0.980788, 0, 0,   0.980788, 0.195076, 0, 0,   0, 0, 1, 0,   58.5034, 47.6807, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.999557, 0.0297532, 0, 0,   -0.0297532, -0.999557, 0, 0,   0, 0, 1, 0,   31.0416, 52.2971, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.792643, 0.609687, 0, 0,   -0.609687, 0.792643, 0, 0,   0, 0, 1, 0,   25.7163, 54.5873, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.465067, 0.885275, 0, 0,   -0.885275, -0.465067, 0, 0,   0, 0, 1, 0,   27.0039, 49.2784, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.715488, -0.698625, 0, 0,   0.698625, 0.715488, 0, 0,   0, 0, 1, 0,   22.6607, 54.8146, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.890469, -0.455043, 0, 0,   0.455043, 0.890469, 0, 0,   0, 0, 1, 0,   18.2523, 57.6959, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.978144, 0.207927, 0, 0,   -0.207927, 0.978144, 0, 0,   0, 0, 1, 0,   25.7231, 56.7964, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.303488, -0.952835, 0, 0,   0.952835, 0.303488, 0, 0,   0, 0, 1, 0,   31.0736, 57.2131, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "conifer"), transf = { 0.394257, 0.919, 0, 0,   -0.919, 0.394257, 0, 0,   0, 0, 1, 0,   17.909, 6.76666, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { -0.68103, -0.732255, 0, 0,   0.732255, -0.68103, 0, 0,   0, 0, 1, 0,   22.506, 10.2397, -0.0279083, 1 } }
+		result.models[#result.models + 1] = { id = constructionutil.getTree(params.state, "shrub"), transf = { 0.899869, -0.436161, 0, 0,   0.436161, 0.899869, 0, 0,   0, 0, 1, 0,   21.2689, 15.4487, -0.0279083, 1 } }
+
+		fenceFace = { {-6,-63, 0}, {-63, -63, 0}, {-63, 63, 0}, {63, 63, 0}, {63, -63, 0}, {6, -63, 0}} 
+
+		result.groundFaces[#result.groundFaces + 1] = { face = fenceFace, modes = { { type = "STROKE_OUTER", key = "building_paving" } } }
+		result.groundFaces[#result.groundFaces + 1] = { face = constructionutil.reverseFace(fenceFace), modes = { { type = "STROKE_OUTER", key = "building_paving" } } }	
+				
+		groundFace = { {63, -63}, { 63, 63}, {-63, 63}, {-63, -63} }
+		result.groundFaces[#result.groundFaces + 1] = { face = groundFace, modes = { { type = "FILL", key = "industry_floor" } } }
+		result.groundFaces[#result.groundFaces + 1] = { face = groundFace, modes = { { type = "STROKE_OUTER", key = "industry_floor_paving" } } }
+			
+		result.edgeLists = {
+			{
+				type = "STREET",
+				params = { type = "country_old_small.lua" },
+				edges = edges,
+				snapNodes = { 0 }
+			}
+		}
+		
+		result.terrainAlignmentLists = {
+			{
+				type = "EQUAL",
+				faces = terrainFaces,
+				slopeLow = .35
+			}
+		}
+
+		return result
+	end
+}
+
+end

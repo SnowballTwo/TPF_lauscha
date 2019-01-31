@@ -1,0 +1,311 @@
+local vec3 = require "vec3"
+local transf = require "transf"
+function data()
+return {
+	collider = {
+		params = {
+			
+		},
+		type = "MESH",
+		
+	},
+	lods = {
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/truck/man_19_304/lod_2_man_1970.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -0.1674, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/man_19_304/lod_2_bw1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -2.439, 0, 0.3941, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/man_19_304/lod_2_bw2.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -1.2181, 0, 0.3941, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/man_19_304/lod_2_fw.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1.7027, -1.0218, 0.3941, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/man_19_304/lod_2_fw.msh",
+					transf = {
+						-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 1.7027, 1.0218, 0.3941, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0, 0, 0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 250,
+			visibleTo = 950,
+			
+		},
+		{
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/truck/man_19_304/lod_1_man_1970.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -0.1674, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/man_19_304/lod_1_bw1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -2.439, 0, 0.3941, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/man_19_304/lod_1_bw2.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -1.2181, 0, 0.3941, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/man_19_304/lod_1_fw.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1.7027, -1.0218, 0.3941, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/man_19_304/lod_1_fw.msh",
+					transf = {
+						-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 1.7027, 1.0218, 0.3941, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0, 0, 0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 120,
+			visibleTo = 250,
+			
+		}, {
+			animations = {
+				
+			},
+			children = {
+				{
+					id = "vehicle/truck/man_19_304/lod_0_body.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/man_19_304/lod_0_bw1.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -2.439, 0, 0.3941, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/man_19_304/lod_0_bw2.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -1.2181, 0, 0.3941, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/man_19_304/lod_0_fw.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1.7027, -1.0218, 0.3941, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/man_19_304/lod_0_fw.msh",
+					transf = {
+						-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 1.7027, 1.0218, 0.3941, 1, 
+					},
+					type = "MESH",
+					
+				}, {
+					id = "vehicle/truck/man_19_304/lod_0_interior.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				}, 
+				-- lights				
+				{
+					id = "vehicle/asset/lod_0_light_square_white.msh",
+					--manual lights
+					transf = transf.scaleRotZYXTransl(vec3.new(1.0,1.3,0.65),transf.degToRad( 0.0, 0.0, 0.0), vec3.new( 3.0, 0.71, 0.56)),
+					type = "MESH", 
+				},		
+				{
+					id = "vehicle/asset/lod_0_light_square_white.msh",
+					--manual lights
+					transf = transf.scaleRotZYXTransl(vec3.new(1.0,1.3,0.65),transf.degToRad( 0.0, 0.0, 0.0), vec3.new( 3.0, -0.71, 0.56)),
+					type = "MESH", 
+				},		
+				{
+					id = "vehicle/asset/lod_0_light_round_red.msh",
+					--manual lights
+					transf = transf.scaleRotZYXTransl(vec3.new(1.0,0.3,0.4),transf.degToRad( 180.0, 0.0, 0.0), vec3.new( -3.276, -0.845, 0.77)),
+					type = "MESH", 
+				},	
+				{
+					id = "vehicle/asset/lod_0_light_round_red.msh",
+					--manual lights
+					transf = transf.scaleRotZYXTransl(vec3.new(1.0,0.3,0.4),transf.degToRad( 180.0, 0.0, 0.0), vec3.new( -3.276, 0.845, 0.77)),
+					type = "MESH", 
+				},
+				{
+					id = "vehicle/truck/man_19_304/lod_0_body_logo.msh",
+					transf = {
+						1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 
+					},
+					type = "MESH",
+					
+				},
+			},
+			events = {
+				
+			},
+			matConfigs = {
+				{
+					0, 0, 0, 0, 0, 0, 0, 0, 0, 
+				}, 
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 120,
+			
+		}, 
+	},
+	metadata = {		
+		description = {
+			name = _("MAN 19.304"),
+			description = _("A three axle lorry with a 230 hp V8 motor. It had a foldaway cowling to ease maintenance.")
+		},
+		roadVehicle = {
+			topSpeed = 80,
+			weight = 6,
+			power = 223,
+			tractiveEffort = 10,
+			configs = {
+				{
+					wheels = {
+					
+						"vehicle/truck/man_19_304/lod_2_fw.msh",
+					},
+					axles = { 
+						"vehicle/truck/man_19_304/lod_2_bw2.msh", 
+						"vehicle/truck/man_19_304/lod_2_bw1.msh" 
+					},
+					fakeBogies = { { group = 0, position = 0.0, offset = 0.0 } }
+				},
+				{
+					wheels = {
+					
+						"vehicle/truck/man_19_304/lod_1_fw.msh",
+					},
+					axles = { 
+						"vehicle/truck/man_19_304/lod_1_bw2.msh", 
+						"vehicle/truck/man_19_304/lod_1_bw1.msh" 
+					},
+					fakeBogies = { { group = 0, position = 0.0, offset = 0.0 } }
+				},
+				{
+					wheels = {
+					
+						"vehicle/truck/man_19_304/lod_0_fw.msh",
+					},
+					axles = { 
+						"vehicle/truck/man_19_304/lod_0_bw2.msh", 
+						"vehicle/truck/man_19_304/lod_0_bw1.msh" 
+					},
+					fakeBogies = { { group = 0, position = 0.0, offset = 0.0 } }
+				}
+			},
+			soundSet = "truck_modern"
+		},
+		transportVehicle = {
+			carrier = "ROAD",
+			capacities = {
+				{ type = "LOGS", capacity = 64 },
+				{ type = "LIVESTOCK", capacity = 64 },
+				{ type = "COAL", capacity = 64 },
+				{ type = "IRON_ORE", capacity = 64 },
+				{ type = "STONE", capacity = 64 },
+				{ type = "GRAIN", capacity = 64 },
+				{ type = "CRUDE", capacity = 64 },
+				{ type = "STEEL", capacity = 64 },
+				{ type = "PLANKS", capacity = 64 },
+				{ type = "PLASTIC", capacity = 64 },
+				{ type = "SLAG", capacity = 64 },
+				{ type = "OIL", capacity = 64 },
+				{ type = "CONSTRUCTION_MATERIALS", capacity = 64 },
+				{ type = "MACHINES", capacity = 64 },
+				{ type = "FUEL", capacity = 64 },
+				{ type = "TOOLS", capacity = 64 },
+				{ type = "FOOD", capacity = 64 },
+				{ type = "GOODS", capacity = 64 },
+				{ type = "BAUBLES", capacity = 64 },
+				{ type = "TREES", capacity = 64 },
+				{ type = "SAND", capacity = 64 },
+				{ type = "MINERALS", capacity = 64 },
+				{ type = "POTASH", capacity = 64 },
+			},
+			loadSpeed = 4,
+			seats = {
+						{ group =1, transf = transf.rotZYXTransl(transf.degToRad(0.0, 0.0, 0.0), vec3.new(2.3, 0.42, 0.6)), crew = true},
+					},
+		},
+		availability = {
+			yearFrom = 1965,
+			yearTo = 0
+		},
+		cost = {
+			price = -1
+		},
+		maintenance = {
+			runningCosts = -1,
+			lifespan = 35
+		}
+	},
+	
+}
+end
